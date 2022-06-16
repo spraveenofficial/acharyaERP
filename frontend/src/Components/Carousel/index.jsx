@@ -86,11 +86,10 @@ const Carousel = () => {
   return (
     <Flex
       w="full"
-      bg="#edf3f8"
       _dark={{
-        bg: "#3e3e3e",
+        bg: "transparent",
       }}
-      className="p-10 mobile:p-4"
+      className="p-10 mobile:p-4 bg-gradient-to-tr from-blue-500 to-purple-500"
       alignItems="center"
       justifyContent="center"
     >

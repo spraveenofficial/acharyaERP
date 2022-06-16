@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 import Hamburger from "../Hamburger";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { useColorMode, Button } from "@chakra-ui/react";
+import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 const Navbar = () => {
   const navigate = useNavigate();
+  const { colorMode, toggleColorMode } = useColorMode();
   const [deviceType, setDeviceType] = useState("desktop");
   useEffect(() => {
     updateDeviceType(window.innerWidth);
@@ -85,6 +87,9 @@ const Navbar = () => {
                     <Link className="font-bold" to={"/login"}>
                       Login
                     </Link>
+                    <Button onClick={toggleColorMode}>
+                      {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                    </Button>
                   </motion.div>
                 </motion.div>
               </>
@@ -140,7 +145,6 @@ const Navbar = () => {
                 }}
                 show={showNav}
               />
-              s
               <div className="mobile-nav-items flex flex-col">
                 <Link
                   onClick={() => setNav(false)}

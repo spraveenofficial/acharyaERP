@@ -12,12 +12,13 @@ const Buttons = (props) => {
       isLoading={props?.loading}
       loadingText="Processing...."
       colorScheme="teal"
-      variant="outline"
+      // variant="outline"
       spinnerPlacement="start"
       _hover={{
         bgGradient: "linear(to-r, blue.500,pink.500)",
         boxShadow: "xl",
       }}
+      outline="none"
     >
       {props?.children}
     </Button>

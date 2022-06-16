@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import { EmailIcon, PasswordIcon, Buttons, Input } from "../../Components";
 import { Alert, AlertIcon, AlertTitle } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 const Login = () => {
   const loading = false;
   const formik = useFormik({
@@ -28,7 +29,12 @@ const Login = () => {
   });
   return (
     <div className="h-screen flex mobile:flex-col ">
-      <div className="flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center mobile:w-full mobile:h-80">
+      <Box
+        className="flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center mobile:w-full mobile:h-80"
+        _dark={{
+          bg: "#1b2538",
+        }}
+      >
         <div className="mobile: p-10">
           <h1 className="text-white font-bold text-4xl font-inherit">
             Acharya ERP
@@ -41,26 +47,56 @@ const Login = () => {
             Read More
           </button>
         </div>
-      </div>
-      <div className="flex w-1/2 justify-center items-center bg-white mobile:w-full">
+      </Box>
+      <Box
+        _dark={{
+          bg: "transparent",
+          color: "white",
+        }}
+        className="flex w-1/2 justify-center items-center bg-white mobile:w-full"
+      >
         <form
-          className="bg-white w-80 max-w-sm mobile:max-w-full mobile:p-10 mobile:w-full"
+          className="w-80 max-w-sm mobile:max-w-full mobile:p-10 mobile:w-full"
           onSubmit={formik.handleSubmit}
         >
-          <h1 className="text-gray-800 font-bold text-xl mb-1">
+          <Text
+            className="text-gray-800 font-bold text-xl mb-1"
+            _dark={{
+              color: "white",
+            }}
+          >
             Welcome Acharyan !
-          </h1>
-          <p className="text-sm font-normal text-gray-600 text-xl mb-5">
+          </Text>
+          <Text
+            className="text-sm font-normal text-gray-600 text-xl mb-5"
+            _dark={{
+              color: "white",
+            }}
+          >
             Enter your AUID and password, to get started.
-          </p>
+          </Text>
           {formik.touched.auid && formik.errors.auid ? (
-            <Alert status="error" className="mb-3 rounded-xl">
+            <Alert
+              _dark={{
+                color: "white",
+                bg: "red.500",
+              }}
+              status="error"
+              className="mb-3 rounded-xl"
+            >
               <AlertIcon />
               <AlertTitle>{formik?.errors?.auid}</AlertTitle>
             </Alert>
           ) : null}
           {formik.touched.password && formik.errors.password ? (
-            <Alert status="error" className="mb-3 rounded-xl">
+            <Alert
+              _dark={{
+                color: "white",
+                bg: "red.500",
+              }}
+              status="error"
+              className="mb-3 rounded-xl"
+            >
               <AlertIcon />
               <AlertTitle>{formik?.errors?.password}</AlertTitle>
             </Alert>
@@ -75,6 +111,7 @@ const Login = () => {
               onBlur={formik.handleBlur}
               placeholder="Enter AUID"
               autoComplete="off"
+              className="pl-2 outline-none border-none ml-1 w-full bg-transparent"
             />
           </div>
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
@@ -88,13 +125,14 @@ const Login = () => {
               id=""
               placeholder="Enter Password"
               autoComplete="off"
+              className="pl-2 outline-none border-none ml-1 w-full bg-transparent"
             />
           </div>
           <Buttons loading={loading} type="submit">
             Login
           </Buttons>
         </form>
-      </div>
+      </Box>
     </div>
   );
 };

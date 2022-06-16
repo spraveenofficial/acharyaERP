@@ -42,7 +42,6 @@ nav {
   position: absolute;
   right: 0.5rem;
   top: -11px;
-  fill: black;
 }
 
 .desktop-navbar {
@@ -56,6 +55,7 @@ nav {
 .navitems {
   display: flex;
   gap: 30px;
+  align-items: center;
 }
 
 .navitems a {
@@ -86,8 +86,4 @@ nav {
 
 .mobnavitems p {
   margin-top: 0.625rem;
-}
-
-.close-hamburger {
-  fill: var(--white);
 }

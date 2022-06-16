@@ -1,14 +1,17 @@
 import React from "react";
+import { useColorMode } from "@chakra-ui/react";
 
 export default function Hamburger({ show, onClick }) {
+  const { colorMode } = useColorMode();
   return show ? (
     <svg
       width="100"
       height="100"
       viewBox="0 0 100 100"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="hamburger close-hamburger"
+      className={`hamburger  ${
+        colorMode === "light" ? "fill-white" : "fill-white"
+      }`}
       onClick={onClick}
     >
       <rect
@@ -26,9 +29,14 @@ export default function Hamburger({ show, onClick }) {
       width="100"
       height="100"
       viewBox="0 0 100 100"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="hamburger"
+      className={`hamburger ${
+        colorMode === "dark"
+          ? "fill-white"
+          : colorMode === "light" && show
+          ? "fill-white"
+          : "fill-black"
+      }`}
       onClick={onClick}
     >
       <rect x="22" y="36" width="55.2" height="8" rx="4" />
