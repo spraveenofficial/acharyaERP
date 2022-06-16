@@ -1,7 +1,7 @@
 import "./style.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import Hamburger from "../Hamburger/index";
+import Hamburger from "../Hamburger";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {

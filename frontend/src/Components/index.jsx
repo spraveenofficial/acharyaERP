@@ -20,3 +20,6 @@ export {
   TypingIcon,
   LikeIcon,
 } from "./Icons";
+
+export { Toast } from "./Toast";
+export { Input } from "./Input";
