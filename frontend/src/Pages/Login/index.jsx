@@ -1,22 +1,29 @@
 import { useFormik } from "formik";
-import {
-  EmailIcon,
-  PasswordIcon,
-  Toast,
-  Buttons,
-  Input,
-} from "../../Components";
+import { EmailIcon, PasswordIcon, Buttons, Input } from "../../Components";
 const Login = () => {
-  const loading = true;
+  const loading = false;
   const formik = useFormik({
     initialValues: {
-      email: "",
+      auid: "",
       password: "",
     },
     onSubmit: async (values) => {
       console.log(values);
     },
-    
+    validate: (values) => {
+      let errors = {};
+      if (!values.auid) {
+        errors.auid = "Valid AUID is required";
+      } else if (values.auid.length < 5) {
+        errors.auid = "Enter valid AUID";
+      }
+      if (!values.password) {
+        errors.password = "Valid password is required";
+      } else if (values.password.length < 5) {
+        errors.password = "Password must contain at least 6 characters.";
+      }
+      return errors;
+    },
   });
   return (
     <div className="h-screen flex mobile:flex-col ">
@@ -45,15 +52,22 @@ const Login = () => {
           <p className="text-sm font-normal text-gray-600 text-xl mb-5">
             Enter your AUID and password, to get started.
           </p>
+          {formik.touched.auid && formik.errors.auid ? (
+            <p className="text-red-600 mt-2 mb-2">{formik.errors.auid}</p>
+          ) : null}
+          {formik.touched.password && formik.errors.password ? (
+            <p className="mb-2 text-red-600">{formik.errors.password}</p>
+          ) : null}
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
             <EmailIcon />
             <Input
-              type="email"
-              name="email"
+              type="auid"
+              name="auid"
               onChange={formik.handleChange}
-              value={formik.values.email}
+              value={formik.values.auid}
               onBlur={formik.handleBlur}
               placeholder="Enter AUID"
+              autoComplete="off"
             />
           </div>
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
@@ -66,6 +80,7 @@ const Login = () => {
               onBlur={formik.handleBlur}
               id=""
               placeholder="Enter Password"
+              autoComplete="off"
             />
           </div>
           <Buttons loading={loading} type="submit">
