@@ -68,12 +68,12 @@ nav {
   text-decoration: none;
 }
 .navitems p,
-.mobnavitems p {
+.mobnavitems a {
   cursor: pointer;
 }
-.mobile-nav-items p {
+.mobile-nav-items a {
   cursor: pointer;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: var(--white);
 }
 
@@ -90,4 +90,8 @@ nav {
 
 .mobnavitems p {
   margin-top: 0.625rem;
+}
+
+.close-hamburger {
+  fill: aliceblue;
 }

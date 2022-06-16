@@ -53,10 +53,10 @@ const Login = () => {
             Enter your AUID and password, to get started.
           </p>
           {formik.touched.auid && formik.errors.auid ? (
-            <p className="text-red-600 mt-2 mb-2">{formik.errors.auid}</p>
+            <p className="text-white font-semibold mt-2 mb-2 bg-red-600 p-2 rounded-xl">{formik.errors.auid}</p>
           ) : null}
           {formik.touched.password && formik.errors.password ? (
-            <p className="mb-2 text-red-600">{formik.errors.password}</p>
+            <p className="mb-3 text-white font-semibold bg-red-600 p-2 rounded-xl">{formik.errors.password}</p>
           ) : null}
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
             <EmailIcon />

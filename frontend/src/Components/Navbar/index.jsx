@@ -4,16 +4,7 @@ import { useState, useEffect } from "react";
 import Hamburger from "../Hamburger";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import {
-  HomeIcon,
-  ExploreIcon,
-  NotificationIcon,
-  MessageIcon,
-  BookMarkIcon,
-  ListIcon,
-  ProfileIcon,
-  MoreIcon,
-} from "..";
+
 const Navbar = () => {
   const navigate = useNavigate();
   const [deviceType, setDeviceType] = useState("desktop");
@@ -82,8 +73,14 @@ const Navbar = () => {
                     <Link className="font-bold" to={"/"}>
                       Home
                     </Link>
-                    <Link className="font-bold" to={"/leaderboard"}>
-                      Leader Board 🚀
+                    <Link className="font-bold" to={"/events"}>
+                      Events
+                    </Link>
+                    <Link className="font-bold" to={"/attendence"}>
+                      Attendence
+                    </Link>
+                    <Link className="font-bold" to={"/class"}>
+                      Classes
                     </Link>
                     <Link className="font-bold" to={"/login"}>
                       Login
@@ -133,7 +130,6 @@ const Navbar = () => {
             }}
             transition={{
               type: "tween",
-              // ease: [0.87, 0.07, 0.37, 0.97],
               duration: 0.3,
             }}
           >
@@ -145,63 +141,42 @@ const Navbar = () => {
                 show={showNav}
               />
               s
-              <div className="mobile-nav-items">
-                <p
-                  className="flex items-center"
-                  onClick={() => navigate("/") || setNav(!setNav)}
+              <div className="mobile-nav-items flex flex-col">
+                <Link
+                  onClick={() => setNav(false)}
+                  className="font-bold"
+                  to={"/"}
                 >
-                  <HomeIcon />
                   Home
-                </p>
-                <p
-                  className="flex items-center"
-                  onClick={() => navigate("/explore") || setNav(!setNav)}
+                </Link>
+                <Link
+                  onClick={() => setNav(false)}
+                  className="font-bold"
+                  to={"/events"}
                 >
-                  <ExploreIcon />
-                  Explore
-                </p>
-                <p
-                  onClick={() => navigate("/notification") || setNav(!setNav)}
-                  className="flex items-center"
+                  Events
+                </Link>
+                <Link
+                  onClick={() => setNav(false)}
+                  className="font-bold"
+                  to={"/attendence"}
                 >
-                  <NotificationIcon />
-                  Notifications
-                </p>
-                <p
-                  onClick={() => navigate("/messages") || setNav(!setNav)}
-                  className="flex items-center"
+                  Attendence
+                </Link>
+                <Link
+                  onClick={() => setNav(false)}
+                  className="font-bold"
+                  to={"/class"}
                 >
-                  <MessageIcon />
-                  Message
-                </p>
-                <p
-                  onClick={() => navigate("/bookmarks") || setNav(!setNav)}
-                  className="flex items-center"
+                  Classes
+                </Link>
+                <Link
+                  onClick={() => setNav(false)}
+                  className="font-bold"
+                  to={"/login"}
                 >
-                  <BookMarkIcon />
-                  Bookmarks
-                </p>
-                <p
-                  onClick={() => navigate("/lists") || setNav(!setNav)}
-                  className="flex items-center"
-                >
-                  <ListIcon />
-                  Lists
-                </p>
-                <p
-                  onClick={() => navigate("/profile") || setNav(!setNav)}
-                  className="flex items-center"
-                >
-                  <ProfileIcon />
-                  Profile
-                </p>
-                <p
-                  onClick={() => navigate("/setting") || setNav(!setNav)}
-                  className="flex items-center"
-                >
-                  <MoreIcon />
-                  Settings
-                </p>
+                  Login
+                </Link>
               </div>
             </motion.div>
           </motion.div>
