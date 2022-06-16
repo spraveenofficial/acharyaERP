@@ -204,3 +204,15 @@ a {
   background: var(--primary-color);
   border-radius: 0.625rem;
 }
+
+.category-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.category-box i {
+  font-size: 2.8rem;
+  width: fit-content;
+  height: fit-content;
+}

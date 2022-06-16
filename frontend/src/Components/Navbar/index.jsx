@@ -183,6 +183,12 @@ const Navbar = () => {
                 </Link>
               </div>
             </motion.div>
+            <Button
+              w={"50%"}
+              onClick={() => toggleColorMode() || setNav(false)}
+            >
+              {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+            </Button>
           </motion.div>
         ) : null}
       </AnimatePresence>
