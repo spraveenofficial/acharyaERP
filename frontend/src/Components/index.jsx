@@ -25,3 +25,5 @@ export { Toast } from "./Toast";
 export { Input } from "./Input";
 export { Carousel } from "./Carousel";
 export { CategoryCard } from "./Shared/CategoryCard";
+export { EventCard } from "./Shared/EventCard";
+export { SubscribeEvent } from "./Shared/SubscribeEvent";

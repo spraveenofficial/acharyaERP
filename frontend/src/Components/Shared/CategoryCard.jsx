@@ -1,34 +1,41 @@
 import { Box, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 const CategoryCard = () => {
   const navigate = useNavigate();
   const array = [
     {
+      id: uuidv4(),
       title: "Attendence",
       icon: "fa-solid fa-graduation-cap",
       url: "/attendence",
     },
     {
+      id: uuidv4(),
       title: "Classes",
       icon: "fa-solid fa-book",
       url: "/classes",
     },
     {
+      id: uuidv4(),
       title: "Events",
       icon: "fa-solid fa-calendar-days",
       url: "/events",
     },
     {
+      id: uuidv4(),
       title: "My Profile",
       icon: "fa-solid fa-user",
       url: "/profile",
     },
     {
+      id: uuidv4(),
       title: "Settings",
       icon: "fa-solid fa-gear",
       url: "/settings",
     },
     {
+      id: uuidv4(),
       title: "Enquiry",
       icon: "fa-solid fa-circle-question",
       url: "/enquiry",
@@ -55,9 +62,10 @@ const CategoryCard = () => {
       >
         {array.map((name) => (
           <Box
+            key={name.id}
             minHeight="150px"
             minWidth="150px"
-            className="relative p-4 w-fit bg-white rounded-lg overflow-hidden hover:shadow flex flex-col justify-center items-center mobile:w-44"
+            className="relative p-4 w-fit bg-white rounded-lg overflow-hidden hover:shadow-xl flex flex-col justify-center items-center mobile:w-44"
             onClick={() => navigate(name.url)}
             _dark={{
               bg: "#23314d",
