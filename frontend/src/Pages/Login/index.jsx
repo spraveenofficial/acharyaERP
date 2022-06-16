@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import { EmailIcon, PasswordIcon, Buttons, Input } from "../../Components";
 import { Alert, AlertIcon, AlertTitle } from "@chakra-ui/react";
 import { Box, Text } from "@chakra-ui/react";
+import { Helmet } from "react-helmet";
 const Login = () => {
   const loading = false;
   const formik = useFormik({
@@ -29,6 +30,11 @@ const Login = () => {
   });
   return (
     <div className="h-screen flex mobile:flex-col ">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Login - Acharya</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <Box
         className="flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center mobile:w-full mobile:h-80"
         _dark={{
