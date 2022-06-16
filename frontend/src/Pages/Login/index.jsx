@@ -1,11 +1,6 @@
 import { useFormik } from "formik";
 import { EmailIcon, PasswordIcon, Buttons, Input } from "../../Components";
-import {
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-} from "@chakra-ui/react";
+import { Alert, AlertIcon, AlertTitle } from "@chakra-ui/react";
 const Login = () => {
   const loading = false;
   const formik = useFormik({

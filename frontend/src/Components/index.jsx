@@ -23,3 +23,4 @@ export {
 
 export { Toast } from "./Toast";
 export { Input } from "./Input";
+export { Carousel } from "./Carousel";
