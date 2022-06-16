@@ -1,5 +1,11 @@
 import { useFormik } from "formik";
 import { EmailIcon, PasswordIcon, Buttons, Input } from "../../Components";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react";
 const Login = () => {
   const loading = false;
   const formik = useFormik({
@@ -53,10 +59,16 @@ const Login = () => {
             Enter your AUID and password, to get started.
           </p>
           {formik.touched.auid && formik.errors.auid ? (
-            <p className="text-white font-semibold mt-2 mb-2 bg-red-600 p-2 rounded-xl">{formik.errors.auid}</p>
+            <Alert status="error" className="mb-3 rounded-xl">
+              <AlertIcon />
+              <AlertTitle>{formik?.errors?.auid}</AlertTitle>
+            </Alert>
           ) : null}
           {formik.touched.password && formik.errors.password ? (
-            <p className="mb-3 text-white font-semibold bg-red-600 p-2 rounded-xl">{formik.errors.password}</p>
+            <Alert status="error" className="mb-3 rounded-xl">
+              <AlertIcon />
+              <AlertTitle>{formik?.errors?.password}</AlertTitle>
+            </Alert>
           ) : null}
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
             <EmailIcon />
