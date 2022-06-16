@@ -72,8 +72,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Acharya-normal", sans-serif !important;
-  color: var(--bg-color);
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
