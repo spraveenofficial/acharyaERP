@@ -1,15 +1,38 @@
-import { Schema, model } from "mongoose";
+import mongoose from "mongoose";
 
-const LoginSchema = new Schema(
+const Schema = mongoose.Schema;
+
+const UserSchema = new Schema(
   {
-    title: { type: String, required: true, trim: true },
-    desc: { type: String, required: true, trim: true },
+    auid: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    role: {
+      type: String,
+      required: true,
+      default: "STUDENT",
+      enum: ["STUDENT", "ADMIN", "MODERATOR"],
+    },
   },
   {
     timestamps: true,
+    toJSON: {
+      virtuals: true,
+      getters: true,
+      transform: (doc, ret) => {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+        delete ret.createdAt;
+        delete ret.updatedAt;
+        return ret;
+      },
+    },
   }
 );
 
-const NoteModel = model("Login", LoginSchema, "users");
+const User = mongoose.model("User", UserSchema);
 
-module.exports = NoteModel;
+export default User;
