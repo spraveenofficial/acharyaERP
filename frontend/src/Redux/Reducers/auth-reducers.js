@@ -3,6 +3,9 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
   CLEAR_LOGIN_DATA,
+  USER_LOAD_REQUEST,
+  USER_LOAD_SUCCESS,
+  USER_LOAD_FAILURE,
 } from "../Constants/auth-constants";
 
 export const login = (
@@ -36,6 +39,37 @@ export const login = (
         loading: false,
         success: false,
         message: "",
+      };
+    default:
+      return state;
+  }
+};
+
+const authInititalState = {
+  isAuthenticated: false,
+  loading: localStorage.getItem("token") ? true : false,
+  user: {},
+};
+export const auth = (state = authInititalState, action) => {
+  switch (action.type) {
+    case USER_LOAD_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case USER_LOAD_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: action.payload,
+      };
+    case USER_LOAD_FAILURE:
+      return {
+        ...state,
+        isAuthenticated: false,
+        loading: false,
+        user: {},
       };
     default:
       return state;

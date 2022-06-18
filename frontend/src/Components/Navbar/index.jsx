@@ -4,12 +4,15 @@ import { useState, useEffect } from "react";
 import Hamburger from "../Hamburger";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useColorMode, Button } from "@chakra-ui/react";
+import { useColorMode, Button, Box } from "@chakra-ui/react";
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
 const Navbar = () => {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
   const [deviceType, setDeviceType] = useState("desktop");
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
   useEffect(() => {
     updateDeviceType(window.innerWidth);
   });
@@ -25,6 +28,10 @@ const Navbar = () => {
   });
   const pushToHome = () => {
     navigate("/");
+  };
+
+  const openDropdown = () => {
+    setIsOpen((old) => !old);
   };
 
   const [showNav, setNav] = useState(false);
@@ -71,7 +78,7 @@ const Navbar = () => {
                       Acharya
                     </h1>
                   </motion.div>
-                  <motion.div className="navitems">
+                  <motion.div className="navitems relative">
                     <Link className="font-bold" to={"/"}>
                       Home
                     </Link>
@@ -84,9 +91,61 @@ const Navbar = () => {
                     <Link className="font-bold" to={"/class"}>
                       Classes
                     </Link>
-                    <Link className="font-bold" to={"/login"}>
-                      Login
-                    </Link>
+                    {isAuthenticated ? (
+                      <div className="flex items-center md:order-2 relative">
+                        <button
+                          type="button"
+                          className="flex justify-center text-center items-center p-2 font-bold flex mr-3 text-sm bg-[#DEE2FF] rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                          id="user-menu-button"
+                          aria-expanded="false"
+                          onClick={openDropdown}
+                          data-dropdown-toggle="dropdown"
+                        >
+                          <span className="mr-2 ml-2">
+                            Welcome, {user.student_name}
+                          </span>
+                          <img
+                            className="w-8 h-8 rounded-full"
+                            src={`https://www.acharyainstitutes.in/${user.photo}`}
+                            alt="user photo"
+                          />
+                        </button>
+                        {isOpen ? (
+                          <Box
+                            bottom={{
+                              base: "-130px",
+                            }}
+                            width="100%"
+                            _dark={{
+                              bg: "#DEE2FF",
+                            }}
+                            className="z-50 g-5 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 absolute"
+                          >
+                            <ul className="py-1" aria-labelledby="dropdown">
+                              <li>
+                                <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                  Profile
+                                </a>
+                              </li>
+                              <li>
+                                <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                  Classes
+                                </a>
+                              </li>
+                              <li>
+                                <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                  Sign out
+                                </a>
+                              </li>
+                            </ul>
+                          </Box>
+                        ) : null}
+                      </div>
+                    ) : (
+                      <Link className="font-bold" to={"/login"}>
+                        Login
+                      </Link>
+                    )}
                     <Button onClick={toggleColorMode}>
                       {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
                     </Button>

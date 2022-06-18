@@ -115,13 +115,13 @@ const Login = () => {
               <AlertTitle>{formik?.errors?.password}</AlertTitle>
             </Alert>
           ) : null}
-          {!success && message ? (
+          {message ? (
             <Alert
               _dark={{
                 color: "white",
-                bg: "red.500",
+                bg: success ? "green.500" : "red.500",
               }}
-              status="error"
+              status={success ? "success" : "error"}
               className="mb-3 rounded-xl"
             >
               <AlertIcon />
@@ -138,7 +138,7 @@ const Login = () => {
               onBlur={formik.handleBlur}
               placeholder="Enter AUID"
               autoComplete="off"
-              className="pl-2 outline-none border-none ml-1 w-full bg-transparent"
+              className="pl-2 outline-none border-none ml-1 w-full bg-transparent font-bold"
             />
           </div>
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
