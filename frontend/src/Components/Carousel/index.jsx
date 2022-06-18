@@ -89,7 +89,8 @@ const Carousel = () => {
       _dark={{
         bg: "transparent",
       }}
-      className="p-10 mobile:p-4 bg-gradient-to-tr from-blue-500 to-purple-500"
+      bg="#DEE2FF"
+      className="p-10 mobile:p-4 "
       alignItems="center"
       justifyContent="center"
     >
