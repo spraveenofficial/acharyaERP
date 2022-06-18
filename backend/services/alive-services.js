@@ -2,8 +2,8 @@ import axios from "axios";
 import { header } from "../utils/headers.js";
 class Auth {
   async aliveLogin(auid, password) {
-    const response = await axios({
-      url: "https://api.alive.university/api/v1/login/erp",
+    const { data } = await axios({
+      url: process.env.ALIVE_LOGIN,
       method: "POST",
       data: {
         username: auid,
@@ -12,8 +12,7 @@ class Auth {
       },
       headers: header,
     });
-    console.log(response.data);
-    return response.data.token;
+    return data.token;
   }
 }
 
