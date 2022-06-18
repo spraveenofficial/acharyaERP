@@ -6,6 +6,7 @@ import {
   USER_LOAD_REQUEST,
   USER_LOAD_SUCCESS,
   USER_LOAD_FAILURE,
+  USER_LOGOUT,
 } from "../Constants/auth-constants";
 
 export const login = (
@@ -65,6 +66,13 @@ export const auth = (state = authInititalState, action) => {
         user: action.payload,
       };
     case USER_LOAD_FAILURE:
+      return {
+        ...state,
+        isAuthenticated: false,
+        loading: false,
+        user: {},
+      };
+    case USER_LOGOUT:
       return {
         ...state,
         isAuthenticated: false,

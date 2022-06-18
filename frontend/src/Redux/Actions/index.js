@@ -1,1 +1,1 @@
-export { loginAction, getProfile } from "./auth-actions";
+export { loginAction, getProfile, logoutUser } from "./auth-actions";

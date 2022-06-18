@@ -7,6 +7,7 @@ import {
   USER_LOAD_REQUEST,
   USER_LOAD_SUCCESS,
   USER_LOAD_FAILURE,
+  USER_LOGOUT,
 } from "../Constants/auth-constants";
 import { headerConfig } from "../../Utils/headerConfig";
 
@@ -62,4 +63,13 @@ export const getProfile = () => async (dispatch) => {
       payload: "Server Error, Please try again later.",
     });
   }
+};
+
+export const logoutUser = () => (dispatch) => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("aliveToken");
+  localStorage.removeItem("Oauth");
+  dispatch({
+    type: USER_LOGOUT,
+  });
 };

@@ -4,12 +4,15 @@ import { useState, useEffect } from "react";
 import Hamburger from "../Hamburger";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useColorMode, Button, Box } from "@chakra-ui/react";
+import { useColorMode, Button, Box, Text } from "@chakra-ui/react";
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../../Redux/Actions";
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const [showNav, setNav] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
   const [deviceType, setDeviceType] = useState("desktop");
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -34,7 +37,13 @@ const Navbar = () => {
     setIsOpen((old) => !old);
   };
 
-  const [showNav, setNav] = useState(false);
+  const handleLogout = () => {
+    if (showNav) {
+      setNav(false);
+    }
+    dispatch(logoutUser());
+  };
+
   const hideNav = () => {
     setNav(false);
   };
@@ -59,6 +68,9 @@ const Navbar = () => {
       },
     },
   };
+
+  const getFirstName = (name) => name.split(" ")[0];
+
   return (
     <>
       <AnimatePresence>
@@ -95,14 +107,18 @@ const Navbar = () => {
                       <div className="flex items-center md:order-2 relative">
                         <button
                           type="button"
-                          className="flex justify-center text-center items-center p-2 font-bold flex mr-3 text-sm bg-[#DEE2FF] rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                          className={`flex justify-center text-center items-center p-2 font-bold flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 ${
+                            colorMode === "dark"
+                              ? "bg-[#23314d]"
+                              : "bg-[#DEE2FF]"
+                          }`}
                           id="user-menu-button"
                           aria-expanded="false"
                           onClick={openDropdown}
                           data-dropdown-toggle="dropdown"
                         >
-                          <span className="mr-2 ml-2">
-                            Welcome, {user.student_name}
+                          <span className="mr-2 ml-2 font-auto">
+                            Hi, {getFirstName(user.student_name)}
                           </span>
                           <img
                             className="w-8 h-8 rounded-full"
@@ -113,7 +129,7 @@ const Navbar = () => {
                         {isOpen ? (
                           <Box
                             bottom={{
-                              base: "-130px",
+                              base: "-140px",
                             }}
                             width="100%"
                             _dark={{
@@ -123,19 +139,30 @@ const Navbar = () => {
                           >
                             <ul className="py-1" aria-labelledby="dropdown">
                               <li>
-                                <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                                  Profile
-                                </a>
+                                <Link
+                                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                  to={"/profile"}
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  My Profile
+                                </Link>
                               </li>
                               <li>
-                                <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                                  Classes
-                                </a>
+                                <Link
+                                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                  to={"/settings"}
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  Settings
+                                </Link>
                               </li>
                               <li>
-                                <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                                  Sign out
-                                </a>
+                                <Text
+                                  onClick={handleLogout}
+                                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                >
+                                  Signout
+                                </Text>
                               </li>
                             </ul>
                           </Box>
@@ -233,15 +260,78 @@ const Navbar = () => {
                 >
                   Classes
                 </Link>
-                <Link
-                  onClick={() => setNav(false)}
-                  className="font-bold"
-                  to={"/login"}
-                >
-                  Login
-                </Link>
+                {!isAuthenticated && (
+                  <Link
+                    onClick={() => setNav(false)}
+                    className="font-bold"
+                    to={"/login"}
+                  >
+                    Login
+                  </Link>
+                )}
               </div>
             </motion.div>
+            {isAuthenticated && (
+              <div className="w-1/2 flex items-center md:order-2 flex-col">
+                <button
+                  type="button"
+                  className={`w-full flex justify-center text-center items-center p-2 font-bold flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 ${
+                    colorMode === "dark" ? "bg-[#23314d]" : "bg-[#DEE2FF]"
+                  }`}
+                  id="user-menu-button"
+                  aria-expanded="false"
+                  onClick={openDropdown}
+                  data-dropdown-toggle="dropdown"
+                >
+                  <span className="mr-2 ml-2 font-auto">
+                    Hi, {getFirstName(user.student_name)}
+                  </span>
+                  <img
+                    className="w-8 h-8 rounded-full"
+                    src={`https://www.acharyainstitutes.in/${user.photo}`}
+                    alt="user photo"
+                  />
+                </button>
+                {isOpen ? (
+                  <Box
+                    width="100%"
+                    _dark={{
+                      bg: "#DEE2FF",
+                    }}
+                    className="z-50 g-5 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
+                  >
+                    <ul className="py-1" aria-labelledby="dropdown">
+                      <li>
+                        <Link
+                          className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          to={"/profile"}
+                          onClick={() => setIsOpen(false) || setNav(false)}
+                        >
+                          My Profile
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          to={"/settings"}
+                          onClick={() => setIsOpen(false) || setNav(false)}
+                        >
+                          Settings
+                        </Link>
+                      </li>
+                      <li>
+                        <Text
+                          onClick={handleLogout}
+                          className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        >
+                          Signout
+                        </Text>
+                      </li>
+                    </ul>
+                  </Box>
+                ) : null}
+              </div>
+            )}
             <Button
               w={"50%"}
               onClick={() => toggleColorMode() || setNav(false)}
