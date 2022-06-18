@@ -3,15 +3,23 @@ import { EmailIcon, PasswordIcon, Buttons, Input } from "../../Components";
 import { Alert, AlertIcon, AlertTitle } from "@chakra-ui/react";
 import { Box, Text } from "@chakra-ui/react";
 import { Helmet } from "react-helmet";
+import { loginAction } from "../../Redux/Actions";
+import { useDispatch, useSelector } from "react-redux";
 const Login = () => {
-  const loading = false;
+  const dispatch = useDispatch();
+  const { loading, success, message } = useSelector((state) => state.login);
   const formik = useFormik({
     initialValues: {
       auid: "",
       password: "",
     },
     onSubmit: async (values) => {
-      console.log(values);
+      dispatch(
+        loginAction({
+          auid: values.auid,
+          password: values.password,
+        })
+      );
     },
     validate: (values) => {
       let errors = {};
@@ -105,6 +113,19 @@ const Login = () => {
             >
               <AlertIcon />
               <AlertTitle>{formik?.errors?.password}</AlertTitle>
+            </Alert>
+          ) : null}
+          {!success && message ? (
+            <Alert
+              _dark={{
+                color: "white",
+                bg: "red.500",
+              }}
+              status="error"
+              className="mb-3 rounded-xl"
+            >
+              <AlertIcon />
+              <AlertTitle>{message}</AlertTitle>
             </Alert>
           ) : null}
           <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">

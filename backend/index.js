@@ -23,7 +23,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 3505;
 
 // Registering Routes
-app.use("/api/auth/", AuthRoutes);
+app.use("/v1/api/auth/", AuthRoutes);
 
 // Server initialize
 app.listen(PORT, () => console.log(`App started running on ${PORT}`));
