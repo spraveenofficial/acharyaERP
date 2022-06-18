@@ -48,7 +48,7 @@ const CategoryCard = () => {
       _dark={{
         bg: "transparent",
       }}
-      className="p-16 mobile:p-4 bg-gradient-to-tr from-blue-500 to-purple-500"
+      className="p-16 mobile:px-4 bg-gradient-to-tr from-blue-500 to-purple-500 "
     >
       <Text
         fontFamily="Acharya-bold"

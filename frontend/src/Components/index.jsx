@@ -27,3 +27,4 @@ export { Carousel } from "./Carousel";
 export { CategoryCard } from "./Shared/CategoryCard";
 export { EventCard } from "./Shared/EventCard";
 export { SubscribeEvent } from "./Shared/SubscribeEvent";
+export { JoinCommunity } from "./Shared/JoinCommunity";

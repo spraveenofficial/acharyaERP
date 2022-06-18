@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { Carousel, CategoryCard } from "../../Components";
+import { Carousel, CategoryCard, JoinCommunity } from "../../Components";
 
 const Home = () => {
   return (
@@ -9,6 +9,7 @@ const Home = () => {
         <Box width="100%">
           <CategoryCard />
         </Box>
+        <JoinCommunity />
       </div>
     </div>
   );
