@@ -11,7 +11,7 @@ module.exports = {
       lg: { min: "768px", max: "1023px" },
       // => @media (max-width: 1023px) { ... }
 
-      desktop: { min: "1024px", max: "1279px" },
+      desktop: { min: "1024px", max: "1800px" },
 
       mobile: { max: "767px" },
       // => @media (max-width: 767px) { ... }

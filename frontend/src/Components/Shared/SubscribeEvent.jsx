@@ -1,6 +1,6 @@
 import { Input } from "../Input";
 import { useFormik } from "formik";
-import { Alert, AlertIcon, AlertTitle } from "@chakra-ui/react";
+import { Alert, AlertIcon, AlertTitle, Box } from "@chakra-ui/react";
 import { Buttons } from "../Button";
 const SubscribeEvent = () => {
   const formik = useFormik({
@@ -23,19 +23,24 @@ const SubscribeEvent = () => {
     },
   });
   return (
-    <div className="mx-auto w-full max-w-screen-lg bg-blue-700 px-5 py-10">
+    <Box
+      className="mx-auto w-full max-w-screen-lg bg-blue-700 px-5 py-10"
+      _dark={{
+        bg: "#23314d",
+      }}
+    >
       <div className="flex p-16 mobile:flex-col mobile:p-4">
         <div className="flex justify-center md:justify-end w-1/2 mobile:w-full">
           <img
-            className="w-full max-w-sm"
+            className="mobile:w-full desktop:max-w-md"
             src="https://ouch-cdn2.icons8.com/sKnF2PmYhkmP28DzIm6KqWSknT03UVWjg3FLlGYIOp4/rs:fit:684:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvOTI3/L2U4OWQ2NmZiLTg0/NzEtNDc3NS1hNTA0/LTMwNWRiYmJkNzg0/MC5zdmc.png"
             alt="Marketing newsletter via computer Illustration in PNG, SVG"
           />
         </div>
         <div className="flex items-center justify-end w-1/2 mobile:w-full mobile:mt-5">
-          <div className="mx-auto md:mx-0">
+          <div className="mx-auto md:mx-0 mobile:w-full">
             <h3 className="text-4xl font-bold text-white">Subscribe Us !</h3>
-            <p className="mt-2 max-w-[20rem] text-lg text-white/80">
+            <p className="mt-2 max-w-[20rem] mobile:max-w-full text-lg text-white/80">
               Join our subscribe list to get the latest event of Acharya. We
               will send you the notification.
             </p>
@@ -71,7 +76,7 @@ const SubscribeEvent = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
 

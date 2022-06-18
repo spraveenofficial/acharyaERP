@@ -38,7 +38,7 @@ const Login = () => {
       <Box
         className="flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center mobile:w-full mobile:h-80"
         _dark={{
-          bg: "#1b2538",
+          bg: "#23314d",
         }}
       >
         <div className="mobile: p-10">
