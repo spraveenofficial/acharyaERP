@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Navbar } from "./Components";
+import { Navbar, Footer } from "./Components";
 import { Attendence, Error, Event, Home, Login } from "./Pages";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile } from "./Redux/Actions";
@@ -25,6 +25,7 @@ function App() {
         <Route path="attendence" element={<Attendence />} />
         <Route path="*" element={<Error />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
