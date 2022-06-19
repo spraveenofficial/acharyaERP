@@ -11,15 +11,13 @@ import store from "./Redux/Store/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <React.StrictMode>
-    <ChakraProvider>
-      <ColorModeProvider theme={theme}>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </ColorModeProvider>
-    </ChakraProvider>
-  </React.StrictMode>
+  <ChakraProvider>
+    <ColorModeProvider theme={theme}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ColorModeProvider>
+  </ChakraProvider>
 );
 
 reportWebVitals();

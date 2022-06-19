@@ -3,23 +3,31 @@ import { EmailIcon, PasswordIcon, Buttons, Input } from "../../Components";
 import { Alert, AlertIcon, AlertTitle } from "@chakra-ui/react";
 import { Box, Text } from "@chakra-ui/react";
 import { Helmet } from "react-helmet";
-import { loginAction } from "../../Redux/Actions";
+import { getProfile, loginAction } from "../../Redux/Actions";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 const Login = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading, success, message } = useSelector((state) => state.login);
+  let from = location.state?.from?.pathname || "/";
+
   const formik = useFormik({
     initialValues: {
       auid: "",
       password: "",
     },
     onSubmit: async (values) => {
-      dispatch(
+      const response = await dispatch(
         loginAction({
           auid: values.auid,
           password: values.password,
         })
       );
+      if (response) {
+        return dispatch(getProfile()) && navigate(from, { replace: true });
+      }
     },
     validate: (values) => {
       let errors = {};
@@ -114,7 +122,7 @@ const Login = () => {
               <AlertTitle>{formik?.errors?.password}</AlertTitle>
             </Alert>
           ) : null}
-          {message ? (
+          {!success && message ? (
             <Alert
               _dark={{
                 color: "white",

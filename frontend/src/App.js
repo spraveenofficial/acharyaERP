@@ -15,7 +15,7 @@ function App() {
     if (token && !isAuthenticated) {
       dispatch(getProfile());
     }
-  }, [dispatch, token]);
+  }, []);
 
   if (loading) {
     return (

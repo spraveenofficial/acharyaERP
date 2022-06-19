@@ -36,7 +36,6 @@ export const login = (
       };
     case CLEAR_LOGIN_DATA:
       return {
-        ...state,
         loading: false,
         success: false,
         message: "",

@@ -8,6 +8,7 @@ import {
   USER_LOAD_SUCCESS,
   USER_LOAD_FAILURE,
   USER_LOGOUT,
+  CLEAR_LOGIN_DATA,
 } from "../Constants/auth-constants";
 import { headerConfig } from "../../Utils/headerConfig";
 
@@ -45,23 +46,26 @@ export const getProfile = () => async (dispatch) => {
     const { data } = await axios({
       method: "get",
       url: `${baseUrl}/auth/profile`,
-      headers: headerConfig,
+      headers: headerConfig(),
     });
     if (!data.success) {
-      return dispatch({
+      dispatch({
         type: USER_LOAD_FAILURE,
         payload: data.message,
       });
+      return false;
     }
-    return dispatch({
+    dispatch({
       type: USER_LOAD_SUCCESS,
       payload: data.data,
     });
+    return true;
   } catch (error) {
-    return dispatch({
+    dispatch({
       type: USER_LOAD_FAILURE,
       payload: "Server Error, Please try again later.",
     });
+    return false;
   }
 };
 
@@ -71,5 +75,8 @@ export const logoutUser = () => (dispatch) => {
   localStorage.removeItem("Oauth");
   dispatch({
     type: USER_LOGOUT,
+  });
+  dispatch({
+    type: CLEAR_LOGIN_DATA,
   });
 };
