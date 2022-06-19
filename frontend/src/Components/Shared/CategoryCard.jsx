@@ -6,9 +6,9 @@ const CategoryCard = () => {
   const array = [
     {
       id: uuidv4(),
-      title: "Attendence",
+      title: "Attendance",
       icon: "fa-solid fa-graduation-cap",
-      url: "/attendence",
+      url: "/attendance",
     },
     {
       id: uuidv4(),

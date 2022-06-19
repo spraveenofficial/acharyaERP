@@ -97,8 +97,8 @@ const Navbar = () => {
                     <Link className="font-bold" to={"/events"}>
                       Events
                     </Link>
-                    <Link className="font-bold" to={"/attendence"}>
-                      Attendence
+                    <Link className="font-bold" to={"/attendance"}>
+                      Attendance
                     </Link>
                     <Link className="font-bold" to={"/class"}>
                       Classes
@@ -249,9 +249,9 @@ const Navbar = () => {
                 <Link
                   onClick={() => setNav(false)}
                   className="font-bold"
-                  to={"/attendence"}
+                  to={"/attendance"}
                 >
-                  Attendence
+                  Attendance
                 </Link>
                 <Link
                   onClick={() => setNav(false)}

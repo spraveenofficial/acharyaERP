@@ -897,7 +897,7 @@ const AttendenceHero = () => {
                 }}
                 className="text-2xl font-bold text-gray-600 text-center"
               >
-                Overall Attendence
+                Overall Attendance
               </Text>
               <div className="mt-2 flex justify-center gap-4">
                 <Text
@@ -943,12 +943,12 @@ const AttendenceHero = () => {
               </li>
               <li className="mb-2">
                 II. If you found any bug, please report it to us. We'll fix it
-                until we can. Either for your Attendence you can report to your
+                until we can. Either for your Attendance you can report to your
                 respected HODs and Proctors.
               </li>
               <li>
                 III. If you found any bug, please report it to us. We'll fix it
-                until we can. Either for your Attendence you can report to your
+                until we can. Either for your Attendance you can report to your
                 respected HODs and Proctors.
               </li>
             </ul>
