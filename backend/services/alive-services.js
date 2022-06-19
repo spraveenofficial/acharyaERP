@@ -5,12 +5,12 @@ class Auth {
     const { data } = await axios({
       url: process.env.ALIVE_LOGIN,
       method: "POST",
+      headers: header(),
       data: {
         username: auid,
         password: password,
         usertype: "STUDENT",
       },
-      headers: header,
     });
     return data.token;
   }
