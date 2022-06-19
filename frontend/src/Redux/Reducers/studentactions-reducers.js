@@ -10,7 +10,7 @@ export const attendance = (
     success: false,
     error: false,
     message: "",
-    attendance: [],
+    attendance: {},
   },
   action
 ) => {

@@ -13,9 +13,9 @@ export const fetchAttendance = () => async (dispatch) => {
       type: FETCH_STUDENT_ATTENDANCE,
     });
     const { data } = await axios({
-      method: "get",
+      method: "POST",
       url: `${baseUrl}/attendance`,
-      headers: headerConfig,
+      headers: headerConfig(),
     });
     if (!data.success) {
       return dispatch({
