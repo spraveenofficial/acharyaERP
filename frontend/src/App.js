@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProfile } from "./Redux/Actions";
 import { useEffect } from "react";
 import { Spinner } from "@chakra-ui/react";
+import { GuestRoutes, ProtectedRoutes } from "./Utils/customRoutes";
+
 function App() {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token") ? true : false;
@@ -29,10 +31,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="about" element={<h1>About</h1>} />
         <Route path="contact" element={<h1>Contact</h1>} />
-        <Route path="login" element={<Login />} />
         <Route path="events" element={<Event />} />
-        <Route path="attendance" element={<Attendence />} />
         <Route path="*" element={<Error />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="attendance" element={<Attendence />} />
+        </Route>
+        <Route element={<GuestRoutes />}>
+          <Route path="login" element={<Login />} />
+        </Route>
       </Routes>
       <Footer />
     </Router>
