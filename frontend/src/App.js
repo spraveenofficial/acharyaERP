@@ -17,7 +17,7 @@ function App() {
 
   if (loading) {
     return (
-      <div class="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center min-h-screen">
         <Spinner size="xl" />
       </div>
     );
