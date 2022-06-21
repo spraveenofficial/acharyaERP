@@ -23,13 +23,11 @@ const AddEvent = () => {
       entryFee: "",
       venue: "",
       eventDate: "",
-      startTime: "",
-      winingPrize: "00",
+      timing: "",
       organisedBy: user.auid,
-      noOfSlots: "",
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      console.log(values);
     },
     validate: (values) => {
       let errors = {};
@@ -48,20 +46,19 @@ const AddEvent = () => {
       if (!values.venue) {
         errors.venue = "Venue is Required";
       }
-      if (!values.startDate) {
-        errors.startDate = "Start Date is Required";
-      }
-      if (!values.startTime) {
-        errors.startTime = "Start Time is Required";
-      }
       if (!values.eventDate) {
         errors.eventDate = "Event Date is Required";
+      }
+      if (!values.timing) {
+        errors.timing = "Start Time is Required";
       }
 
       return errors;
     },
   });
-
+  const isInvalid = (name) => {
+    return formik.errors[name] && formik.touched[name];
+  };
   const categoryOfEvents = [
     {
       id: uuidv4(),
@@ -125,7 +122,7 @@ const AddEvent = () => {
       <Text className="text-3xl font-[Acharya-bold] mb-5">Add Event</Text>
       <Box className="container w-2/4 mobile:w-full">
         <form onSubmit={formik.handleSubmit}>
-          <FormControl isInvalid={formik.errors.event}>
+          <FormControl isInvalid={isInvalid("event")}>
             <FormLabel htmlFor="event">Enter Event Title</FormLabel>
             <Input
               id="event"
@@ -135,11 +132,11 @@ const AddEvent = () => {
               placeholder="Event Title"
               value={formik.values.event}
             />
-            {formik.errors.event && (
+            {formik.touched.event && formik.errors.event && (
               <FormErrorMessage>{formik.errors.event}</FormErrorMessage>
             )}
           </FormControl>
-          <FormControl isInvalid={formik.errors.category}>
+          <FormControl isInvalid={isInvalid("category")}>
             <FormLabel className="mt-4" htmlFor="category">
               Category
             </FormLabel>
@@ -154,29 +151,29 @@ const AddEvent = () => {
                 <option key={option.id}>{option.name}</option>
               ))}
             </Select>
-            {formik.errors.category && (
+            {formik.touched.category && formik.errors.category && (
               <FormErrorMessage>{formik.errors.category}</FormErrorMessage>
             )}
           </FormControl>
           <Flex mt="4" justifyContent={"space-between"} gap="5">
             <Box className="w-full">
-              <FormControl isInvalid={formik.errors.slots}>
-                <FormLabel htmlFor="noOfSlots">Enter Total Slots</FormLabel>
+              <FormControl isInvalid={isInvalid("slots")}>
+                <FormLabel htmlFor="slots">Enter Total Slots</FormLabel>
                 <Input
-                  id="noOfSlots"
+                  id="slots"
                   type="number"
                   name="slots"
                   value={formik.values.slots}
                   onChange={formik.handleChange}
                   placeholder="Total Slots"
                 />
-                {formik.errors.slots && (
+                {formik.touched.slots && formik.errors.slots && (
                   <FormErrorMessage>{formik.errors.slots}</FormErrorMessage>
                 )}
               </FormControl>
             </Box>
             <Box className="w-full">
-              <FormControl isInvalid={formik.errors.entryFee}>
+              <FormControl isInvalid={isInvalid("entryFee")}>
                 <FormLabel htmlFor="entryFee">Enter Entry Fee</FormLabel>
                 <Input
                   id="entryFee"
@@ -186,13 +183,13 @@ const AddEvent = () => {
                   onChange={formik.handleChange}
                   placeholder="Total Fee"
                 />
-                {formik.errors.entryFee && (
+                {formik.touched.entryFee && formik.errors.entryFee && (
                   <FormErrorMessage>{formik.errors.entryFee}</FormErrorMessage>
                 )}
               </FormControl>
             </Box>
           </Flex>
-          <FormControl isInvalid={formik.errors.venue}>
+          <FormControl isInvalid={isInvalid("venue")}>
             <FormLabel mt="4" htmlFor="venue">
               Enter Event Venue
             </FormLabel>
@@ -204,7 +201,7 @@ const AddEvent = () => {
               onChange={formik.handleChange}
               placeholder="Event Venue"
             />
-            {formik.errors.venue && (
+            {formik.touched.venue && formik.errors.venue && (
               <FormErrorMessage>{formik.errors.venue}</FormErrorMessage>
             )}
           </FormControl>
@@ -221,7 +218,7 @@ const AddEvent = () => {
           </FormControl>
           <Flex mt="4" justifyContent={"space-between"} gap="5">
             <Box className="w-full">
-              <FormControl isInvalid={formik.errors.eventDate}>
+              <FormControl isInvalid={isInvalid("eventDate")}>
                 <FormLabel htmlFor="eventDate">Event Date</FormLabel>
                 <Input
                   id="eventDate"
@@ -231,29 +228,29 @@ const AddEvent = () => {
                   onChange={formik.handleChange}
                   placeholder="Start Time"
                 />
-                {formik.errors.eventDate && (
+                {formik.touched.eventDate && formik.errors.eventDate && (
                   <FormErrorMessage>{formik.errors.eventDate}</FormErrorMessage>
                 )}
               </FormControl>
             </Box>
             <Box className="w-full">
-              <FormControl isInvalid={formik.errors.startTime}>
-                <FormLabel htmlFor="startTime">Enter Time</FormLabel>
+              <FormControl isInvalid={isInvalid("timing")}>
+                <FormLabel htmlFor="timing">Enter Time</FormLabel>
                 <Input
-                  id="startTime"
+                  id="timing"
                   type="time"
-                  name="startTime"
-                  value={formik.values.startTime}
+                  name="timing"
+                  value={formik.values.timing}
                   onChange={formik.handleChange}
                   placeholder="Start time"
                 />
-                {formik.errors.startTime && (
-                  <FormErrorMessage>{formik.errors.startTime}</FormErrorMessage>
+                {formik.touched.timing && formik.errors.timing && (
+                  <FormErrorMessage>{formik.errors.timing}</FormErrorMessage>
                 )}
               </FormControl>
             </Box>
           </Flex>
-          <Button type="submit" mt="4" className="w-full">
+          <Button className="w-full mt-4" type="submit">
             Submit
           </Button>
         </form>
