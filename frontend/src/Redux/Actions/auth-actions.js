@@ -19,22 +19,25 @@ export const loginAction = (payload) => async (dispatch) => {
     });
     const { data } = await axios.post(`${baseUrl}/auth/login`, payload);
     if (!data.success) {
-      return dispatch({
+      dispatch({
         type: USER_LOGIN_FAILURE,
         payload: data.message,
       });
+      return false;
     }
     localStorage.setItem("token", data.token);
     localStorage.setItem("aliveToken", data.aliveToken);
     localStorage.setItem("Oauth", data.Oauth);
-    return dispatch({
+    dispatch({
       type: USER_LOGIN_SUCCESS,
     });
+    return true;
   } catch (error) {
-    return dispatch({
+    dispatch({
       type: USER_LOGIN_FAILURE,
       payload: "Server Error, Please try again later.",
     });
+    return false;
   }
 };
 
