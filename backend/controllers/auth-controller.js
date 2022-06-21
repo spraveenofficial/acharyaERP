@@ -19,6 +19,7 @@ const login = async (req, res) => {
         usertype: "STUDENT",
       },
     });
+    console.log(data);
     if (!data.success) {
       return res.json({
         success: false,
@@ -26,6 +27,7 @@ const login = async (req, res) => {
       });
     } else {
       var userId;
+      const aliveToken = await Alive.aliveLogin(auid, password);
       const isExist = await User.findOne({ auid: auid });
       if (!isExist) {
         const user = new User({
@@ -39,7 +41,7 @@ const login = async (req, res) => {
         success: true,
         message: "Successfully Logged in",
         token: data.token,
-        aliveToken: await Alive.aliveLogin(auid, password),
+        aliveToken: aliveToken,
         Oauth: generateAuthToken(userId ? userId : isExist._id),
       });
     }
@@ -64,6 +66,7 @@ const profile = async (req, res) => {
         token: req.headers.token,
       },
     });
+
     if (!data.success) {
       return res.status(201).json({
         success: false,

@@ -1,18 +1,21 @@
 import axios from "axios";
-import { header } from "../utils/headers.js";
+
 class Auth {
   async aliveLogin(auid, password) {
-    const { data } = await axios({
+    const response = await axios({
       url: process.env.ALIVE_LOGIN,
       method: "POST",
-      headers: header(),
       data: {
         username: auid,
         password: password,
         usertype: "STUDENT",
       },
+      headers: {
+        Origin: "https://alive.university",
+        Referer: "https://alive.university/",
+      },
     });
-    return data.token;
+    return response.data.token;
   }
 }
 
