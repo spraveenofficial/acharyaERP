@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar, Footer } from "./Components";
 import {
+  AddEvent,
   Attendence,
   Classes,
   Error,
@@ -13,7 +14,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProfile } from "./Redux/Actions";
 import { useEffect } from "react";
 import { Spinner } from "@chakra-ui/react";
-import { GuestRoutes, ProtectedRoutes } from "./Utils/customRoutes";
+import {
+  AdminAndModRoutes,
+  GuestRoutes,
+  ProtectedRoutes,
+} from "./Utils/customRoutes";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +53,9 @@ function App() {
         </Route>
         <Route element={<GuestRoutes />}>
           <Route path="login" element={<Login />} />
+        </Route>
+        <Route element={<AdminAndModRoutes />}>
+          <Route path="/admin/add-event" element={<AddEvent />} />
         </Route>
       </Routes>
       <Footer />

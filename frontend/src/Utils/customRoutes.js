@@ -31,7 +31,6 @@ export const AdminRoutes = () => {
   );
 };
 
-
 export const ModeratorRoutes = () => {
   const location = useLocation();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -40,4 +39,15 @@ export const ModeratorRoutes = () => {
   ) : (
     <Navigate to={{ pathname: "/", state: { from: location } }} />
   );
-}
+};
+
+export const AdminAndModRoutes = () => {
+  const location = useLocation();
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  return (!isAuthenticated && user.role === "MODERATOR") ||
+    user.role === "ADMIN" ? (
+    <Outlet />
+  ) : (
+    <Navigate to={{ pathname: "/", state: { from: location } }} />
+  );
+};
