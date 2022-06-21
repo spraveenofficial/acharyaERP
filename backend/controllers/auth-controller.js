@@ -19,7 +19,6 @@ const login = async (req, res) => {
         usertype: "STUDENT",
       },
     });
-    console.log(data);
     if (!data.success) {
       return res.json({
         success: false,

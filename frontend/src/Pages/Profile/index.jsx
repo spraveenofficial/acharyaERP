@@ -57,7 +57,9 @@ export const Profile = () => {
               </li>
               <li className="flex items-center py-3">
                 <span>Proctor Name</span>
-                <span className="ml-auto">{user?.proctor_name}</span>
+                <span className="ml-auto">
+                  {user?.proctor_name ? user.proctor_name : "Not Assigned"}
+                </span>
               </li>
             </ul>
           </Box>
@@ -106,7 +108,7 @@ export const Profile = () => {
               >
                 <Box className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">USN</div>
-                  <div className="px-4 py-2">{user.usn}</div>
+                  <div className="px-4 py-2">{user?.usn ? user.usn : "Not Assigned"}</div>
                 </Box>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Father's Name</div>
