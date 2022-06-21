@@ -17,6 +17,21 @@ class Auth {
     });
     return response.data.token;
   }
+  async getOnlineClasses(token) {
+    const response = await axios({
+      url: process.env.ONLINE_CLASSES,
+      method: "POST",
+      headers: {
+        Origin: "https://alive.university",
+        Referer: "https://alive.university/",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.data.success) {
+      return [];
+    }
+    return response.data.data;
+  }
 }
 
 export default new Auth();

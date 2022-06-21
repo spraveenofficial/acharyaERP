@@ -1,6 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar, Footer } from "./Components";
-import { Attendence, Error, Event, Home, Login, Profile } from "./Pages";
+import {
+  Attendence,
+  Classes,
+  Error,
+  Event,
+  Home,
+  Login,
+  Profile,
+} from "./Pages";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile } from "./Redux/Actions";
 import { useEffect } from "react";
@@ -36,6 +44,7 @@ function App() {
         <Route element={<ProtectedRoutes />}>
           <Route path="attendance" element={<Attendence />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="class" element={<Classes />} />
         </Route>
         <Route element={<GuestRoutes />}>
           <Route path="login" element={<Login />} />

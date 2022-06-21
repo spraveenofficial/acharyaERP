@@ -25,7 +25,6 @@ const Login = () => {
           password: values.password,
         })
       );
-      console.log(response);
       if (response) {
         return dispatch(getProfile()) && navigate(from, { replace: true });
       }
