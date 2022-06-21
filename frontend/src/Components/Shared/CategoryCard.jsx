@@ -14,7 +14,7 @@ const CategoryCard = () => {
       id: uuidv4(),
       title: "Classes",
       icon: "fa-solid fa-book",
-      url: "/classes",
+      url: "/class",
     },
     {
       id: uuidv4(),

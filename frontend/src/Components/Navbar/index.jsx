@@ -129,7 +129,7 @@ const Navbar = () => {
                         {isOpen ? (
                           <Box
                             bottom={{
-                              base: "-140px",
+                              base: "-180px",
                             }}
                             width="100%"
                             _dark={{
@@ -145,6 +145,15 @@ const Navbar = () => {
                                   onClick={() => setIsOpen(false)}
                                 >
                                   My Profile
+                                </Link>
+                              </li>
+                              <li>
+                                <Link
+                                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                  to={"/my-bookings"}
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  My Bookings
                                 </Link>
                               </li>
                               <li>
@@ -308,6 +317,15 @@ const Navbar = () => {
                           onClick={() => setIsOpen(false) || setNav(false)}
                         >
                           My Profile
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          to={"/my-bookings"}
+                          onClick={() => setIsOpen(false) || setNav(false)}
+                        >
+                          My Bookings
                         </Link>
                       </li>
                       <li>

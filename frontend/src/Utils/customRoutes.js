@@ -20,3 +20,24 @@ export const GuestRoutes = () => {
     <Navigate to={{ pathname: "/", state: { from: location } }} />
   );
 };
+
+export const AdminRoutes = () => {
+  const location = useLocation();
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  return !isAuthenticated && user.role === "ADMIN" ? (
+    <Outlet />
+  ) : (
+    <Navigate to={{ pathname: "/", state: { from: location } }} />
+  );
+};
+
+
+export const ModeratorRoutes = () => {
+  const location = useLocation();
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  return !isAuthenticated && user.role === "MODERATOR" ? (
+    <Outlet />
+  ) : (
+    <Navigate to={{ pathname: "/", state: { from: location } }} />
+  );
+}
