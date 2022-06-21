@@ -1,0 +1,80 @@
+.class {
+  background: #1f284c;
+  height: 250px;
+  width: 350px;
+  border-radius: 8px !important;
+  overflow: hidden;
+  margin: 10px 0px;
+  position: relative;
+  /* animation: mymove 3s; */
+  /* animation-fill-mode: forwards; */
+  cursor: pointer;
+  position: relative;
+  /* transition: 0.3s ease-out; */
+}
+
+.class:hover {
+  background: #101733 !important;
+}
+@keyframes mymove {
+  from {
+    top: -100px;
+  }
+  to {
+    top: 0px;
+    /* background-color: blue; */
+  }
+}
+.first {
+  height: 50px;
+  width: auto;
+  /* background: rgb(49, 248, 49); */
+  /* align-items: center; */
+  text-align: center;
+  justify-content: center;
+  display: flex;
+}
+
+.first p {
+  color: #fff !important;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 50px;
+}
+
+.second {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  height: 65%;
+  color: #fff;
+}
+
+.second > h2 {
+  font-size: 30px !important;
+  /* color: red; */
+}
+
+.third {
+  height: 100%;
+  align-items: center;
+  text-align: center;
+}
+.third p {
+  color: #fff;
+}
+.second h1 {
+  text-transform: capitalize;
+  font-size: 40px !important;
+}
+
+@media (max-width: 767px) {
+  .new {
+    /* background: red; */
+    width: 100% !important;
+  }
+  .class {
+    width: 100%;
+  }
+}
