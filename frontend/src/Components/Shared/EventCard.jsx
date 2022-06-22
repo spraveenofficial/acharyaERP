@@ -1,16 +1,8 @@
-import { Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import moment from "moment";
 const EventCard = (props) => {
-  const {
-    title,
-    category,
-    slots,
-    description,
-    eventDate,
-    time,
-    venue,
-    thumbnail,
-  } = props.event;
+  const { title, category, slots, eventDate, time, thumbnail, entryFee } =
+    props.event;
   return (
     <div className="max-w-sm bg-white px-6 pt-6 pb-2 rounded-xl shadow-lg pointer mobile:min-w-full">
       {/* <h3 className="mb-3 text-xl font-bold text-indigo-600">
@@ -26,7 +18,12 @@ const EventCard = (props) => {
         {title}
       </h1>
       <div className="my-4">
-        <div className="flex gap-2 items-center text-center">
+        <Box
+          _dark={{
+            color: "black",
+          }}
+          className="flex gap-2 items-center text-center"
+        >
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -43,9 +40,16 @@ const EventCard = (props) => {
               />
             </svg>
           </span>
-          <Text className="font-extrabold">{moment(eventDate).format("LL")}</Text>
-        </div>
-        <div className="flex space-x-1 items-center">
+          <Text className="font-extrabold">
+            {moment(eventDate).format("LL")}
+          </Text>
+        </Box>
+        <Box
+          _dark={{
+            color: "black",
+          }}
+          className="flex space-x-1 items-center"
+        >
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -63,8 +67,13 @@ const EventCard = (props) => {
             </svg>
           </span>
           <p>{slots} Left</p>
-        </div>
-        <div className="flex space-x-1 items-center">
+        </Box>
+        <Box
+          _dark={{
+            color: "black",
+          }}
+          className="flex space-x-1 items-center"
+        >
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -81,8 +90,8 @@ const EventCard = (props) => {
               />
             </svg>
           </span>
-          <p>Vanilla JS</p>
-        </div>
+          <Text>{entryFee} ₹</Text>
+        </Box>
         <button className="mt-4 text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg">
           Book Now
         </button>

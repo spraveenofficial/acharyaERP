@@ -11,6 +11,7 @@ const Event = () => {
   const dispatch = useDispatch();
   const navigateToAddToRoutes = () => navigate("/admin/add-event");
   const { loading, success, events } = useSelector((state) => state.events);
+  const { user } = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(fetchEvents());
   }, []);
@@ -24,7 +25,10 @@ const Event = () => {
       <div className="p-10 mobile:p-4">
         <Box className="flex justify-between">
           <Text className="text-4xl font-[Acharya-bold] mb-4">All Events</Text>
-          <Button onClick={navigateToAddToRoutes}>Add Event</Button>
+          {user.role === "ADMIN" ||
+            (user.role === "MODERATOR" && (
+              <Button onClick={navigateToAddToRoutes}>Add Event</Button>
+            ))}
         </Box>
         {loading ? (
           <div className="flex justify-center items-center min-h-screen">
