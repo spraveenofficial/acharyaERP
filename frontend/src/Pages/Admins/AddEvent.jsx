@@ -6,6 +6,10 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  Button,
 } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
@@ -16,11 +20,11 @@ import { newEvent } from "../../Redux/Actions";
 const AddEvent = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { loading, error, data } = useSelector((state) => state.newEvent);
+  const { loading, message, success } = useSelector((state) => state.newEvent);
   const formik = useFormik({
     initialValues: {
-      thumbnail: "",
       title: "",
+      thumbnail: "",
       category: "",
       slots: "",
       entryFee: "",
@@ -28,14 +32,18 @@ const AddEvent = () => {
       eventDate: "",
       timing: "",
       organisedBy: user.auid,
+      description: "Dummy value",
     },
     onSubmit: async (values) => {
       const response = await dispatch(newEvent(values));
+      if (response) {
+        handleClearForm();
+      }
     },
     validate: (values) => {
       let errors = {};
       if (!values.title) {
-        errors.event = "Event name is Required";
+        errors.title = "Event name is Required";
       }
       if (!values.category) {
         errors.category = "Category is Required";
@@ -61,8 +69,21 @@ const AddEvent = () => {
       return errors;
     },
   });
+
+  const handleAvatar = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = function () {
+      formik.setFieldValue("thumbnail", reader.result);
+    };
+  };
   const isInvalid = (name) => {
     return formik.errors[name] && formik.touched[name];
+  };
+
+  const handleClearForm = () => {
+    formik.resetForm();
   };
   const categoryOfEvents = [
     {
@@ -127,44 +148,64 @@ const AddEvent = () => {
       <Text className="text-3xl font-[Acharya-bold] mb-5">Add Event</Text>
       <Box className="container w-2/4 mobile:w-full">
         <form onSubmit={formik.handleSubmit}>
-          <FormControl isInvalid={isInvalid("thumbnail")}>
-            <FormLabel htmlFor="dropzone-file">Event Thumbnail</FormLabel>
-            <label
-              htmlFor="dropzone-file"
-              className="mx-auto cursor-pointer flex w-full flex-col items-center rounded-xl border-2 border-dashed border-blue-400 bg-white p-6 text-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-10 w-10 text-blue-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
+          {!formik.values.thumbnail ? (
+            <FormControl isInvalid={isInvalid("thumbnail")}>
+              <FormLabel htmlFor="dropzone-file">Event Thumbnail</FormLabel>
+              <label
+                htmlFor="dropzone-file"
+                className="mx-auto cursor-pointer flex w-full flex-col items-center rounded-xl border-2 border-dashed border-blue-400 bg-white p-6 text-center"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-10 w-10 text-blue-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  />
+                </svg>
+                <h2 className="mt-4 text-xl font-medium text-gray-700 tracking-wide">
+                  Upload Thumbnail
+                </h2>
+                <p className="mt-2 text-gray-500 tracking-wide">
+                  Upload or darg &amp; drop your file SVG, PNG, JPG or JPEG.
+                </p>
+                <input
+                  id="dropzone-file"
+                  name="thumbnail"
+                  onChange={handleAvatar}
+                  type="file"
+                  className="hidden"
                 />
-              </svg>
-              <h2 className="mt-4 text-xl font-medium text-gray-700 tracking-wide">
-                Upload Thumbnail
-              </h2>
-              <p className="mt-2 text-gray-500 tracking-wide">
-                Upload or darg &amp; drop your file SVG, PNG, JPG or JPEG.
-              </p>
-              <input
-                id="dropzone-file"
-                name="thumbnail"
-                onChange={formik.handleChange}
-                type="file"
-                className="hidden"
+              </label>
+              {formik.touched.thumbnail && formik.errors.thumbnail && (
+                <FormErrorMessage>{formik.errors.thumbnail}</FormErrorMessage>
+              )}
+            </FormControl>
+          ) : (
+            <Box className="flex flex-col items-center justify-center border-2 border-gray.400 relative">
+              <img
+                src={formik.values.thumbnail}
+                alt="thumbnail"
+                className="w-full h-auto rounded-xl"
               />
-            </label>
-            {formik.touched.thumbnail && formik.errors.thumbnail && (
-              <FormErrorMessage>{formik.errors.thumbnail}</FormErrorMessage>
-            )}
-          </FormControl>
+              <p
+                onClick={() => {
+                  formik.setFieldValue("thumbnail", "");
+                }}
+                className="mt-4 text-gray-500 absolute -top-2 right-5 pointer"
+                variantColor="blue"
+                variant="outline"
+              >
+                X
+              </p>
+            </Box>
+          )}
           <FormControl isInvalid={isInvalid("title")}>
             <FormLabel mt={4} htmlFor="title">
               Enter Event Title
@@ -295,7 +336,20 @@ const AddEvent = () => {
               </FormControl>
             </Box>
           </Flex>
-          <Buttons className="w-full mt-5" type="submit">
+          {!loading && message ? (
+            <Alert
+              _dark={{
+                color: "white",
+                bg: success ? "green.500" : "red.500",
+              }}
+              status={success ? "success" : "error"}
+              className="mb-3 rounded-xl mt-5"
+            >
+              <AlertIcon />
+              <AlertTitle>{message}</AlertTitle>
+            </Alert>
+          ) : null}
+          <Buttons loading={loading} className="w-full mt-5" type="submit">
             Submit
           </Buttons>
         </form>

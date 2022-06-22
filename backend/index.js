@@ -10,7 +10,8 @@ import "./database/db.js";
 dotenv.config();
 
 const app = express();
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 // Registering morgan for development
 app.use(morgan("dev"));
@@ -30,7 +31,6 @@ app.use("/v1/api/auth/", AuthRoutes);
 app.use("/v1/api/attendance/", AttendanceRoute);
 app.use("/v1/api/classes/", ClassesRoutes);
 app.use("/v1/api/admin/", AdminRoutes);
-
 
 // Server initialize
 app.listen(PORT, () => console.log(`App started running on ${PORT}`));

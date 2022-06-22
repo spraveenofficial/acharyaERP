@@ -1,5 +1,6 @@
 import User from "../models/login.js";
 import Event from "../models/event.js";
+import ImageServices from "../services/upload-image.js";
 // @desc    - Add NEW Event
 // @route   POST /admin/add-event
 // @access  ADMIN / MODERATOR
@@ -7,7 +8,13 @@ import Event from "../models/event.js";
 const addEvent = async (req, res) => {
   const { id } = req.data;
   const user = await User.findById(id);
-  if (!user || user.role !== "ADMIN" || user.role !== "MODERATOR") {
+  if (!user) {
+    return res.status(400).json({
+      success: false,
+      message: "Not Authorized to Add Event",
+    });
+  }
+  if (user.role !== "ADMIN" && user.role !== "MODERATOR") {
     return res.status(400).json({
       success: false,
       message: "Not Authorized to Add Event",
@@ -25,11 +32,22 @@ const addEvent = async (req, res) => {
     timing,
     organisedBy,
   } = req.body;
+  const buffer = Buffer.from(
+    thumbnail.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""),
+    "base64"
+  );
   try {
+    const imagePath = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    const uploadThumbnail = await ImageServices.upload(buffer, imagePath);
+    if (!uploadThumbnail) {
+      return res
+        .status(500)
+        .json({ message: "Could not process the image", success: false });
+    }
     const event = new Event({
       title,
       description,
-      thumbnail,
+      thumbnail: uploadThumbnail,
       category,
       slots,
       entryFee,
