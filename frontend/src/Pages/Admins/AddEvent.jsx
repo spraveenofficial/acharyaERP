@@ -20,7 +20,7 @@ const AddEvent = () => {
   const formik = useFormik({
     initialValues: {
       thumbnail: "",
-      event: "",
+      title: "",
       category: "",
       slots: "",
       entryFee: "",
@@ -34,7 +34,7 @@ const AddEvent = () => {
     },
     validate: (values) => {
       let errors = {};
-      if (!values.event) {
+      if (!values.title) {
         errors.event = "Event name is Required";
       }
       if (!values.category) {
@@ -165,20 +165,20 @@ const AddEvent = () => {
               <FormErrorMessage>{formik.errors.thumbnail}</FormErrorMessage>
             )}
           </FormControl>
-          <FormControl isInvalid={isInvalid("event")}>
-            <FormLabel mt={4} htmlFor="event">
+          <FormControl isInvalid={isInvalid("title")}>
+            <FormLabel mt={4} htmlFor="title">
               Enter Event Title
             </FormLabel>
             <Input
-              id="event"
-              type="event"
-              name="event"
+              id="title"
+              type="title"
+              name="title"
               onChange={formik.handleChange}
               placeholder="Event Title"
-              value={formik.values.event}
+              value={formik.values.title}
             />
-            {formik.touched.event && formik.errors.event && (
-              <FormErrorMessage>{formik.errors.event}</FormErrorMessage>
+            {formik.touched.title && formik.errors.title && (
+              <FormErrorMessage>{formik.errors.title}</FormErrorMessage>
             )}
           </FormControl>
           <FormControl isInvalid={isInvalid("category")}>

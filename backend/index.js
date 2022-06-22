@@ -5,6 +5,7 @@ import morgan from "morgan";
 import AuthRoutes from "./routes/auth-routes.js";
 import AttendanceRoute from "./routes/attendence-routes.js";
 import ClassesRoutes from "./routes/classes-routes.js";
+import AdminRoutes from "./routes/admin-routes.js";
 import "./database/db.js";
 dotenv.config();
 
@@ -28,6 +29,8 @@ const PORT = process.env.PORT || 3505;
 app.use("/v1/api/auth/", AuthRoutes);
 app.use("/v1/api/attendance/", AttendanceRoute);
 app.use("/v1/api/classes/", ClassesRoutes);
+app.use("/v1/api/admin/", AdminRoutes);
+
 
 // Server initialize
 app.listen(PORT, () => console.log(`App started running on ${PORT}`));
