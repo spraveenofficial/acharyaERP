@@ -1,24 +1,32 @@
-const EventCard = () => {
+import { Text } from "@chakra-ui/react";
+import moment from "moment";
+const EventCard = (props) => {
+  const {
+    title,
+    category,
+    slots,
+    description,
+    eventDate,
+    time,
+    venue,
+    thumbnail,
+  } = props.event;
   return (
     <div className="max-w-sm bg-white px-6 pt-6 pb-2 rounded-xl shadow-lg pointer mobile:min-w-full">
       {/* <h3 className="mb-3 text-xl font-bold text-indigo-600">
         Beginner Friendly
       </h3> */}
       <div className="relative">
-        <img
-          className="w-full rounded-xl"
-          src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-          alt="Colors"
-        />
-        <p className="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
-          FREE
+        <img className="w-full rounded-xl" src={thumbnail} alt="Colors" />
+        <p className="uppercase absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
+          {category}
         </p>
       </div>
       <h1 className="mt-4 text-gray-800 text-2xl font-bold cursor-pointer">
-        Javascript Bootcamp for Absolute Beginners
+        {title}
       </h1>
       <div className="my-4">
-        <div className="flex space-x-1 items-center">
+        <div className="flex gap-2 items-center text-center">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +43,7 @@ const EventCard = () => {
               />
             </svg>
           </span>
-          <p>1:34:23 Minutes</p>
+          <Text className="font-extrabold">{moment(eventDate).format("LL")}</Text>
         </div>
         <div className="flex space-x-1 items-center">
           <span>
@@ -54,7 +62,7 @@ const EventCard = () => {
               />
             </svg>
           </span>
-          <p>3 Parts</p>
+          <p>{slots} Left</p>
         </div>
         <div className="flex space-x-1 items-center">
           <span>
@@ -76,7 +84,7 @@ const EventCard = () => {
           <p>Vanilla JS</p>
         </div>
         <button className="mt-4 text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg">
-          Enroll Now
+          Book Now
         </button>
       </div>
     </div>

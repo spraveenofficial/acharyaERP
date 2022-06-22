@@ -1,11 +1,19 @@
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, Spinner, Text } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { Helmet } from "react-helmet";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { EventCard, SubscribeEvent } from "../../Components";
+import { fetchEvents } from "../../Redux/Actions";
 
 const Event = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const navigateToAddToRoutes = () => navigate("/admin/add-event");
+  const { loading, success, events } = useSelector((state) => state.events);
+  useEffect(() => {
+    dispatch(fetchEvents());
+  }, []);
   return (
     <>
       <Helmet>
@@ -18,7 +26,17 @@ const Event = () => {
           <Text className="text-4xl font-[Acharya-bold] mb-4">All Events</Text>
           <Button onClick={navigateToAddToRoutes}>Add Event</Button>
         </Box>
-        <EventCard />
+        {loading ? (
+          <div className="flex justify-center items-center min-h-screen">
+            <Spinner size="xl" />
+          </div>
+        ) : (
+          <Box className="flex flex-wrap gap-5">
+            {events?.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </Box>
+        )}
       </div>
     </>
   );

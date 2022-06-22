@@ -1,5 +1,5 @@
 import { Box, Button, Text } from "@chakra-ui/react";
-
+import { useSelector } from "react-redux";
 const JoinCommunity = () => {
   return (
     <Box className="w-full flex justify-center">

@@ -6,6 +6,7 @@ import AuthRoutes from "./routes/auth-routes.js";
 import AttendanceRoute from "./routes/attendence-routes.js";
 import ClassesRoutes from "./routes/classes-routes.js";
 import AdminRoutes from "./routes/admin-routes.js";
+import EventRoutes from "./routes/event-routes.js";
 import "./database/db.js";
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use("/v1/api/auth/", AuthRoutes);
 app.use("/v1/api/attendance/", AttendanceRoute);
 app.use("/v1/api/classes/", ClassesRoutes);
 app.use("/v1/api/admin/", AdminRoutes);
+app.use("/v1/api/events/", EventRoutes);
 
 // Server initialize
 app.listen(PORT, () => console.log(`App started running on ${PORT}`));

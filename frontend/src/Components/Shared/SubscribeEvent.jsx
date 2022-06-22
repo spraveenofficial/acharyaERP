@@ -2,10 +2,12 @@ import { Input } from "../Input";
 import { useFormik } from "formik";
 import { Alert, AlertIcon, AlertTitle, Box } from "@chakra-ui/react";
 import { Buttons } from "../Button";
+import { useSelector } from "react-redux";
 const SubscribeEvent = () => {
+  const { user } = useSelector((state) => state.auth);
   const formik = useFormik({
     initialValues: {
-      email: "",
+      email: user?.acerp_email,
     },
     onSubmit: (values) => {
       console.log(values);
@@ -49,6 +51,7 @@ const SubscribeEvent = () => {
                 type="email"
                 name="email"
                 id="email"
+                value={formik.values.email}
                 onChange={formik.handleChange}
                 placeholder="Enter your email"
                 className="w-full rounded border border-white/50 bg-transparent px-3 py-2 text-white placeholder:text-white/50 md:max-w-[18rem]"
