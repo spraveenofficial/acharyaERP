@@ -2,6 +2,7 @@ import {
   NEW_EVENT_REQUEST,
   NEW_EVENT_SUCCESS,
   NEW_EVENT_FAILURE,
+  NEW_EVENT_CLEAR,
 } from "../Constants/admin-constants";
 
 export const newEvent = (
@@ -27,6 +28,13 @@ export const newEvent = (
         loading: false,
         success: false,
         message: action.payload,
+      };
+    case NEW_EVENT_CLEAR:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        message: "",
       };
     default:
       return state;

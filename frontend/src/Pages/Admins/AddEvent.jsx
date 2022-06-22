@@ -9,7 +9,6 @@ import {
   Alert,
   AlertIcon,
   AlertTitle,
-  Button,
 } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
@@ -17,6 +16,7 @@ import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import { Buttons } from "../../Components";
 import { newEvent } from "../../Redux/Actions";
+import { useEffect } from "react";
 const AddEvent = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -143,17 +143,38 @@ const AddEvent = () => {
       name: "Others",
     },
   ];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    return () => {
+      dispatch({
+        type: "NEW_EVENT_CLEAR",
+      });
+    };
+  }, []);
   return (
     <Box className="p-10 mobile:p-4 items-center  font-bold min-h-screen flex flex-col text-center ">
       <Text className="text-3xl font-[Acharya-bold] mb-5">Add Event</Text>
       <Box className="container w-2/4 mobile:w-full">
         <form onSubmit={formik.handleSubmit}>
+          {formik.values.thumbnail && (
+            <FormLabel htmlFor="dropzone-file">Event Thumbnail</FormLabel>
+          )}
           {!formik.values.thumbnail ? (
             <FormControl isInvalid={isInvalid("thumbnail")}>
               <FormLabel htmlFor="dropzone-file">Event Thumbnail</FormLabel>
-              <label
+              <FormLabel
                 htmlFor="dropzone-file"
-                className="mx-auto cursor-pointer flex w-full flex-col items-center rounded-xl border-2 border-dashed border-blue-400 bg-white p-6 text-center"
+                alignItems="center"
+                textAlign={"center"}
+                display={"flex"}
+                width="100%"
+                _dark={{
+                  bg: "transparent",
+                }}
+                className={`mx-auto cursor-pointer flex-col rounded-xl border-2 border-dashed border-blue-400 p-6 ${
+                  isInvalid("thumbnail") ? "border-red-400" : "border-blue-400"
+                }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -169,12 +190,22 @@ const AddEvent = () => {
                     d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                   />
                 </svg>
-                <h2 className="mt-4 text-xl font-medium text-gray-700 tracking-wide">
+                <Text
+                  _dark={{
+                    color: "white",
+                  }}
+                  className="mt-4 text-xl font-medium text-gray-700 tracking-wide"
+                >
                   Upload Thumbnail
-                </h2>
-                <p className="mt-2 text-gray-500 tracking-wide">
+                </Text>
+                <Text
+                  _dark={{
+                    color: "white",
+                  }}
+                  className="mt-2 text-gray-500 tracking-wide"
+                >
                   Upload or darg &amp; drop your file SVG, PNG, JPG or JPEG.
-                </p>
+                </Text>
                 <input
                   id="dropzone-file"
                   name="thumbnail"
@@ -182,7 +213,7 @@ const AddEvent = () => {
                   type="file"
                   className="hidden"
                 />
-              </label>
+              </FormLabel>
               {formik.touched.thumbnail && formik.errors.thumbnail && (
                 <FormErrorMessage>{formik.errors.thumbnail}</FormErrorMessage>
               )}
