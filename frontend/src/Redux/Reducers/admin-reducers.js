@@ -1,4 +1,4 @@
-export {
+import {
   NEW_EVENT_REQUEST,
   NEW_EVENT_SUCCESS,
   NEW_EVENT_FAILURE,

@@ -10,10 +10,13 @@ import {
 import { Input } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import { useFormik } from "formik";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Buttons } from "../../Components";
+import { newEvent } from "../../Redux/Actions";
 const AddEvent = () => {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const { loading, error, data } = useSelector((state) => state.newEvent);
   const formik = useFormik({
     initialValues: {
       thumbnail: "",
@@ -26,8 +29,8 @@ const AddEvent = () => {
       timing: "",
       organisedBy: user.auid,
     },
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      const response = await dispatch(newEvent(values));
     },
     validate: (values) => {
       let errors = {};

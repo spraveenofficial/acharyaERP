@@ -1,8 +1,11 @@
-export {
+import {
   NEW_EVENT_REQUEST,
   NEW_EVENT_SUCCESS,
   NEW_EVENT_FAILURE,
 } from "../Constants/admin-constants";
+import axios from "axios";
+import baseUrl from "../../Utils/baseurl";
+import { headerConfig } from "../../Utils/headerConfig";
 
 export const newEvent = (event) => async (dispatch) => {
   try {
