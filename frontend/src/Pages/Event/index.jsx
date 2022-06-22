@@ -25,10 +25,9 @@ const Event = () => {
       <div className="p-10 mobile:p-4">
         <Box className="flex justify-between">
           <Text className="text-4xl font-[Acharya-bold] mb-4">All Events</Text>
-          {user.role === "ADMIN" ||
-            (user.role === "MODERATOR" && (
-              <Button onClick={navigateToAddToRoutes}>Add Event</Button>
-            ))}
+          {user?.role === "ADMIN" && (
+            <Button onClick={navigateToAddToRoutes}>Add Event</Button>
+          )}
         </Box>
         {loading ? (
           <div className="flex justify-center items-center min-h-screen">
