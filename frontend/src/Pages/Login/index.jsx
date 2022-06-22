@@ -77,7 +77,7 @@ const Login = () => {
         className="flex w-1/2 justify-center items-center bg-white mobile:w-full"
       >
         <form
-          className="w-80 max-w-sm mobile:max-w-full mobile:p-10 mobile:w-full"
+          className="w-80 max-w-sm mobile:max-w-full mobile:p-10 mobile:w-full mobile:h-full"
           onSubmit={formik.handleSubmit}
         >
           <Text

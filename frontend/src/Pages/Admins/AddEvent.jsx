@@ -9,6 +9,7 @@ import {
   Alert,
   AlertIcon,
   AlertTitle,
+  Textarea,
 } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
@@ -32,7 +33,7 @@ const AddEvent = () => {
       eventDate: "",
       timing: "",
       organisedBy: user.auid,
-      description: "Dummy value",
+      description: "",
     },
     onSubmit: async (values) => {
       const response = await dispatch(newEvent(values));
@@ -65,6 +66,9 @@ const AddEvent = () => {
       }
       if (!values.thumbnail) {
         errors.thumbnail = "Thumbnail is Required";
+      }
+      if (!values.description) {
+        errors.description = "Description is Required";
       }
       return errors;
     },
@@ -154,7 +158,6 @@ const AddEvent = () => {
   }, []);
   return (
     <Box className="p-10 mobile:p-4 items-center  font-bold min-h-screen flex flex-col text-center ">
-      <Text className="text-3xl font-[Acharya-bold] mb-5">Add Event</Text>
       <Box className="container w-2/4 mobile:w-full">
         <form onSubmit={formik.handleSubmit}>
           {formik.values.thumbnail && (
@@ -253,9 +256,25 @@ const AddEvent = () => {
               <FormErrorMessage>{formik.errors.title}</FormErrorMessage>
             )}
           </FormControl>
+          <FormControl isInvalid={isInvalid("description")}>
+            <FormLabel mt={4} htmlFor="description">
+              Enter Event Description
+            </FormLabel>
+            <Textarea
+              id="description"
+              type="description"
+              name="description"
+              onChange={formik.handleChange}
+              placeholder="Event description"
+              value={formik.values.description}
+            />
+            {formik.touched.description && formik.errors.description && (
+              <FormErrorMessage>{formik.errors.description}</FormErrorMessage>
+            )}
+          </FormControl>
           <FormControl isInvalid={isInvalid("category")}>
             <FormLabel className="mt-4" htmlFor="category">
-              Category
+              Select Category
             </FormLabel>
             <Select
               id="category"
@@ -352,7 +371,7 @@ const AddEvent = () => {
             </Box>
             <Box className="w-full">
               <FormControl isInvalid={isInvalid("timing")}>
-                <FormLabel htmlFor="timing">Enter Time</FormLabel>
+                <FormLabel htmlFor="timing">Event Time</FormLabel>
                 <Input
                   id="timing"
                   type="time"

@@ -23,7 +23,7 @@ const Event = () => {
       </Helmet>
       <SubscribeEvent />
       <div className="p-10 mobile:p-4">
-        <Box className="flex justify-between">
+        <Box className="flex justify-between mobile:my-5">
           <Text className="text-4xl font-[Acharya-bold] mb-4">All Events</Text>
           {user?.role === "ADMIN" && (
             <Button onClick={navigateToAddToRoutes}>Add Event</Button>

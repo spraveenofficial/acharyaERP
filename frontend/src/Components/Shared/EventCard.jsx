@@ -4,23 +4,31 @@ const EventCard = (props) => {
   const { title, category, slots, eventDate, time, thumbnail, entryFee } =
     props.event;
   return (
-    <div className="max-w-sm bg-white px-6 pt-6 pb-2 rounded-xl shadow-lg pointer mobile:min-w-full">
-      {/* <h3 className="mb-3 text-xl font-bold text-indigo-600">
-        Beginner Friendly
-      </h3> */}
+    <Box
+      bg="white"
+      _dark={{
+        bg: "#23314d",
+      }}
+      className="max-w-sm px-6 pt-6 pb-2 rounded-xl shadow-lg pointer mobile:min-w-full"
+    >
       <div className="relative">
         <img className="w-full rounded-xl" src={thumbnail} alt="Colors" />
         <p className="uppercase absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
           {category}
         </p>
       </div>
-      <h1 className="mt-4 text-gray-800 text-2xl font-bold cursor-pointer">
+      <Text
+        _dark={{
+          color: "#fff",
+        }}
+        className="mt-4 text-gray-800 text-2xl font-bold cursor-pointer"
+      >
         {title}
-      </h1>
+      </Text>
       <div className="my-4">
         <Box
           _dark={{
-            color: "black",
+            color: "white",
           }}
           className="flex gap-2 items-center text-center"
         >
@@ -41,12 +49,12 @@ const EventCard = (props) => {
             </svg>
           </span>
           <Text className="font-extrabold">
-            {moment(eventDate).format("LL")}
+            {moment(eventDate).format("LL")} at {moment(time).format("LT")}
           </Text>
         </Box>
         <Box
           _dark={{
-            color: "black",
+            color: "white",
           }}
           className="flex space-x-1 items-center"
         >
@@ -66,11 +74,11 @@ const EventCard = (props) => {
               />
             </svg>
           </span>
-          <p>{slots} Left</p>
+          <p>{slots} Slots Left</p>
         </Box>
         <Box
           _dark={{
-            color: "black",
+            color: "white",
           }}
           className="flex space-x-1 items-center"
         >
@@ -96,7 +104,7 @@ const EventCard = (props) => {
           Book Now
         </button>
       </div>
-    </div>
+    </Box>
   );
 };
 
