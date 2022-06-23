@@ -25,16 +25,16 @@ const Event = () => {
       <div className="p-10 mobile:p-4">
         <Box className="flex justify-between mobile:my-5">
           <Text className="text-4xl font-[Acharya-bold] mb-4">All Events</Text>
-          {user?.role === "ADMIN" && (
+          {user?.role === "ADMIN" || user?.role === "MODERATOR" ? (
             <Button onClick={navigateToAddToRoutes}>Add Event</Button>
-          )}
+          ) : null}
         </Box>
         {loading ? (
           <div className="flex justify-center items-center min-h-screen">
             <Spinner size="xl" />
           </div>
         ) : (
-          <Box className="flex flex-wrap gap-5">
+          <Box className="grid grid-cols-4 auto-cols-max gap-5 mobile:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
             {events?.map((event) => (
               <EventCard key={event.id} event={event} />
             ))}

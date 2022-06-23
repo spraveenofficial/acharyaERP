@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Image, Text } from "@chakra-ui/react";
 import moment from "moment";
 const EventCard = (props) => {
   const { title, category, slots, eventDate, time, thumbnail, entryFee } =
@@ -9,10 +9,17 @@ const EventCard = (props) => {
       _dark={{
         bg: "#23314d",
       }}
-      className="max-w-sm px-6 pt-6 pb-2 rounded-xl shadow-lg pointer mobile:min-w-full"
+      minWidth="auto"
+      className="px-6 pt-6 pb-2 rounded-xl shadow-lg pointer mobile:min-w-full"
     >
-      <div className="relative">
-        <img className="w-full rounded-xl" src={thumbnail} alt="Colors" />
+      <div className="relative w-full">
+        <Image
+          height={"200px"}
+          maxWidth={"300px"}
+          className="mobile:min-w-full w-full object-cover rounded-xl"
+          src={thumbnail}
+          alt="Colors"
+        />
         <p className="uppercase absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
           {category}
         </p>
@@ -21,7 +28,7 @@ const EventCard = (props) => {
         _dark={{
           color: "#fff",
         }}
-        className="mt-4 text-gray-800 text-2xl font-bold cursor-pointer"
+        className="mt-4 text-gray-800 text-2xl font-bold cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis"
       >
         {title}
       </Text>
@@ -36,6 +43,9 @@ const EventCard = (props) => {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 text-indigo-600 mb-1.5"
+              _dark={{
+                fill: "#fff",
+              }}
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

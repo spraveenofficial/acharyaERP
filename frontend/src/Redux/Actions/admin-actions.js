@@ -33,7 +33,7 @@ export const newEvent = (event) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: NEW_EVENT_FAILURE,
-      payload: "Server Error, Please try again later.",
+      payload: error.response.data.message,
     });
     return false;
   }
