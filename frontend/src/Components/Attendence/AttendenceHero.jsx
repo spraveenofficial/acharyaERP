@@ -927,7 +927,7 @@ const AttendenceHero = (props) => {
             <ul className="font-bold">
               <li className="mb-2">
                 I. This stats are directly linked to official Acharya ERP. We're
-                just trying to improve the User Experience
+                just trying to improve the User Experience.
               </li>
               <li className="mb-2">
                 II. If you found any bug, please report it to us. We'll fix it

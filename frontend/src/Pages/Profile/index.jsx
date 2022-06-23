@@ -1,8 +1,13 @@
 import { Box, Text } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 export const Profile = () => {
   const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="container mx-auto my-5 p-5 h-auto">
       <div className="desktop:flex no-wrap desktop:-mx-2 ">
@@ -108,7 +113,9 @@ export const Profile = () => {
               >
                 <Box className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">USN</div>
-                  <div className="px-4 py-2">{user?.usn ? user.usn : "Not Assigned"}</div>
+                  <div className="px-4 py-2">
+                    {user?.usn ? user.usn : "Not Assigned"}
+                  </div>
                 </Box>
                 <div className="grid grid-cols-2">
                   <div className="px-4 py-2 font-semibold">Father's Name</div>
