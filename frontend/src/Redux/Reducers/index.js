@@ -2,7 +2,9 @@ import { combineReducers } from "redux";
 import { login, auth } from "./auth-reducers";
 import { attendance, myClasses } from "./studentactions-reducers";
 import { newEvent } from "./admin-reducers";
-import { events } from "./event-reducers";
+import { events, event } from "./event-reducers";
+
+// Combining all the reducers
 export default combineReducers({
   login,
   auth,
@@ -10,4 +12,5 @@ export default combineReducers({
   classes: myClasses,
   newEvent,
   events,
+  event,
 });

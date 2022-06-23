@@ -6,3 +6,5 @@ export { Attendence } from "./Attendence";
 export { Profile } from "./Profile";
 export { Classes } from "./Classes";
 export { AddEvent } from "./Admins/AddEvent";
+export { EventPage } from "./EachEvent";
+export { Developers } from "./Developer";

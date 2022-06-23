@@ -2,7 +2,7 @@ import { Box, Image, Text, useColorMode } from "@chakra-ui/react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 const EventCard = (props) => {
-  const { title, category, slots, eventDate, time, thumbnail, entryFee } =
+  const { title, category, slots, eventDate, time, thumbnail, entryFee, id } =
     props.event;
   const { colorMode } = useColorMode();
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const EventCard = (props) => {
     if (e.target.tagName === "BUTTON") {
       // Do something here
     }
-    return navigate(`/event/${props.event.id}`);
+    return navigate(`/events/${id}`);
   };
   return (
     <Box

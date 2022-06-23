@@ -26,7 +26,7 @@ const Attendence = () => {
     <Box className="p-10 mobile:p-4">
       <AttendenceHero overallAttendance={attendance?.Average_attendance} />
       <Box className="text-center">
-        <Text className="my-14 text-2xl font-bold">Detailed Attendance</Text>
+        <Text className="my-10 text-2xl font-bold">Detailed Attendance</Text>
         <Box className="flex flex-wrap justify-between ">
           {data?.map((subjects) => (
             <AttendenceCard
