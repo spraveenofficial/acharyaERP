@@ -52,7 +52,7 @@ const AddEvent = () => {
       if (!values.slots) {
         errors.slots = "Slots is Required";
       }
-      if (!values.entryFee) {
+      if (values.entryFee === "") {
         errors.entryFee = "Entry Fee is Required";
       }
       if (!values.venue) {
@@ -215,6 +215,7 @@ const AddEvent = () => {
                   onChange={handleAvatar}
                   type="file"
                   className="hidden"
+                  accept="image/png, image/jpeg, image/jpg"
                 />
               </FormLabel>
               {formik.touched.thumbnail && formik.errors.thumbnail && (
