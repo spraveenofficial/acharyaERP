@@ -1,28 +1,17 @@
-import "./main.css";
-import {
-  Box,
-  Flex,
-  Select,
-  Text,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  Textarea,
-  Input,
-} from "@chakra-ui/react";
+import "./style.css";
+import { Box, Flex, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { Buttons } from "../Button";
-const Checkout = (props) => {
+const Checkout = () => {
   return (
-    <div className="movie-facility padding-bottom padding-top">
+    <div className="movie-facility mt-20">
       <div className="container">
         <div className="row">
           <div className="col-lg-8">
-            <div className="bg-red-100 p-4 flex flex-wrap items-center justify-between mb-5">
-              <div className="title-area ">
-                <h5 className="text-xl font-bold">Already a Boleto Member?</h5>
+            <div className="checkout-widget flex flex-wrap items-center justify-between">
+              <div className="title-area">
+                <h5 className="title text-xl font-bold">
+                  Already a Boleto Member?
+                </h5>
                 <p>Sign in to earn points and make booking easier!</p>
               </div>
               <a href="#0" className="sign-in-area">
@@ -30,69 +19,54 @@ const Checkout = (props) => {
                 <span>Sign in</span>
               </a>
             </div>
-            <div className="bg-red-100 checkout-widget checkout-contact p-4 mobile:max-h-max">
-              <h5 className="font-bold text-xl items-center flex text-center justify-between border-b h-10 border-dashed border-indigo-600">
+            <div className="checkout-widget checkout-contact min-h-fit checkout-personal">
+              <h5 className="title text-xl font-bold">
                 Share your Contact Details
               </h5>
               <form className="checkout-contact-form">
-                <FormControl isInvalid={true}>
-                  <FormLabel mt={4} htmlFor="description">
-                    Enter Full Name
-                  </FormLabel>
+                <FormControl isInvalid={false}>
+                  <FormLabel htmlFor="title">Enter Event Title</FormLabel>
                   <Input
-                    id="description"
-                    type="description"
-                    name="description"
-                    placeholder="Enter Full Name"
-                    value=""
+                    id="title"
+                    type="title"
+                    name="title"
+                    placeholder="Event Title"
                   />
                 </FormControl>
-                <Box className="w-full flex gap-5 mobile:flex-col mobile:gap-0">
-                  <FormControl isInvalid={true}>
-                    <FormLabel mt={4} htmlFor="email">
-                      Enter Email
-                    </FormLabel>
+                <Box className="flex justify-between w-full gap-4 mobile:flex-col mt-4 mb-5 mobile:gap-0">
+                  <FormControl isInvalid={false}>
+                    <FormLabel htmlFor="title">Enter Event Title</FormLabel>
                     <Input
-                      id="email"
-                      type="email"
-                      name="email"
-                      placeholder="Enter Email"
-                      value=""
+                      id="title"
+                      type="title"
+                      name="title"
+                      placeholder="Event Title"
                     />
                   </FormControl>
-                  <FormControl isInvalid={true}>
-                    <FormLabel mt={4} htmlFor="phone">
-                      Enter Phone Number
-                    </FormLabel>
+                  <FormControl isInvalid={false}>
+                    <FormLabel htmlFor="title">Enter Event Title</FormLabel>
                     <Input
-                      id="phone"
-                      type="phone"
-                      name="phone"
-                      placeholder="Enter Phone Number"
-                      value=""
+                      id="title"
+                      type="title"
+                      name="title"
+                      placeholder="Event Title"
                     />
                   </FormControl>
                 </Box>
-                <Buttons>Submit</Buttons>
+                <Buttons className="mt-3">Proceed</Buttons>
               </form>
             </div>
-            <div className="checkout-widget checkout-contact">
-              <h5 className="title">Promo Code</h5>
-              <form className="checkout-contact-form">
-                <div className="form-group">
-                  <input type="text" placeholder="Please enter promo code" />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="submit"
-                    defaultValue="Verify"
-                    className="custom-button"
-                  />
-                </div>
+            <div className="checkout-widget checkout-contact checkout-personal">
+              <h5 className="title text-xl font-bold">Promo Code</h5>
+              <form className="checkout-contact-form ">
+                <Flex gap={5} className="items-center w-full">
+                  <Input placeholder="Enter Promo Code" width="70%" />
+                  <Buttons className="w-11">Apply</Buttons>
+                </Flex>
               </form>
             </div>
-            <div className="checkout-widget checkout-card mb-0">
-              <h5 className="title">Payment Option</h5>
+            <div className="checkout-widget checkout-contact checkout-card mb-0">
+              <h5 className="title text-xl font-bold">Payment Option</h5>
               <ul className="payment-option">
                 <li className="active">
                   <a href="#0">
@@ -116,27 +90,52 @@ const Checkout = (props) => {
                   </a>
                 </li>
               </ul>
-              <h6 className="subtitle">Enter Your Card Details</h6>
+              <h6 className="text-bold text-center text-2xl mb-4 uppercase font-[Acharya-bold]">
+                Enter Your Card Details
+              </h6>
               <form className="payment-card-form">
-                <div className="form-group w-100">
-                  <label htmlFor="card1">Card Details</label>
-                  <input type="text" id="card1" />
-                  <div className="right-icon">
-                    <i className="flaticon-lock" />
-                  </div>
-                </div>
-                <div className="form-group w-100">
-                  <label htmlFor="card2"> Name on the Card</label>
-                  <input type="text" id="card2" />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="card3">Expiration</label>
-                  <input type="text" id="card3" placeholder="MM/YY" />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="card4">CVV</label>
-                  <input type="text" id="card4" placeholder="CVV" />
-                </div>
+                <FormControl isInvalid={false}>
+                  <FormLabel htmlFor="title">Enter Card Holder Name</FormLabel>
+                  <Input
+                    id="title"
+                    type="title"
+                    name="title"
+                    placeholder="Event Title"
+                    height="50px"
+                  />
+                </FormControl>
+                <FormControl mt={4} isInvalid={false}>
+                  <FormLabel htmlFor="title">Enter Card Number</FormLabel>
+                  <Input
+                    id="title"
+                    type="title"
+                    name="title"
+                    placeholder="Enter Card Number"
+                    height="50px"
+                  />
+                </FormControl>
+                <Flex gap={5} mt={4} className="items-center w-full">
+                  <FormControl isInvalid={false}>
+                    <FormLabel htmlFor="title">Enter Expiry Date</FormLabel>
+                    <Input
+                      id="title"
+                      type="title"
+                      name="title"
+                      placeholder="MM/YY"
+                      height="50px"
+                    />
+                  </FormControl>
+                  <FormControl isInvalid={false}>
+                    <FormLabel htmlFor="title">Enter CVV</FormLabel>
+                    <Input
+                      id="title"
+                      type="title"
+                      name="title"
+                      placeholder="CVV"
+                      height="50px"
+                    />
+                  </FormControl>
+                </Flex>
                 <div className="form-group check-group">
                   <input id="card5" type="checkbox" defaultChecked />
                   <label htmlFor="card5">
@@ -147,13 +146,7 @@ const Checkout = (props) => {
                     </span>
                   </label>
                 </div>
-                <div className="form-group">
-                  <input
-                    type="submit"
-                    className="custom-button"
-                    defaultValue="make payment"
-                  />
-                </div>
+                <Buttons className="mt-3 mb-3">Proceed</Buttons>
               </form>
               <p className="notice">
                 By Clicking "Make Payment" you agree to the
@@ -161,9 +154,9 @@ const Checkout = (props) => {
               </p>
             </div>
           </div>
-          <div className="col-lg-4">
+          <div className="col-lg-4 summary-mobile">
             <div className="booking-summery bg-one">
-              <h4 className="title">Booking Summary</h4>
+              <h4 className="title">booking summary</h4>
               <ul>
                 <li>
                   <h6 className="subtitle">Venus</h6>
@@ -185,7 +178,7 @@ const Checkout = (props) => {
                   </h6>
                 </li>
               </ul>
-              <ul className="side-shape">
+              <ul className="side-shape mobile:hidden">
                 <li>
                   <h6 className="subtitle">
                     <span>combos</span>
@@ -219,7 +212,7 @@ const Checkout = (props) => {
                 <span>Amount Payable</span>
                 <span>$222</span>
               </h6>
-              <Buttons>Proceed</Buttons>
+              <Buttons>Proceed to Pay</Buttons>
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ const Buttons = (props) => {
       onClick={props.onClick}
       w={"full"}
       bgGradient="linear(to-r, blue.400,pink.400)"
-      mt={"3"}
+      className={props.className}
       color={"white"}
       isLoading={props?.loading}
       loadingText="Processing...."

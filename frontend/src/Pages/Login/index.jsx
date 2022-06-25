@@ -162,7 +162,7 @@ const Login = () => {
               className="pl-2 outline-none border-none ml-1 w-full bg-transparent"
             />
           </div>
-          <Buttons loading={loading} type="submit">
+          <Buttons className="mt-3" loading={loading} type="submit">
             Login
           </Buttons>
         </form>
