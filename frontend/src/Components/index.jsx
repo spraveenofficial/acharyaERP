@@ -31,3 +31,4 @@ export { JoinCommunity } from "./Shared/JoinCommunity";
 export { AttendenceHero } from "./Attendence/AttendenceHero";
 export { Footer } from "./Footer";
 export { ClassCard } from "./ClassCard";
+export { Checkout } from "./Shared/Checkout";

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Navbar, Footer } from "./Components";
+import { Navbar, Footer, Checkout } from "./Components";
 import {
   AddEvent,
   Attendence,
@@ -50,6 +50,7 @@ function App() {
         <Route path="events/:eventId" element={<EventPage />} />
         <Route path="developers" element={<Developers />} />
         <Route path="*" element={<Error />} />
+        <Route path="checkout" element={<Checkout />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="attendance" element={<Attendence />} />
           <Route path="profile" element={<Profile />} />
