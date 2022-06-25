@@ -69,10 +69,7 @@ const SubscribeEvent = () => {
                   <AlertTitle>{formik?.errors?.email}</AlertTitle>
                 </Alert>
               ) : null}
-              <Buttons
-                type="submit"
-                className="mt-4 w-full max-w-[14rem] rounded bg-white/30 px-14 py-2 text-center text-white"
-              >
+              <Buttons type="submit" className="mt-4 w-full">
                 Subscribe
               </Buttons>
             </form>
