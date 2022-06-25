@@ -11,6 +11,7 @@ const Event = () => {
   const dispatch = useDispatch();
   const navigateToAddToRoutes = () => navigate("/admin/add-event");
   const { loading, success, events } = useSelector((state) => state.events);
+  console.log(loading, success, events);
   const { user } = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(fetchEvents());
@@ -22,7 +23,7 @@ const Event = () => {
         <title>Events - Acharya ERP</title>
       </Helmet>
       <SubscribeEvent />
-      <div className="p-10 mobile:p-4">
+      <Box minHeight={"50vh"} className="p-10 mobile:p-4">
         <Box className="flex justify-between mobile:my-5">
           <Text className="text-4xl font-[Acharya-bold] mb-4">All Events</Text>
           {user?.role === "ADMIN" || user?.role === "MODERATOR" ? (
@@ -34,13 +35,24 @@ const Event = () => {
             <Spinner size="xl" />
           </div>
         ) : (
-          <Box className="grid grid-cols-4 auto-cols-max gap-5 mobile:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-            {events?.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
-          </Box>
+          <>
+            {!loading && events.length === 0 ? (
+              <div className="flex flex-wrap justify-center items-center text-center h-full bg-red.100 ">
+                <Text className="text-center text-3xl font-[Acharya-bold]">
+                  No Events Found
+                </Text>
+              </div>
+            ) : null}
+            <Box className="grid grid-cols-4 auto-cols-max gap-5 mobile:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+              {success &&
+                events.length > 0 &&
+                events.map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
+            </Box>
+          </>
         )}
-      </div>
+      </Box>
     </>
   );
 };

@@ -5,13 +5,22 @@ import Event from "../models/event.js";
 // @access  Public
 
 const fetchEvents = async (req, res) => {
-  const events = await Event.find({});
+  // Find all the events with status active
+  const events = await Event.find({ status: "active" });
   if (!events) {
     return res.status(400).json({
       success: false,
       message: "No events found",
     });
   }
+
+  events.forEach((event) => {
+    if (event.eventDate < Date.now() && event.status === "active") {
+      event.status = "expired";
+      event.save();
+    }
+  });
+
   return res.status(200).json({
     success: true,
     data: events,

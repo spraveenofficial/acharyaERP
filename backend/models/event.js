@@ -44,6 +44,11 @@ const eventSchema = new Schema(
       type: String,
       required: true,
     },
+    status: {
+      type: String,
+      enum: ["active", "expired", "cancelled", "completed"],
+      default: "active",
+    },
   },
   {
     timestamps: true,

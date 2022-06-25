@@ -8,7 +8,7 @@ import {
 } from "../Constants/event-constants";
 
 export const events = (
-  state = { loading: false, success: false, message: "", events: [] },
+  state = { loading: true, success: false, message: "", events: [] },
   action
 ) => {
   switch (action.type) {
