@@ -57,7 +57,7 @@ function App() {
           <Route path="checkout" element={<CheckoutMain />} />
         </Route>
         <Route element={<ProtectedRoutes />}>
-          <Route path="checkout/:orderId" element={<Checkout />} />
+          <Route path="checkout/:checkOutId" element={<Checkout />} />
           <Route path="attendance" element={<Attendence />} />
           <Route path="profile" element={<Profile />} />
           <Route path="class" element={<Classes />} />

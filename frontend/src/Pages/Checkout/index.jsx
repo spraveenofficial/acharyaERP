@@ -1,9 +1,42 @@
 import "./style.css";
-import { Box, Flex, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Spinner,
+} from "@chakra-ui/react";
 import { Buttons } from "../../Components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchCheckout } from "../../Redux/Actions";
+import { useParams } from "react-router-dom";
+import moment from "moment";
+import { Error } from "..";
 const Checkout = () => {
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { checkOutId } = useParams();
+  const { loading, success, error, checkout, message } = useSelector(
+    (state) => state.checkout
+  );
+  console.log(error);
+  useEffect(() => {
+    dispatch(fetchCheckout(checkOutId));
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner size="xl" />
+      </div>
+    );
+  }
+
+  if (!loading && error && message) {
+    return <Error />;
+  }
   return (
     <div className="movie-facility mt-20">
       <div className="container">

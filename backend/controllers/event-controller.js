@@ -126,4 +126,48 @@ const initializeCheckout = async (req, res) => {
   }
 };
 
-export { fetchEvents, fetchEvent, initializeCheckout };
+// @desc    - Fetch Checkout
+// @route   GET /api/events/checkout/:checkOutId
+// @access  Private
+
+const fetchCheckout = async (req, res) => {
+  const { checkOutId } = req.params;
+  // console.log(checkOutId);
+  const { id } = req.data;
+  try {
+    const user = await User.findById(id);
+    const checkout = await Checkout.find({
+      orderId: checkOutId,
+      auid: user.auid,
+    }).populate("event");
+    if (checkout.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Checkout not found",
+      });
+    }
+    // Check if the checkout is expired
+    if (checkout[0].expiry < Date.now()) {
+      return res.status(400).json({
+        success: false,
+        message: "Oops, Checkout is expired",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Checkout Fetched Successfully",
+      // data: checkout, send all the data in single object and also the populate data
+      data: {
+        ...checkout[0].toObject(),
+        event: checkout[0].event,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      success: false,
+      message: "Checkout not found",
+    });
+  }
+};
+export { fetchEvents, fetchEvent, initializeCheckout, fetchCheckout };

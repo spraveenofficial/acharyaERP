@@ -59,6 +59,6 @@ export const CheckOutRoutes = () => {
   return isAuthenticated && eventId ? (
     <Outlet />
   ) : (
-    <Navigate to={{ pathname: "/", state: { from: location } }} />
+    <Navigate to={{ pathname: "/events", state: { from: location } }} />
   );
 };

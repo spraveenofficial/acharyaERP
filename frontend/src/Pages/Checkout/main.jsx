@@ -1,10 +1,12 @@
 import { Spinner } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const CheckoutMain = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { loading, success, error, checkout } = useSelector(
     (state) => state.checkout
   );
@@ -13,6 +15,12 @@ const CheckoutMain = () => {
       navigate(`/checkout/${checkout?.orderId}`);
     }
   }, [success, checkout]);
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: "CLEAR_CHECKOUT" });
+    };
+  }, []);
 
   if (loading) {
     return (

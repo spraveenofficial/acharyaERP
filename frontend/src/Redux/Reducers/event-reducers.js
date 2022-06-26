@@ -9,6 +9,7 @@ import {
   SETUP_CHECKOUT_REQUEST,
   SETUP_CHECKOUT_SUCCESS,
   SETUP_CHECKOUT_FAILURE,
+  CLEAR_CHECKOUT,
 } from "../Constants/event-constants";
 
 export const events = (
@@ -75,6 +76,7 @@ export const checkout = (
   state = {
     loading: true,
     success: false,
+    error: "",
     message: "",
     eventId: "",
     checkout: {},
@@ -99,6 +101,7 @@ export const checkout = (
         success: true,
         message: "Checkout Setup Successfully",
         checkout: action.payload,
+        error: false,
       };
     case SETUP_CHECKOUT_FAILURE:
       return {
@@ -106,6 +109,17 @@ export const checkout = (
         loading: false,
         success: false,
         message: action.payload,
+        error: true,
+      };
+    case CLEAR_CHECKOUT:
+      return {
+        ...state,
+        checkout: {},
+        loading: false,
+        success: false,
+        message: "",
+        eventId: "",
+        error: false,
       };
     default:
       return state;
