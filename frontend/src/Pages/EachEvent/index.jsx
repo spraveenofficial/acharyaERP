@@ -1,11 +1,12 @@
 import { Box, Image, Spinner, Text } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
-import { fetchEvent } from "../../Redux/Actions";
+import { useNavigate, useParams } from "react-router-dom";
+import { fetchEvent, initializeCheckout } from "../../Redux/Actions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Error } from "..";
 const EventPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading, event, success } = useSelector((state) => state.event);
   const {
     title,
@@ -23,6 +24,15 @@ const EventPage = () => {
   useEffect(() => {
     dispatch(fetchEvent(eventId));
   }, []);
+
+  const handleInitializeCheckout = () => {
+    dispatch({
+      type: "SETUP_CHECKOUT_EVENTID",
+      payload: id,
+    });
+    dispatch(initializeCheckout(id));
+    return navigate("/checkout");
+  };
 
   if (loading) {
     return (
@@ -72,7 +82,10 @@ const EventPage = () => {
                 <span className="title-font font-medium text-2xl">
                   {entryFee > 0 ? `${entryFee} ₹` : "Free"}
                 </span>
-                <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                <button
+                  onClick={handleInitializeCheckout}
+                  className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                >
                   Book Now
                 </button>
                 <button className="rounded-full w-10 h-10 bg-gray-800 p-0 border-0 inline-flex items-center justify-center text-black ml-4">

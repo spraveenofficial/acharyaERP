@@ -85,11 +85,28 @@ const initializeCheckout = async (req, res) => {
         message: "Event not found",
       });
     }
+    // Check if event have slot available
+    if (event.slots === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Oops, No slots available",
+      });
+    }
+
+    // Check if event is expired
+    if (event.eventDate < Date.now()) {
+      return res.status(400).json({
+        success: false,
+        message: "Oops, Event is expired",
+      });
+    }
+
     // Check if the user have already other checkout pending
     const checkoutIsExist = await Checkout.findOne({
       auid: isUserExist.auid,
     });
     checkoutIsExist && checkoutIsExist.remove();
+
     // Create a new checkout
     const checkout = new Checkout({
       auid: isUserExist.auid,

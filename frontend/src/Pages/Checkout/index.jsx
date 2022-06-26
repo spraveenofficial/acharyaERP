@@ -1,72 +1,92 @@
 import "./style.css";
 import { Box, Flex, FormControl, FormLabel, Input } from "@chakra-ui/react";
-import { Buttons } from "../Button";
+import { Buttons } from "../../Components";
+import { useSelector } from "react-redux";
 const Checkout = () => {
+  const { user } = useSelector((state) => state.auth);
   return (
     <div className="movie-facility mt-20">
       <div className="container">
         <div className="row">
           <div className="col-lg-8">
-            <div className="checkout-widget flex flex-wrap items-center justify-between">
+            <Box className="checkout-widget flex flex-wrap items-center justify-between bg-[#DEE2FF]">
               <div className="title-area">
-                <h5 className="title text-xl font-bold">
-                  Already a Boleto Member?
+                <h5 className="text-white text-xl font-bold">
+                  Hi, {user.student_name}. Your order is being processed.
                 </h5>
-                <p>Sign in to earn points and make booking easier!</p>
+                <p className="mt-3">You have 10 minute to proceed.</p>
               </div>
-              <a href="#0" className="sign-in-area">
-                <i className="fas fa-user" />
-                <span>Sign in</span>
-              </a>
-            </div>
-            <div className="checkout-widget checkout-contact min-h-fit checkout-personal">
-              <h5 className="title text-xl font-bold">
-                Share your Contact Details
+            </Box>
+            <Box className="checkout-widget checkout-contact min-h-fit checkout-personal">
+              <h5 className="title text-white text-xl font-bold">
+                Your Contact Details
               </h5>
               <form className="checkout-contact-form">
                 <FormControl isInvalid={false}>
-                  <FormLabel htmlFor="title">Enter Event Title</FormLabel>
+                  <FormLabel className="text-white" htmlFor="title">
+                    Your Full Name
+                  </FormLabel>
                   <Input
                     id="title"
-                    type="title"
+                    type="text"
                     name="title"
-                    placeholder="Event Title"
+                    className="text-white"
+                    value={user.student_name}
+                    disabled
                   />
                 </FormControl>
                 <Box className="flex justify-between w-full gap-4 mobile:flex-col mt-4 mb-5 mobile:gap-0">
                   <FormControl isInvalid={false}>
-                    <FormLabel htmlFor="title">Enter Event Title</FormLabel>
+                    <FormLabel className="text-white" htmlFor="title">
+                      Your Email Id
+                    </FormLabel>
                     <Input
                       id="title"
                       type="title"
                       name="title"
                       placeholder="Event Title"
+                      className="text-white"
+                      value={user?.acerp_email}
+                      disabled
                     />
                   </FormControl>
                   <FormControl isInvalid={false}>
-                    <FormLabel htmlFor="title">Enter Event Title</FormLabel>
+                    <FormLabel className="text-white" htmlFor="title">
+                      Your Contact No.
+                    </FormLabel>
                     <Input
                       id="title"
                       type="title"
                       name="title"
                       placeholder="Event Title"
+                      className="text-white"
+                      value={user?.mobile}
                     />
                   </FormControl>
                 </Box>
-                <Buttons className="mt-3">Proceed</Buttons>
+                <p className="mt-3">
+                  Note: We are directly filling all the data to prevent bulk
+                  booking. You can't change data.
+                </p>
               </form>
-            </div>
-            <div className="checkout-widget checkout-contact checkout-personal">
-              <h5 className="title text-xl font-bold">Promo Code</h5>
+            </Box>
+            <Box className="checkout-widget checkout-contact checkout-personal">
+              <h5 className="title text-white text-xl font-bold">Promo Code</h5>
               <form className="checkout-contact-form ">
                 <Flex gap={5} className="items-center w-full">
-                  <Input placeholder="Enter Promo Code" width="70%" />
+                  <Input
+                    className="text-white"
+                    placeholder="Enter Promo Code"
+                    width="70%"
+                  />
                   <Buttons className="w-11">Apply</Buttons>
                 </Flex>
               </form>
-            </div>
+            </Box>
             <div className="checkout-widget checkout-contact checkout-card mb-0">
-              <h5 className="title text-xl font-bold">Payment Option</h5>
+              <h5 className="title text-xl text-white font-bold">
+                Payment Option
+              </h5>
               <ul className="payment-option">
                 <li className="active">
                   <a href="#0">
@@ -90,39 +110,48 @@ const Checkout = () => {
                   </a>
                 </li>
               </ul>
-              <h6 className="text-bold text-center text-2xl mb-4 uppercase font-[Acharya-bold]">
+              <h6 className="text-bold text-center text-white text-2xl mb-4 uppercase font-[Acharya-bold]">
                 Enter Your Card Details
               </h6>
               <form className="payment-card-form">
                 <FormControl isInvalid={false}>
-                  <FormLabel htmlFor="title">Enter Card Holder Name</FormLabel>
+                  <FormLabel className="text-white" htmlFor="title">
+                    Enter Card Holder Name
+                  </FormLabel>
                   <Input
                     id="title"
                     type="title"
                     name="title"
                     placeholder="Event Title"
                     height="50px"
+                    className="text-white"
                   />
                 </FormControl>
                 <FormControl mt={4} isInvalid={false}>
-                  <FormLabel htmlFor="title">Enter Card Number</FormLabel>
+                  <FormLabel className="text-white" htmlFor="title">
+                    Enter Card Number
+                  </FormLabel>
                   <Input
                     id="title"
                     type="title"
                     name="title"
                     placeholder="Enter Card Number"
                     height="50px"
+                    className="text-white"
                   />
                 </FormControl>
-                <Flex gap={5} mt={4} className="items-center w-full">
+                <Flex gap={5} mt={4} className="items-center w-full text-white">
                   <FormControl isInvalid={false}>
-                    <FormLabel htmlFor="title">Enter Expiry Date</FormLabel>
+                    <FormLabel className="text-white" htmlFor="title">
+                      Enter Expiry Date
+                    </FormLabel>
                     <Input
                       id="title"
                       type="title"
                       name="title"
                       placeholder="MM/YY"
                       height="50px"
+                      className="text-white"
                     />
                   </FormControl>
                   <FormControl isInvalid={false}>
@@ -136,7 +165,7 @@ const Checkout = () => {
                     />
                   </FormControl>
                 </Flex>
-                <div className="form-group check-group">
+                <div className="form-group check-group text-white">
                   <input id="card5" type="checkbox" defaultChecked />
                   <label htmlFor="card5">
                     <span className="title">QuickPay</span>
@@ -155,7 +184,7 @@ const Checkout = () => {
             </div>
           </div>
           <div className="col-lg-4 summary-mobile">
-            <div className="booking-summery bg-one">
+            <div className="booking-summery bg-one text-white">
               <h4 className="title">booking summary</h4>
               <ul>
                 <li>
@@ -207,7 +236,7 @@ const Checkout = () => {
                 </li>
               </ul>
             </div>
-            <div className="proceed-area text-center">
+            <div className="proceed-area text-center text-white">
               <h6 className="subtitle">
                 <span>Amount Payable</span>
                 <span>$222</span>

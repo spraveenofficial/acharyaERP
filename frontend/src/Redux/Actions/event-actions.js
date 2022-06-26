@@ -5,6 +5,9 @@ import {
   FETCH_EVENT_REQUEST,
   FETCH_EVENT_SUCCESS,
   FETCH_EVENT_FAILURE,
+  SETUP_CHECKOUT_REQUEST,
+  SETUP_CHECKOUT_SUCCESS,
+  SETUP_CHECKOUT_FAILURE,
 } from "../Constants/event-constants";
 import axios from "axios";
 import baseUrl from "../../Utils/baseurl";
@@ -63,6 +66,37 @@ export const fetchEvent = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: FETCH_EVENT_FAILURE,
+      payload: error.message,
+    });
+  }
+};
+
+export const initializeCheckout = (eventId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: SETUP_CHECKOUT_REQUEST,
+    });
+    const { data } = await axios({
+      method: "POST",
+      url: `${baseUrl}/events/checkout`,
+      headers: headerConfig(),
+      data: {
+        eventId,
+      },
+    });
+    if (!data.success) {
+      return dispatch({
+        type: SETUP_CHECKOUT_FAILURE,
+        payload: data.message,
+      });
+    }
+    dispatch({
+      type: SETUP_CHECKOUT_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SETUP_CHECKOUT_FAILURE,
       payload: error.message,
     });
   }

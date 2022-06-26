@@ -51,3 +51,14 @@ export const AdminAndModRoutes = () => {
     <Navigate to={{ pathname: "/", state: { from: location } }} />
   );
 };
+
+export const CheckOutRoutes = () => {
+  const location = useLocation();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { eventId } = useSelector((state) => state.checkout);
+  return isAuthenticated && eventId ? (
+    <Outlet />
+  ) : (
+    <Navigate to={{ pathname: "/", state: { from: location } }} />
+  );
+};

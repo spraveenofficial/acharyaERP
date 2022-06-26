@@ -166,7 +166,7 @@
 /*Booking Summery*/
 .booking-summery {
   padding: 30px;
-  border: 1px solid #11326f;
+  border: 1px solid #fff;
   border-bottom-style: dashed;
   padding-bottom: 10px;
   margin-top: 60px;
@@ -179,13 +179,13 @@
 
 .booking-summery .title {
   text-align: center;
-  border-bottom: 1px dashed #11326f;
+  border-bottom: 1px dashed #fff;
   padding-bottom: 23px;
   margin-bottom: 35px;
 }
 
 .booking-summery ul {
-  border-bottom: 1px dashed #11326f;
+  border-bottom: 1px dashed #fff;
 }
 
 .booking-summery ul li {
@@ -280,6 +280,9 @@
   margin-bottom: 30px;
   background: #032055;
 }
+.bg-one {
+  background: #032055;
+}
 
 .checkout-widget .title-area,
 .checkout-widget .sign-in-area {
@@ -327,13 +330,13 @@
 }
 
 .checkout-widget.checkout-contact .title {
-  border-bottom: 1px dashed #11326f;
+  border-bottom: 1px dashed #fff;
   padding-bottom: 23px;
   margin-bottom: 20px;
 }
 
 .checkout-personal {
-  padding-bottom: 5rem;
+  padding-bottom: 4rem;
 }
 
 .checkout-widget .payment-option {
@@ -575,7 +578,7 @@
 }
 
 .checkout-contact-form .form-group {
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   width: 100%;
 }
 
@@ -588,7 +591,7 @@
 .checkout-contact-form .form-group input {
   height: 40px;
   border: none;
-  border-bottom: 1px solid #11326f;
+  border-bottom: 1px solid #fff;
   border-radius: 0;
   padding: 0;
   font-size: 14px;

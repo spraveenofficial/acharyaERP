@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Navbar, Footer, Checkout } from "./Components";
+import { Navbar, Footer } from "./Components";
 import {
   AddEvent,
   Attendence,
@@ -11,6 +11,8 @@ import {
   Home,
   Login,
   Profile,
+  Checkout,
+  CheckoutMain,
 } from "./Pages";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile } from "./Redux/Actions";
@@ -20,6 +22,7 @@ import {
   AdminAndModRoutes,
   GuestRoutes,
   ProtectedRoutes,
+  CheckOutRoutes,
 } from "./Utils/customRoutes";
 
 function App() {
@@ -50,8 +53,11 @@ function App() {
         <Route path="events/:eventId" element={<EventPage />} />
         <Route path="developers" element={<Developers />} />
         <Route path="*" element={<Error />} />
-        <Route path="checkout" element={<Checkout />} />
+        <Route element={<CheckOutRoutes />}>
+          <Route path="checkout" element={<CheckoutMain />} />
+        </Route>
         <Route element={<ProtectedRoutes />}>
+          <Route path="checkout/:orderId" element={<Checkout />} />
           <Route path="attendance" element={<Attendence />} />
           <Route path="profile" element={<Profile />} />
           <Route path="class" element={<Classes />} />

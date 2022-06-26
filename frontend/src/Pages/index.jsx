@@ -8,3 +8,5 @@ export { Classes } from "./Classes";
 export { AddEvent } from "./Admins/AddEvent";
 export { EventPage } from "./EachEvent";
 export { Developers } from "./Developer";
+export { Checkout } from "./Checkout";
+export { CheckoutMain } from "./Checkout/main";

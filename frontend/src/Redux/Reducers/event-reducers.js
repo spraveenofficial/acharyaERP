@@ -5,6 +5,10 @@ import {
   FETCH_EVENT_REQUEST,
   FETCH_EVENT_SUCCESS,
   FETCH_EVENT_FAILURE,
+  SETUP_CHECKOUT_EVENTID,
+  SETUP_CHECKOUT_REQUEST,
+  SETUP_CHECKOUT_SUCCESS,
+  SETUP_CHECKOUT_FAILURE,
 } from "../Constants/event-constants";
 
 export const events = (
@@ -56,6 +60,47 @@ export const event = (
         event: action.payload,
       };
     case FETCH_EVENT_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        message: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const checkout = (
+  state = {
+    loading: true,
+    success: false,
+    message: "",
+    eventId: "",
+    checkout: {},
+  },
+  action
+) => {
+  switch (action.type) {
+    case SETUP_CHECKOUT_EVENTID:
+      return {
+        ...state,
+        eventId: action.payload,
+      };
+    case SETUP_CHECKOUT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case SETUP_CHECKOUT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        message: "Checkout Setup Successfully",
+        checkout: action.payload,
+      };
+    case SETUP_CHECKOUT_FAILURE:
       return {
         ...state,
         loading: false,
