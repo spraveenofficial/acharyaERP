@@ -2,13 +2,13 @@ import axios from "axios";
 import baseUrl from "../../Utils/baseurl";
 import { headerConfig } from "../../Utils/headerConfig";
 
-export const initPayment = async (payload) => {
+export const initPayment = async (params) => {
   try {
     const { data } = await axios({
-      method: "post",
+      method: "get",
       url: `${baseUrl}/payment/init`,
       headers: headerConfig(),
-      data: payload,
+      params: params,
     });
     console.log(data);
     if (!data.success) {

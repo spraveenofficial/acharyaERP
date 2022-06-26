@@ -15,6 +15,7 @@ import { fetchCheckout, initPayment } from "../../Redux/Actions";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { Error } from "..";
+import { post } from "../../Utils/paytm";
 const Checkout = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -65,8 +66,13 @@ const Checkout = () => {
     orderId: checkout?.orderId,
   };
 
-  const handleProceedToPayment = () => {
-    initPayment(datatoSend);
+  const handleProceedToPayment = async () => {
+    const response = await initPayment(datatoSend);
+    var details = {
+      action: "https://securegw-stage.paytm.in/order/process",
+      params: response,
+    };
+    post(details);
   };
   return (
     success &&
