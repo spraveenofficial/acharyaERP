@@ -5,6 +5,6 @@ import middleware from "../middlewares/middleware.js";
 
 const router = express.Router();
 
-router.route("/").get(getClasses);
+router.use(middleware).route("/").get(getClasses);
 
 export default router;
