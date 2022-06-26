@@ -1,8 +1,10 @@
 import PaytmChecksum from "../payments/checksum.js";
 import PaytmConfig from "../payments/config.js";
 import Event from "../models/event.js";
+import paytmParams from "../payments/config.js";
+
 const makePayment = async (req, res) => {
-  const { name, email, phone, amount, eventId, auid, orderId } = req.body;
+  const { name, email, phone, amount, eventId, auid, orderId } = req.query;
   const event = await Event.findById(eventId);
   if (event === null) {
     return res.status(400).json({
@@ -28,50 +30,40 @@ const makePayment = async (req, res) => {
     });
   }
 
-  // Make payment
-  //   const payment = new Payment({
-  //     amount,
-  //     email,
-  //     firstName,
-  //     lastName,
-  //     phone,
-  //     eventId,
-  //     eventName,
-  //     eventDate,
-  //     eventTime,
-  //     eventLocation,
-  //     eventDescription,
-  //     eventImage,
-  //   });
-  //   await payment.save();
-  const paytmParams = {
-    MID: PaytmConfig.mid,
-    WEBSITE: PaytmConfig.website,
-    INDUSTRY_TYPE_ID: PaytmConfig.industryTypeId,
-    CHANNEL_ID: PaytmConfig.channelId,
-    ORDER_ID: orderId,
-    CUST_ID: auid,
-    TXN_AMOUNT: amount,
-    EMAIL: email,
-    MOBILE_NO: phone,
-    CALLBACK_URL: PaytmConfig.callbackUrl,
-    CHECKSUMHASH: "",
-  };
   try {
-    const paytmChecksum = PaytmChecksum.generateSignature(
-      paytmParams,
-      PaytmConfig.merchantKey
-    );
-    return res.status(200).json({
-      success: true,
-      message: "Payment initialized successfully",
-      data: {
-        // payment,
+    var paymentDetails = {
+      amount: amount,
+      customerId: eventId,
+      customerEmail: email,
+      customerPhone: phone,
+    };
+    if (
+      !paymentDetails.amount ||
+      !paymentDetails.customerId ||
+      !paymentDetails.customerEmail ||
+      !paymentDetails.customerPhone
+    ) {
+      res.status(400).send("Payment failed");
+    } else {
+      PaytmChecksum.genchecksum(
         paytmParams,
-        paytmChecksum,
-      },
-    });
+        "fae9&hRetCOg_fw0",
+        function (err, checksum) {
+          console.log(checksum);
+          var params = {
+            ...paytmParams,
+            CHECKSUMHASH: checksum,
+          };
+          res.json({
+            success: true,
+            message: "Payment successful",
+            data: params,
+          });
+        }
+      );
+    }
   } catch (error) {
+    console.log(error);
     return res.status(400).json({
       success: false,
       message: "Payment initialization failed",
