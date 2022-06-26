@@ -7,6 +7,7 @@ import AttendanceRoute from "./routes/attendence-routes.js";
 import ClassesRoutes from "./routes/classes-routes.js";
 import AdminRoutes from "./routes/admin-routes.js";
 import EventRoutes from "./routes/event-routes.js";
+import PaymentRoutes from "./routes/payment-routes.js";
 import "./database/db.js";
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use("/v1/api/attendance/", AttendanceRoute);
 app.use("/v1/api/classes/", ClassesRoutes);
 app.use("/v1/api/admin/", AdminRoutes);
 app.use("/v1/api/events/", EventRoutes);
+app.use("/v1/api/payment/", PaymentRoutes);
 
 // Server initialize
 app.listen(PORT, () => console.log(`App started running on ${PORT}`));

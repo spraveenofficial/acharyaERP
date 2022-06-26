@@ -7,3 +7,5 @@ export {
   initializeCheckout,
   fetchCheckout,
 } from "./event-actions";
+
+export { initPayment } from "./payment-action";

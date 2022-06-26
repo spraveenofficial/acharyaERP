@@ -77,9 +77,7 @@ class PaytmChecksum {
       .sort()
       .forEach(function (key, value) {
         data[key] =
-          params[key] !== null && params[key].toLowerCase() !== "null"
-            ? params[key]
-            : "";
+          params[key] !== null && params[key] !== "null" ? params[key] : "";
       });
     return Object.values(data).join("|");
   }
@@ -94,5 +92,6 @@ class PaytmChecksum {
   }
 }
 PaytmChecksum.iv = "@@@@&&&&####$$$$";
-// module.exports = PaytmChecksum;
-export default new PaytmChecksum();
+
+export default PaytmChecksum;
+// export default new PaytmChecksum();

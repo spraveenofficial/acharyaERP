@@ -1,5 +1,6 @@
 import PaytmChecksum from "../payments/checksum.js";
 import PaytmConfig from "../payments/config.js";
+import Event from "../models/event.js";
 const makePayment = async (req, res) => {
   const { name, email, phone, amount, eventId, auid, orderId } = req.body;
   const event = await Event.findById(eventId);
@@ -56,16 +57,26 @@ const makePayment = async (req, res) => {
     CALLBACK_URL: PaytmConfig.callbackUrl,
     CHECKSUMHASH: "",
   };
-  const paytmChecksum = PaytmChecksum.generateSignature(paytmParams);
-  return res.status(200).json({
-    success: true,
-    message: "Payment initialized successfully",
-    data: {
-      payment,
+  try {
+    const paytmChecksum = PaytmChecksum.generateSignature(
       paytmParams,
-      paytmChecksum,
-    },
-  });
+      PaytmConfig.merchantKey
+    );
+    return res.status(200).json({
+      success: true,
+      message: "Payment initialized successfully",
+      data: {
+        // payment,
+        paytmParams,
+        paytmChecksum,
+      },
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "Payment initialization failed",
+    });
+  }
 };
 
 export { makePayment };

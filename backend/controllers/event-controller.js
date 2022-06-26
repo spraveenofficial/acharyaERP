@@ -147,12 +147,12 @@ const fetchCheckout = async (req, res) => {
       });
     }
     // Check if the checkout is expired
-    if (checkout[0].expiry < Date.now()) {
-      return res.status(400).json({
-        success: false,
-        message: "Oops, Checkout is expired",
-      });
-    }
+    // if (checkout[0].expiry < Date.now()) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "Oops, Checkout is expired",
+    //   });
+    // }
     return res.status(200).json({
       success: true,
       message: "Checkout Fetched Successfully",

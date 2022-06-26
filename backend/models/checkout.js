@@ -19,7 +19,7 @@ const CheckoutSchema = new Schema(
     },
     expiry: {
       type: Date,
-      default: Date.now() + 60 * 5 * 1000,
+      default: Date.now() + 10 * 60 * 1000,
     },
   },
   {
@@ -41,7 +41,7 @@ const CheckoutSchema = new Schema(
 CheckoutSchema.pre("save", function (next) {
   const orderId = this.orderId;
   if (!orderId) {
-    this.orderId = `${Date.now()}-${Math.floor(Math.random() * 100)}`;
+    this.orderId = `${Date.now()}${Math.floor(Math.random() * 100)}`;
   }
   next();
 });

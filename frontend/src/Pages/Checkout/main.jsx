@@ -14,7 +14,7 @@ const CheckoutMain = () => {
     if (success) {
       navigate(`/checkout/${checkout?.orderId}`);
     }
-  }, [success, checkout]);
+  }, [success]);
 
   useEffect(() => {
     return () => {
@@ -31,8 +31,15 @@ const CheckoutMain = () => {
   }
 
   return (
-    <div>
-      <h1>Checkout</h1>
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="flex flex-col items-center">
+        <h1 className="text-3xl font-bold text-center">
+          Please hang on, we are proceeding your order.
+        </h1>
+        <p className="text-center text-gray-600">
+          Please confirm your details and proceed to payment.
+        </p>
+      </div>
     </div>
   );
 };

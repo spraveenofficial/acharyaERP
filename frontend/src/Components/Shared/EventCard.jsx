@@ -2,7 +2,7 @@ import { Box, Image, Text, useColorMode } from "@chakra-ui/react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 const EventCard = (props) => {
-  const { title, category, slots, eventDate, time, thumbnail, entryFee, id } =
+  const { title, category, slots, eventDate, timing, thumbnail, entryFee, id } =
     props.event;
   const { colorMode } = useColorMode();
   const navigate = useNavigate();
@@ -69,7 +69,8 @@ const EventCard = (props) => {
             </svg>
           </span>
           <Text className="font-extrabold">
-            {moment(eventDate).format("LL")} at {moment(time).format("LT")}
+            {moment(eventDate).format("LL")} at{" "}
+            {moment(timing, "h:mm a").format("h:mm a")}
           </Text>
         </Box>
         <Box

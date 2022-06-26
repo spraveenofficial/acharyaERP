@@ -261,7 +261,7 @@
 .side-shape::before {
   width: 48px;
   height: 48px;
-  background-color: #001232;
+  /* background-color: #fff; */
   border-radius: 50%;
   top: -48px;
 }
