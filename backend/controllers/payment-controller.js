@@ -1,5 +1,4 @@
 import PaytmChecksum from "../payments/checksum.js";
-import PaytmConfig from "../payments/config.js";
 import Event from "../models/event.js";
 import paytmParams from "../payments/config.js";
 
@@ -36,6 +35,7 @@ const makePayment = async (req, res) => {
       customerId: eventId,
       customerEmail: email,
       customerPhone: phone,
+      customerName: name,
     };
     if (
       !paymentDetails.amount ||
@@ -46,17 +46,16 @@ const makePayment = async (req, res) => {
       res.status(400).send("Payment failed");
     } else {
       PaytmChecksum.genchecksum(
-        paytmParams,
+        paytmParams(orderId, email, phone, amount, auid),
         "fae9&hRetCOg_fw0",
         function (err, checksum) {
-          console.log(checksum);
           var params = {
-            ...paytmParams,
+            ...paytmParams(orderId, email, phone, amount, auid),
             CHECKSUMHASH: checksum,
           };
           res.json({
             success: true,
-            message: "Payment successful",
+            message: "Payment proceed",
             data: params,
           });
         }

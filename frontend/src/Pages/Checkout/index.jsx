@@ -75,6 +75,8 @@ const Checkout = () => {
     post(details);
   };
   return (
+
+    
     success &&
     checkout?._id && (
       <div className="movie-facility mt-20">
