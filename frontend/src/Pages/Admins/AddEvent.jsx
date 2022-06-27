@@ -146,6 +146,10 @@ const AddEvent = () => {
       id: uuidv4(),
       name: "Others",
     },
+    {
+      id: uuidv4(),
+      name: "Seminar",
+    },
   ];
 
   useEffect(() => {
@@ -158,7 +162,7 @@ const AddEvent = () => {
   }, []);
   return (
     <Box className="p-10 mobile:p-4 items-center  font-bold min-h-screen flex flex-col text-center ">
-      <Box className="container w-2/4 mobile:w-full">
+      <Box className="w-2/4 mobile:w-full">
         <form onSubmit={formik.handleSubmit}>
           {formik.values.thumbnail && (
             <FormLabel htmlFor="dropzone-file">Event Thumbnail</FormLabel>

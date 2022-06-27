@@ -21,6 +21,10 @@ const CheckoutSchema = new Schema(
       type: Date,
       default: Date.now() + 10 * 60 * 1000,
     },
+    isProcessed: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
@@ -28,6 +32,7 @@ const CheckoutSchema = new Schema(
       virtuals: true,
       getters: true,
       transform: (doc, ret) => {
+        ret.id = ret._id;
         delete ret._id;
         delete ret.updatedAt;
         delete ret.__v;

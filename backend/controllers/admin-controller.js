@@ -49,6 +49,7 @@ const addEvent = async (req, res) => {
       description,
       thumbnail: uploadThumbnail,
       category,
+      totalSlots: slots,
       slots,
       entryFee,
       venue,

@@ -4,31 +4,6 @@ import paytmParams from "../payments/config.js";
 
 const makePayment = async (req, res) => {
   const { name, email, phone, amount, eventId, auid, orderId } = req.query;
-  const event = await Event.findById(eventId);
-  if (event === null) {
-    return res.status(400).json({
-      success: false,
-      message: "Event not found",
-    });
-  }
-
-  // Check if event have slot available
-  if (event.slots === 0) {
-    return res.status(400).json({
-      success: false,
-      message: "Oops, No slots available",
-    });
-  }
-
-  // Check if event is expired
-
-  if (event.eventDate < Date.now()) {
-    return res.status(400).json({
-      success: false,
-      message: "Oops, Event is expired",
-    });
-  }
-
   try {
     var paymentDetails = {
       amount: amount,

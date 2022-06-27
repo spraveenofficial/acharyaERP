@@ -36,7 +36,6 @@ const Checkout = () => {
     const total = entryFee + tax;
     return { entryFee, tax, total };
   };
-
   useEffect(() => {
     dispatch(fetchCheckout(checkOutId));
     return () => {
@@ -64,6 +63,7 @@ const Checkout = () => {
     phone: user.mobile,
     amount: generateBill().total,
     orderId: checkout?.orderId,
+    checkOutId: checkout?._id,
   };
 
   const handleProceedToPayment = async () => {
@@ -72,11 +72,9 @@ const Checkout = () => {
       action: "https://securegw-stage.paytm.in/order/process",
       params: response,
     };
-    post(details);
+    // post(details);
   };
   return (
-
-    
     success &&
     checkout?._id && (
       <div className="movie-facility mt-20">

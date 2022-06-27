@@ -1,6 +1,7 @@
 import Event from "../models/event.js";
 import User from "../models/login.js";
 import Checkout from "../models/checkout.js";
+import Booking from "../models/bookings.js";
 // @desc    - Fetch all Events
 // @route   POST /api/events
 // @access  Public
@@ -136,7 +137,7 @@ const fetchCheckout = async (req, res) => {
   const { id } = req.data;
   try {
     const user = await User.findById(id);
-    const checkout = await Checkout.find({
+    const checkout = await Checkout.findOne({
       orderId: checkOutId,
       auid: user.auid,
     }).populate("event");
@@ -144,6 +145,13 @@ const fetchCheckout = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: "Checkout not found",
+      });
+    }
+
+    if (checkout.isProcessed) {
+      return res.status(400).json({
+        success: false,
+        message: "Checkout already processed",
       });
     }
     // Check if the checkout is expired
@@ -158,8 +166,8 @@ const fetchCheckout = async (req, res) => {
       message: "Checkout Fetched Successfully",
       // data: checkout, send all the data in single object and also the populate data
       data: {
-        ...checkout[0].toObject(),
-        event: checkout[0].event,
+        ...checkout.toObject(),
+        event: checkout.event,
       },
     });
   } catch (error) {
@@ -167,6 +175,31 @@ const fetchCheckout = async (req, res) => {
     return res.status(400).json({
       success: false,
       message: "Checkout not found",
+    });
+  }
+};
+
+const makeFreeOrder = async (req, res) => {
+  const { id } = req.data;
+  const { name, email, phone, amount, eventId, auid, orderId } = req.body;
+  try {
+    const isUserExist = await User.findById(id);
+    // Make purchase order
+    const order = new Booking({
+      orderId,
+      name,
+      email,
+      phone,
+      auid: isUserExist.auid,
+      event: event._id,
+      status: "confirmed",
+      paymentAmount: amount,
+      paymentStatus: "paid",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "Event not found",
     });
   }
 };

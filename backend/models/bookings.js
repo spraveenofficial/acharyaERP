@@ -13,6 +13,18 @@ const BookingSchema = new Schema(
       type: String,
       required: true,
     },
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
     event: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Event",
@@ -29,6 +41,11 @@ const BookingSchema = new Schema(
     paymentAmount: {
       type: Number,
       required: true,
+    },
+    status: {
+      type: String,
+      enum: ["pending", "confirmed", "cancelled", "failed"],
+      default: "pending",
     },
   },
   {

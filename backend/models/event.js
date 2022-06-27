@@ -20,6 +20,10 @@ const eventSchema = new Schema(
       type: String,
       required: true,
     },
+    totalSlots: {
+      type: Number,
+      required: true,
+    },
     slots: {
       type: Number,
       required: true,
