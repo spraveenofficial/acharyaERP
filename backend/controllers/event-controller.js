@@ -180,21 +180,25 @@ const fetchCheckout = async (req, res) => {
 };
 
 const makeFreeOrder = async (req, res) => {
-  const { id } = req.data;
+  // const { id } = req.data;
   const { name, email, phone, amount, eventId, auid, orderId } = req.body;
   try {
-    const isUserExist = await User.findById(id);
-    // Make purchase order
     const order = new Booking({
       orderId,
       name,
       email,
       phone,
-      auid: isUserExist.auid,
-      event: event._id,
+      auid,
+      event: eventId,
       status: "confirmed",
       paymentAmount: amount,
       paymentStatus: "paid",
+    });
+    await order.save();
+    return res.status(200).json({
+      success: true,
+      message: "Event Booked Successfully",
+      data: order,
     });
   } catch (error) {
     return res.status(400).json({
@@ -203,4 +207,11 @@ const makeFreeOrder = async (req, res) => {
     });
   }
 };
-export { fetchEvents, fetchEvent, initializeCheckout, fetchCheckout };
+
+export {
+  fetchEvents,
+  fetchEvent,
+  initializeCheckout,
+  fetchCheckout,
+  makeFreeOrder,
+};

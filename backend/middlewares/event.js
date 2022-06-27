@@ -1,5 +1,3 @@
-// Make middleware to check all the conditions for booking an event
-
 import Event from "../models/event.js";
 import User from "../models/login.js";
 import Checkout from "../models/checkout.js";
@@ -7,9 +5,12 @@ import Booking from "../models/bookings.js";
 
 const checkBookingConditions = async (req, res, next) => {
   const { id } = req.data;
-  const { name, email, phone, amount, eventId, auid, orderId, checkOutId } =
-    req.query ? req.query : req.body;
-  //   console.log(amount);
+  const { name, email, phone, amount, eventId, auid, orderId, checkOutId } = req
+    .body?.auid
+    ? req.body
+    : req.query;
+
+  console.log(req.body);
   try {
     const isUserExist = await User.findById(id);
     if (!isUserExist) {
@@ -19,6 +20,7 @@ const checkBookingConditions = async (req, res, next) => {
       });
     }
     const event = await Event.findById(eventId);
+    
     if (event === null) {
       return res.status(400).json({
         success: false,
@@ -32,7 +34,7 @@ const checkBookingConditions = async (req, res, next) => {
         message: "Oops, No slots available",
       });
     }
-    
+
     // Check if event is expired
     if (event.eventDate < Date.now()) {
       return res.status(400).json({
@@ -55,7 +57,7 @@ const checkBookingConditions = async (req, res, next) => {
       });
     }
 
-    if (checkout.expiry < Date.now()) {
+    if (checkOut.expiry < Date.now()) {
       return res.status(400).json({
         success: false,
         message: "Oops, Checkout is expired",

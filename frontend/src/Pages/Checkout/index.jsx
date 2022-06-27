@@ -11,7 +11,7 @@ import {
 import { Buttons } from "../../Components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchCheckout, initPayment } from "../../Redux/Actions";
+import { fetchCheckout, initPayment, makeFreeOrder } from "../../Redux/Actions";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { Error } from "..";
@@ -67,12 +67,18 @@ const Checkout = () => {
   };
 
   const handleProceedToPayment = async () => {
+    if (datatoSend.amount === 0) {
+      const response = await makeFreeOrder(datatoSend);
+
+      console.log(response);
+      return;
+    }
     const response = await initPayment(datatoSend);
     var details = {
       action: "https://securegw-stage.paytm.in/order/process",
       params: response,
     };
-    // post(details);
+    post(details);
   };
   return (
     success &&
@@ -126,7 +132,7 @@ const Checkout = () => {
                       />
                     </FormControl>
                     <FormControl isInvalid={false}>
-                      <FormLabel className="text-white" htmlFor="title">
+                      <FormLabel className="text-white mobile:mt-4" htmlFor="title">
                         Your Contact No.
                       </FormLabel>
                       <Input

@@ -19,3 +19,17 @@ export const initPayment = async (params) => {
     return error.message;
   }
 };
+
+export const makeFreeOrder = async (payload) => {
+  try {
+    const { data } = await axios({
+      method: "post",
+      url: `${baseUrl}/events/book`,
+      headers: headerConfig(),
+      data: payload,
+    });
+    return data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

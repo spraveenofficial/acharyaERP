@@ -8,4 +8,4 @@ export {
   fetchCheckout,
 } from "./event-actions";
 
-export { initPayment } from "./payment-action";
+export { initPayment, makeFreeOrder } from "./payment-action";
