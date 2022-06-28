@@ -7,6 +7,7 @@ import {
   FETCH_EVENT_FAILURE,
   SETUP_CHECKOUT_REQUEST,
   SETUP_CHECKOUT_SUCCESS,
+  SETUP_CHECKOUT_SUCCESS2,
   SETUP_CHECKOUT_FAILURE,
 } from "../Constants/event-constants";
 import axios from "axios";
@@ -120,7 +121,7 @@ export const fetchCheckout = (checkoutId) => async (dispatch) => {
       });
     }
     dispatch({
-      type: SETUP_CHECKOUT_SUCCESS,
+      type: SETUP_CHECKOUT_SUCCESS2,
       payload: data.data,
     });
   } catch (error) {

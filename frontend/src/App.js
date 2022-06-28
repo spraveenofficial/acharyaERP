@@ -13,6 +13,7 @@ import {
   Profile,
   Checkout,
   CheckoutMain,
+  MyBookings,
 } from "./Pages";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile } from "./Redux/Actions";
@@ -61,6 +62,7 @@ function App() {
           <Route path="attendance" element={<Attendence />} />
           <Route path="profile" element={<Profile />} />
           <Route path="class" element={<Classes />} />
+          <Route path="my-bookings" element={<MyBookings />} />
         </Route>
         <Route element={<GuestRoutes />}>
           <Route path="login" element={<Login />} />

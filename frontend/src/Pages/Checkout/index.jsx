@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { Buttons } from "../../Components";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchCheckout, initPayment, makeFreeOrder } from "../../Redux/Actions";
 import { useParams } from "react-router-dom";
 import moment from "moment";
@@ -21,11 +21,11 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const { checkOutId } = useParams();
   const { colorMode } = useColorMode();
-
   const { loading, success, error, checkout, message } = useSelector(
     (state) => state.checkout
   );
   const { event } = checkout;
+  const [totalTimer, setTotalTimer] = useState(checkout?.expiry);
 
   const generateBill = () => {
     const entryFee = event.entryFee;
@@ -42,6 +42,10 @@ const Checkout = () => {
       dispatch({ type: "CLEAR_CHECKOUT" });
     };
   }, []);
+
+  console.log(
+    moment("2022-06-28T14:39:02.165Z").format("MMMM Do YYYY, h:mm:ss a")
+  );
 
   if (loading) {
     return (
@@ -80,6 +84,7 @@ const Checkout = () => {
     };
     post(details);
   };
+
   return (
     success &&
     checkout?._id && (
@@ -132,7 +137,10 @@ const Checkout = () => {
                       />
                     </FormControl>
                     <FormControl isInvalid={false}>
-                      <FormLabel className="text-white mobile:mt-4" htmlFor="title">
+                      <FormLabel
+                        className="text-white mobile:mt-4"
+                        htmlFor="title"
+                      >
                         Your Contact No.
                       </FormLabel>
                       <Input

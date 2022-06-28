@@ -131,16 +131,15 @@ const fetchCheckout = async (req, res) => {
     }
 
     // Check if the checkout is expired
-    // if (checkout.expiry < Date.now()) {
-    //   return res.status(400).json({
-    //     success: false,
-    //     message: "Oops, Checkout is expired",
-    //   });
-    // }
+    if (checkout.expiry < Date.now()) {
+      return res.status(400).json({
+        success: false,
+        message: "Oops, Checkout is expired",
+      });
+    }
     return res.status(200).json({
       success: true,
       message: "Checkout Fetched Successfully",
-      // data: checkout, send all the data in single object and also the populate data
       data: {
         ...checkout.toObject(),
         event: checkout.event,

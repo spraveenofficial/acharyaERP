@@ -19,7 +19,7 @@ const CheckoutSchema = new Schema(
     },
     expiry: {
       type: Date,
-      default: Date.now() + 10 * 60 * 1000,
+      default: Date.now() + 600000,
     },
     isProcessed: {
       type: Boolean,
