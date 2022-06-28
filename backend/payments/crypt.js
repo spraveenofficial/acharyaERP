@@ -94,8 +94,6 @@ export default crypt;
       console.log("salt is " + salt);
     }
   }
-
-  console.log("salt is ");
   if (require.main === "module") {
     var enc = crypt.encrypt("One97");
     console.log("encrypted - " + enc);

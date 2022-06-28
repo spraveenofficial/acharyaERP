@@ -14,7 +14,7 @@ const CheckoutMain = () => {
     if (success) {
       navigate(`/checkout/${checkout.orderId}`);
     }
-  });
+  }, [success]);
 
   useEffect(() => {
     return () => {

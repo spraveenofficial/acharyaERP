@@ -8,25 +8,26 @@ import {
   Spinner,
   useColorMode,
 } from "@chakra-ui/react";
-import { Buttons } from "../../Components";
+import { Buttons, Modal } from "../../Components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchCheckout, initPayment, makeFreeOrder } from "../../Redux/Actions";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import { Error } from "..";
 import { post } from "../../Utils/paytm";
 const Checkout = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { checkOutId } = useParams();
   const { colorMode } = useColorMode();
   const { loading, success, error, checkout, message } = useSelector(
     (state) => state.checkout
   );
   const { event } = checkout;
-  const [totalTimer, setTotalTimer] = useState(checkout?.expiry);
-
+  const [totalTimer, setTotalTimer] = useState("");
+  const [modal, setModal] = useState(false);
   const generateBill = () => {
     const entryFee = event.entryFee;
     if (entryFee === 0) {
@@ -43,9 +44,25 @@ const Checkout = () => {
     };
   }, []);
 
-  console.log(
-    moment("2022-06-28T14:39:02.165Z").format("MMMM Do YYYY, h:mm:ss a")
-  );
+  useEffect(() => {
+    if (checkout.expiry) {
+      const expiry = moment(checkout.expiry);
+      const interval = setInterval(() => {
+        if (expiry.diff(moment(), "seconds") <= 0) {
+          clearInterval(interval);
+          return setModal(true);
+        }
+        const diff = expiry.diff(moment());
+        const duration = moment.duration(diff);
+        const minutes = duration.minutes();
+        const seconds = duration.seconds();
+        setTotalTimer(`${minutes}:${seconds}`);
+      }, 1000);
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [checkout?.expiry]);
 
   if (loading) {
     return (
@@ -85,21 +102,40 @@ const Checkout = () => {
     post(details);
   };
 
+  const ShowModalToExpiredCheckOut = () => (
+    <Modal isOpen={modal}>
+      <h1 className="text-xl mb-4 font-bold text-slate-500 font-[Acharya-bold]">
+        Your Checkout Session has been expired.
+      </h1>
+      <p>Go back, and try Again.</p>
+      <button
+        onClick={() => navigate(`/events/${event.id}`)}
+        className="bg-red-500 px-7 py-2 ml-2 rounded-md text-md text-white "
+      >
+        Take me Back
+      </button>
+    </Modal>
+  );
+
   return (
     success &&
     checkout?._id && (
       <div className="movie-facility mt-20">
+        <ShowModalToExpiredCheckOut />
         <div className="container">
           <div className="row">
             <div className="col-lg-8">
               <Box className="checkout-widget flex flex-wrap items-center justify-between bg-[#DEE2FF]">
                 <div className="title-area">
                   <h5 className="text-white text-xl font-bold">
-                    Hi, {user.student_name}. Your order is just a few steps away
+                    Hi, {user.student_name}. Your booking is just a few steps
+                    away
                   </h5>
+                  <p className="mt-3">Your Order ID: {checkout?.orderId}</p>
                   <p className="mt-3">
-                    You have 10 minute to proceed. Your Order ID:{" "}
-                    {checkout?.orderId}
+                    {totalTimer
+                      ? `You have ${totalTimer} left to Checkout.`
+                      : null}
                   </p>
                 </div>
               </Box>
