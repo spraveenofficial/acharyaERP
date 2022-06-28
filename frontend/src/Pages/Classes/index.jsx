@@ -9,6 +9,7 @@ const Classes = () => {
   const { onlineClasses, offlineClasses } = classes;
   useEffect(() => {
     dispatch(fetchClasses());
+    window.scrollTo(0, 0);
   }, []);
 
   if (loading) {
@@ -29,7 +30,7 @@ const Classes = () => {
             <Text className="font-bold text-xl">No Offline Classes Today.</Text>
           </Box>
         ) : (
-          <Box className="flex flex-wrap gap-10 mobile:gap-2">
+          <Box className="grid grid-cols-4 auto-cols-max gap-5 mobile:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
             {offlineClasses?.map((eachClasses) => (
               <ClassCard
                 bg="#1F2889"

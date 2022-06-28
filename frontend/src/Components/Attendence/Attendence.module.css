@@ -27,6 +27,7 @@
   border-radius: 100px;
   /* background: #fff; */
   content: "90%";
+  font-size: auto;
   font-weight: 900;
 }
 
@@ -42,7 +43,6 @@
 .attendence {
   background: #1f284c;
   height: 250px;
-  width: 400px;
   border-radius: 8px !important;
   overflow: hidden;
   margin: 10px 0px;
