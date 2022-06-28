@@ -1,6 +1,6 @@
 import express from "express";
 import middleware from "../middlewares/middleware.js";
-import checkBookingConditions from "../middlewares/event.js";
+import {checkBookingConditions} from "../middlewares/event.js";
 import { makePayment } from "../controllers/payment-controller.js";
 const router = express.Router();
 

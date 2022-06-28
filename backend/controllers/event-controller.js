@@ -73,45 +73,19 @@ const initializeCheckout = async (req, res) => {
   const { eventId } = req.body;
   try {
     const isUserExist = await User.findById(id);
-    if (!isUserExist) {
-      return res.status(400).json({
-        success: false,
-        message: "User not found",
-      });
-    }
     const event = await Event.findById(eventId);
-    if (event === null) {
-      return res.status(400).json({
-        success: false,
-        message: "Event not found",
-      });
-    }
-    // Check if event have slot available
-    if (event.slots === 0) {
-      return res.status(400).json({
-        success: false,
-        message: "Oops, No slots available",
-      });
-    }
-
-    // Check if event is expired
-    if (event.eventDate < Date.now()) {
-      return res.status(400).json({
-        success: false,
-        message: "Oops, Event is expired",
-      });
-    }
-
     // Check if the user have already other checkout pending
     const checkoutIsExist = await Checkout.findOne({
       auid: isUserExist.auid,
     });
+
     checkoutIsExist && checkoutIsExist.remove();
 
     // Create a new checkout
     const checkout = new Checkout({
       auid: isUserExist.auid,
       event: event._id,
+      isProcessed: false,
     });
     await checkout.save();
     return res.status(200).json({
@@ -122,7 +96,7 @@ const initializeCheckout = async (req, res) => {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: "Event not found",
+      message: "Something went Wrong, Please Try again Later.",
     });
   }
 };
@@ -132,19 +106,20 @@ const initializeCheckout = async (req, res) => {
 // @access  Private
 
 const fetchCheckout = async (req, res) => {
-  const { checkOutId } = req.params;
+  const { checkoutId } = req.params;
   // console.log(checkOutId);
   const { id } = req.data;
   try {
     const user = await User.findById(id);
     const checkout = await Checkout.findOne({
-      orderId: checkOutId,
+      orderId: checkoutId,
       auid: user.auid,
     }).populate("event");
-    if (checkout.length === 0) {
+
+    if (!checkout) {
       return res.status(400).json({
         success: false,
-        message: "Checkout not found",
+        message: "Checkout not found, testing",
       });
     }
 
@@ -154,8 +129,9 @@ const fetchCheckout = async (req, res) => {
         message: "Checkout already processed",
       });
     }
+
     // Check if the checkout is expired
-    // if (checkout[0].expiry < Date.now()) {
+    // if (checkout.expiry < Date.now()) {
     //   return res.status(400).json({
     //     success: false,
     //     message: "Oops, Checkout is expired",
@@ -193,6 +169,7 @@ const makeFreeOrder = async (req, res) => {
       status: "confirmed",
       paymentAmount: amount,
       paymentStatus: "paid",
+      paymentMethod: "free",
     });
     await order.save();
     return res.status(200).json({
@@ -203,7 +180,7 @@ const makeFreeOrder = async (req, res) => {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: "Event not found",
+      message: "Something Went Wrong While Booking. Please Try Again Later",
     });
   }
 };

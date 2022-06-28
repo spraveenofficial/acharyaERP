@@ -313,7 +313,7 @@ const Checkout = () => {
                   <li>
                     <h6 className="subtitle">
                       <span>combos</span>
-                      <span>$57</span>
+                      <span>57 ₹</span>
                     </h6>
                     <span className="info">
                       <span>2 Nachos Combo</span>

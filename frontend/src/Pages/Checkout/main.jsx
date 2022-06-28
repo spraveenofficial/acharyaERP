@@ -7,14 +7,14 @@ const CheckoutMain = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { loading, success, error, checkout } = useSelector(
+  const { loading, success, error, checkout, message } = useSelector(
     (state) => state.checkout
   );
   useEffect(() => {
     if (success) {
-      navigate(`/checkout/${checkout?.orderId}`);
+      navigate(`/checkout/${checkout.orderId}`);
     }
-  }, [success]);
+  });
 
   useEffect(() => {
     return () => {
@@ -31,16 +31,19 @@ const CheckoutMain = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="flex flex-col items-center">
-        <h1 className="text-3xl font-bold text-center">
-          Please hang on, we are proceeding your order.
-        </h1>
-        <p className="text-center text-gray-600">
-          Please confirm your details and proceed to payment.
-        </p>
+    error && (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="flex flex-col items-center">
+          <h1 className="text-3xl font-bold text-center">
+            Please hang on, we are proceeding your order.
+          </h1>
+          <p className="text-center text-gray-600">
+            Please confirm your details and proceed to payment.
+          </p>
+          <p>{message}</p>
+        </div>
       </div>
-    </div>
+    )
   );
 };
 

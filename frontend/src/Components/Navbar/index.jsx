@@ -122,7 +122,7 @@ const Navbar = () => {
                           </span>
                           <img
                             className="w-8 h-8 rounded-full"
-                            src={`https://www.acharyainstitutes.in/${user.photo}`}
+                            src={`${user.photo}`}
                             alt="user photo"
                           />
                         </button>
@@ -297,7 +297,7 @@ const Navbar = () => {
                   </span>
                   <img
                     className="w-8 h-8 rounded-full"
-                    src={`https://www.acharyainstitutes.in/${user.photo}`}
+                    src={`${user.photo}`}
                     alt="user photo"
                   />
                 </button>

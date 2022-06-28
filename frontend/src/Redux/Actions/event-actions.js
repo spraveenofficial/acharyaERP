@@ -95,9 +95,10 @@ export const initializeCheckout = (eventId) => async (dispatch) => {
       payload: data.data,
     });
   } catch (error) {
+    console.log(error);
     dispatch({
       type: SETUP_CHECKOUT_FAILURE,
-      payload: error.message,
+      payload: error.response.data.message,
     });
   }
 };

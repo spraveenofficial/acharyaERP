@@ -9,8 +9,6 @@ const checkBookingConditions = async (req, res, next) => {
     .body?.auid
     ? req.body
     : req.query;
-
-  console.log(req.body);
   try {
     const isUserExist = await User.findById(id);
     if (!isUserExist) {
@@ -19,14 +17,22 @@ const checkBookingConditions = async (req, res, next) => {
         message: "User not found",
       });
     }
+
+    if (isUserExist.auid !== auid) {
+      return res.status(400).json({
+        success: false,
+        message: "AUID mismatched",
+      });
+    }
+
     const event = await Event.findById(eventId);
-    
     if (event === null) {
       return res.status(400).json({
         success: false,
         message: "Event not found",
       });
     }
+
     // Check if event have slot available
     if (event.slots === 0) {
       return res.status(400).json({
@@ -42,6 +48,7 @@ const checkBookingConditions = async (req, res, next) => {
         message: "Oops, Event is expired",
       });
     }
+
     // Check the valid checkOutId
     const checkOut = await Checkout.findById(checkOutId);
     if (checkOut === null) {
@@ -50,6 +57,20 @@ const checkBookingConditions = async (req, res, next) => {
         message: "Checkout not found",
       });
     }
+
+    // Check if the user have booked this event
+    const booking = await Booking.findOne({
+      user: isUserExist._id,
+      event: event._id,
+    });
+
+    if (booking) {
+      return res.status(400).json({
+        success: false,
+        message: "You have already booked this event",
+      });
+    }
+
     if (checkOut.isProcessed) {
       return res.status(400).json({
         success: false,
@@ -93,4 +114,48 @@ const checkBookingConditions = async (req, res, next) => {
   }
 };
 
-export default checkBookingConditions;
+const checkOutConditions = async (req, res, next) => {
+  const { id } = req.data;
+  const { eventId } = req.body;
+  const isUserExist = await User.findById(id);
+  const event = await Event.findById(eventId);
+  try {
+    if (event === null) {
+      return res.status(400).json({
+        success: false,
+        message: "Event not found",
+      });
+    }
+    if (event.slots === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Oops, No slots available",
+      });
+    }
+    if (event.eventDate < Date.now()) {
+      return res.status(400).json({
+        success: false,
+        message: "Oops, Event is expired",
+      });
+    }
+    const booking = await Booking.findOne({
+      user: isUserExist.auid,
+      event: event._id,
+      status: "confirmed",
+    });
+    if (booking) {
+      return res.status(400).json({
+        success: false,
+        message: "You have already booked this event",
+      });
+    }
+    next();
+  } catch (error) {
+    res.json({
+      success: false,
+      message: "Something went Wrong. Please try again Later",
+    });
+  }
+};
+
+export { checkBookingConditions, checkOutConditions };

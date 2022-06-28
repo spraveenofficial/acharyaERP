@@ -54,6 +54,9 @@ const BookingSchema = new Schema(
       virtuals: true,
       getters: true,
       transform: (doc, ret) => {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.updatedAt;
         delete ret.__v;
         return ret;
       },
