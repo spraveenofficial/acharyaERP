@@ -2,41 +2,30 @@ import PaytmChecksum from "../payments/checksum.js";
 import Event from "../models/event.js";
 import paytmParams from "../payments/config.js";
 import formidable from "formidable";
+import https from "https";
 
+// Get all the functions of PaytmChecksums
+// const PaytmChecksum = new PaytmChecksums()
+
+console.log(PaytmChecksum);
 const makePayment = async (req, res) => {
   const { name, email, phone, amount, eventId, auid, orderId } = req.query;
   try {
-    var paymentDetails = {
-      amount: amount,
-      customerId: eventId,
-      customerEmail: email,
-      customerPhone: phone,
-      customerName: name,
-    };
-    if (
-      !paymentDetails.amount ||
-      !paymentDetails.customerId ||
-      !paymentDetails.customerEmail ||
-      !paymentDetails.customerPhone
-    ) {
-      res.status(400).send("Payment failed");
-    } else {
-      PaytmChecksum.genchecksum(
-        paytmParams(orderId, email, phone, amount, auid),
-        "fae9&hRetCOg_fw0",
-        function (err, checksum) {
-          var params = {
-            ...paytmParams(orderId, email, phone, amount, auid),
-            CHECKSUMHASH: checksum,
-          };
-          res.json({
-            success: true,
-            message: "Payment proceed",
-            data: params,
-          });
-        }
-      );
-    }
+    PaytmChecksum.genchecksum(
+      paytmParams(orderId, email, phone, amount, auid),
+      "fae9&hRetCOg_fw0",
+      function (err, checksum) {
+        var params = {
+          ...paytmParams(orderId, email, phone, amount, auid),
+          CHECKSUMHASH: checksum,
+        };
+        res.json({
+          success: true,
+          message: "Payment proceed",
+          data: params,
+        });
+      }
+    );
   } catch (error) {
     console.log(error);
     return res.status(400).json({
@@ -46,12 +35,12 @@ const makePayment = async (req, res) => {
   }
 };
 
-const verifyPayment = async (req, res) => {
+const verifyPayment = async (request, response) => {
   const form = new formidable.IncomingForm();
+  console.log("verifyPayment", request.body);
   let paytmCheckSum = request.body.CHECKSUMHASH;
-  delete request.body.CHECKSUMHASH;
-
-  var isVerifySignature = PaytmChecksum.verifySignature(
+  // delete request.body.CHECKSUMHASH;
+  var isVerifySignature = PaytmChecksum.verifychecksum(
     request.body,
     "fae9&hRetCOg_fw0",
     paytmCheckSum
@@ -63,7 +52,7 @@ const verifyPayment = async (req, res) => {
     paytmParams["ORDERID"] = request.body.ORDERID;
 
     paytmchecksum
-      .generateSignature(paytmParams, "fae9&hRetCOg_fw0")
+      .genchecksum(paytmParams, "fae9&hRetCOg_fw0")
       .then(function (checksum) {
         paytmParams["CHECKSUMHASH"] = checksum;
 
@@ -89,7 +78,7 @@ const verifyPayment = async (req, res) => {
           post_res.on("end", function () {
             let result = JSON.parse(res);
             // response.redirect(`http://localhost:3000/`)
-            res.status(200).json({
+            response.status(200).json({
               success: true,
               message: "Payment verified",
               data: result,
@@ -98,14 +87,18 @@ const verifyPayment = async (req, res) => {
         });
         // post_req.write(post_data);
         // post_req.end();
-        return res.status(200).json({
+        return response.status(200).json({
           success: true,
           message: "Payment verified 2",
           data: post_data,
         });
       });
   } else {
-    console.log("Checksum Mismatched");
+    // console.log("Checksum Mismatched");
+    return response.status(200).json({
+      success: true,
+      message: "Checksum Mismatched",
+    });
   }
 };
 

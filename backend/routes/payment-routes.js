@@ -8,9 +8,9 @@ import {
 const router = express.Router();
 
 // router.use(middleware).route("/init/:params").post(makePayment);
+router.route("/verify").post(verifyPayment);
 // Make route as params
-router.use(middleware, checkBookingConditions).route("/init").get(makePayment);
-router.route("/verify").get(verifyPayment);
+router.use(middleware).route("/init").get(makePayment);
 // router.route("/verify").post(verifyPayment);
 
 

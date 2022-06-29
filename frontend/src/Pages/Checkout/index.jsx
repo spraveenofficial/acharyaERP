@@ -107,7 +107,7 @@ const Checkout = () => {
       <h1 className="text-xl mb-4 font-bold text-slate-500 font-[Acharya-bold]">
         Your Checkout Session has been expired.
       </h1>
-      <p>Go back, and try Again.</p>
+      <p className="text-slate-500 mb-4 ">Go back, and try Again.</p>
       <button
         onClick={() => navigate(`/events/${event.id}`)}
         className="bg-red-500 px-7 py-2 ml-2 rounded-md text-md text-white "

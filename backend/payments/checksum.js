@@ -58,29 +58,22 @@ function genchecksumbystring(params, key, cb) {
 
 function verifychecksum(params, key, checksumhash) {
   var data = paramsToString(params, false);
-
   //TODO: after PG fix on thier side remove below two lines
-  if (typeof checksumhash !== "undefined") {
-    checksumhash = checksumhash.replace("\n", "");
-    checksumhash = checksumhash.replace("\r", "");
-    var temp = decodeURIComponent(checksumhash);
-    var checksum = crypt.decrypt(temp, key);
-    var salt = checksum.substr(checksum.length - 4);
-    var sha256 = checksum.substr(0, checksum.length - 4);
-    var hash = crypto
-      .createHash("sha256")
-      .update(data + salt)
-      .digest("hex");
-    if (hash === sha256) {
-      return true;
-    } else {
-      util.log("checksum is wrong");
-      return false;
-    }
+  data = data.replace("|", "");
+  data = data.replace("|", "");
+  var checksum = crypt.decrypt(checksumhash, key);
+  var salt = checksum.substr(checksum.length - 4);
+  var sha256 = checksum.substr(0, checksum.length - 4);
+  var hash = crypto
+    .createHash("sha256")
+    .update(data + "|" + salt)
+    .digest("hex");
+  if (hash === sha256) {
+    return true;
   } else {
-    util.log("checksum not found");
     return false;
   }
+  
 }
 
 function verifychecksumbystring(params, key, checksumhash) {

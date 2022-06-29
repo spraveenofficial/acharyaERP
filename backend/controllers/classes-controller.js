@@ -1,6 +1,7 @@
 import axios from "axios";
 import Alive from "../services/alive-services.js";
 
+// console.log(Alive);
 // @desc    - Get all classes
 // @route   GET /api/classes
 // @access  Public
