@@ -131,3 +131,31 @@ export const fetchCheckout = (checkoutId) => async (dispatch) => {
     });
   }
 };
+
+export const fetchUserEachOrder = (orderId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: SETUP_CHECKOUT_REQUEST,
+    });
+    const { data } = await axios({
+      method: "get",
+      url: `${baseUrl}/events/order/${orderId}`,
+      headers: headerConfig(),
+    });
+    if (!data.success) {
+      return dispatch({
+        type: SETUP_CHECKOUT_FAILURE,
+        payload: data.message,
+      });
+    }
+    dispatch({
+      type: SETUP_CHECKOUT_SUCCESS2,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SETUP_CHECKOUT_FAILURE,
+      payload: error.message,
+    });
+  }
+};

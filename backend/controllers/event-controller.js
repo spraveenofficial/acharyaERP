@@ -186,10 +186,40 @@ const makeFreeOrder = async (req, res) => {
   }
 };
 
+const fetchUserEachOrder = async (req, res) => {
+  console.log("fef");
+  const { id } = req.data;
+  const { orderId } = req.params;
+  try {
+    const user = await User.findById(id);
+    const event = await Booking.findOne({
+      orderId,
+      auid: user.auid,
+    }).populate("event");
+    if (!event) {
+      return res.status(400).json({
+        success: false,
+        message: "Order not found",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Order Fetched Successfully",
+      data: event,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "Order not found",
+    });
+  }
+};
+
 export {
   fetchEvents,
   fetchEvent,
   initializeCheckout,
   fetchCheckout,
   makeFreeOrder,
+  fetchUserEachOrder,
 };

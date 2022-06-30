@@ -6,6 +6,7 @@ import {
   initializeCheckout,
   fetchCheckout,
   makeFreeOrder,
+  fetchUserEachOrder,
 } from "../controllers/event-controller.js";
 
 import {
@@ -15,6 +16,7 @@ import {
 
 const router = express.Router();
 
+router.use(middleware).route("/order/:orderId").get(fetchUserEachOrder);
 router.route("/all-events").get(fetchEvents);
 
 router.route("/event/:id").get(fetchEvent);
