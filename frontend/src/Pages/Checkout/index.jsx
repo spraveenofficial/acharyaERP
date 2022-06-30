@@ -109,7 +109,7 @@ const Checkout = () => {
       </h1>
       <p className="text-slate-500 mb-4 ">Go back, and try Again.</p>
       <button
-        onClick={() => navigate(`/events/${event.id}`)}
+        onClick={() => navigate(`/events/${event.id}`) || setModal(false)}
         className="bg-red-500 px-7 py-2 ml-2 rounded-md text-md text-white "
       >
         Take me Back

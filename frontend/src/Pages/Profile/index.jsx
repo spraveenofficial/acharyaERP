@@ -22,7 +22,7 @@ export const Profile = () => {
             <div className="image overflow-hidden">
               <img
                 className="h-32 w-32 rounded-xl w-full mx-auto"
-                src={`${user.photo}`}
+                src={`https://www.acharyainstitutes.in/${user.photo}`}
                 alt="userProfile"
               />
             </div>

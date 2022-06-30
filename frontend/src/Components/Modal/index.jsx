@@ -5,12 +5,13 @@ import { animationForModal } from "../../Utils/animation";
 export function Modal(props) {
   const [show, setShow] = useState(props.isOpen);
   useEffect(() => {
-    if (show) {
+    if (show === true) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
     }
-  });
+  }, [show]);
+  
   return (
     show && (
       <AnimatePresence>

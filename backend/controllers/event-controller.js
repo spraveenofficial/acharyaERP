@@ -86,7 +86,7 @@ const initializeCheckout = async (req, res) => {
       auid: isUserExist.auid,
       event: event._id,
       isProcessed: false,
-      expiry: Date.now() + 600000,
+      expiry: Date.now() + 60000,
     });
     await checkout.save();
     return res.status(200).json({
