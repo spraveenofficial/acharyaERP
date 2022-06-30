@@ -5,6 +5,7 @@ import Booking from "../models/bookings.js";
 
 const checkBookingConditions = async (req, res, next) => {
   const { id } = req.data;
+  console.log("fnefbiun");
   const { name, email, phone, amount, eventId, auid, orderId, checkOutId } = req
     .body?.auid
     ? req.body
@@ -65,6 +66,8 @@ const checkBookingConditions = async (req, res, next) => {
       user: isUserExist._id,
       event: event._id,
     });
+
+    console.log(booking);
 
     if (booking) {
       return res.status(400).json({
@@ -141,19 +144,24 @@ const checkOutConditions = async (req, res, next) => {
       });
     }
     const booking = await Booking.findOne({
-      user: isUserExist.auid,
+      auid: isUserExist.auid,
       event: event._id,
-      status: "confirmed",
     });
-    if (booking) {
+    if (booking?.status === "confirmed") {
       return res.status(400).json({
         success: false,
         message: "You have already booked this event",
       });
     }
+    if (booking?.status === "pending") {
+      return res.status(400).json({
+        success: false,
+        message: "You have already booked this event, Its pending.",
+      });
+    }
     next();
   } catch (error) {
-    res.json({
+    res.status(400).json({
       success: false,
       message: "Something went Wrong. Please try again Later",
     });

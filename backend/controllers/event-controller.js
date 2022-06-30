@@ -108,7 +108,6 @@ const initializeCheckout = async (req, res) => {
 
 const fetchCheckout = async (req, res) => {
   const { checkoutId } = req.params;
-  // console.log(checkOutId);
   const { id } = req.data;
   try {
     const user = await User.findById(id);
