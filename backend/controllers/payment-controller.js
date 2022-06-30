@@ -1,8 +1,6 @@
 import Event from "../models/event.js";
 import Booking from "../models/bookings.js";
-
 import paytmParams from "../payments/config.js";
-// import formidable from "formidable";
 import https from "https";
 import PaytmCheckSum from "../payments/checkSums.js";
 
@@ -11,7 +9,7 @@ const makePayment = async (req, res) => {
   try {
     PaytmCheckSum.generateSignature(
       paytmParams(orderId, email, phone, amount, auid),
-      "fae9&hRetCOg_fw0",
+      process.env.PAYTM_MERCHANT_KEY,
       function (err, checksum) {
         var params = {
           ...paytmParams(orderId, email, phone, amount, auid),
@@ -47,7 +45,7 @@ const verifyPayment = async (request, response) => {
   let paytmCheckSum = request.body.CHECKSUMHASH;
   var isVerifySignature = PaytmCheckSum.verifySignature(
     request.body,
-    "fae9&hRetCOg_fw0",
+    process.env.PAYTM_MERCHANT_KEY,
     paytmCheckSum
   );
   if (isVerifySignature) {
@@ -57,7 +55,7 @@ const verifyPayment = async (request, response) => {
 
     PaytmCheckSum.generateSignature(
       paytmParams,
-      "fae9&hRetCOg_fw0",
+      process.env.PAYTM_MERCHANT_KEY,
       function (checksum) {
         var post_data = JSON.stringify(paytmParams);
 
@@ -100,7 +98,7 @@ const verifyPayment = async (request, response) => {
               );
             }
             response.redirect(
-              `http://localhost:3000/orderStatus/${result.ORDERID}`
+              `${process.env.CLIENT_URL}/orderStatus/${result.ORDERID}`
             );
           });
         });
