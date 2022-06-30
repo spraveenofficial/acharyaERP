@@ -11,3 +11,4 @@ export { Developers } from "./Developer";
 export { Checkout } from "./Checkout";
 export { CheckoutMain } from "./Checkout/main";
 export { MyBookings } from "./Bookings/my-bookings";
+export { OrderConfirmation } from "./Bookings/Order-confirmation";

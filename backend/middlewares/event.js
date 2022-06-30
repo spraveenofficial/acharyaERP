@@ -32,6 +32,8 @@ const checkBookingConditions = async (req, res, next) => {
         message: "Event not found",
       });
     }
+    // event.slots -= 1;
+    // event.save();
 
     // Check if event have slot available
     if (event.slots === 0) {

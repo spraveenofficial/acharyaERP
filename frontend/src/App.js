@@ -14,6 +14,7 @@ import {
   Checkout,
   CheckoutMain,
   MyBookings,
+  OrderConfirmation,
 } from "./Pages";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile } from "./Redux/Actions";
@@ -58,6 +59,7 @@ function App() {
           <Route path="checkout" element={<CheckoutMain />} />
         </Route>
         <Route element={<ProtectedRoutes />}>
+          <Route path="orderStatus/:orderId" element={<OrderConfirmation />} />
           <Route path="checkout/:checkOutId" element={<Checkout />} />
           <Route path="attendance" element={<Attendence />} />
           <Route path="profile" element={<Profile />} />

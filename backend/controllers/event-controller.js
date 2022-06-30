@@ -167,9 +167,11 @@ const makeFreeOrder = async (req, res) => {
       auid,
       event: eventId,
       status: "confirmed",
-      paymentAmount: amount,
-      paymentStatus: "paid",
-      paymentMethod: "free",
+      paymentDetails: {
+        amount,
+        paymentMethod: "free",
+        paymentStatus: "success",
+      },
     });
     await order.save();
     return res.status(200).json({

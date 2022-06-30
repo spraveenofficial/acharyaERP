@@ -30,17 +30,9 @@ const BookingSchema = new Schema(
       ref: "Event",
       required: true,
     },
-    paymentMethod: {
-      type: String,
-      required: true,
-    },
-    paymentStatus: {
-      type: String,
-      required: true,
-    },
-    paymentAmount: {
-      type: Number,
-      required: true,
+    paymentDetails: {
+      type: Object,
+      required: false,
     },
     status: {
       type: String,

@@ -24,7 +24,11 @@ const Attendence = () => {
   const { data } = attendance;
   return (
     <Box className="p-10 mobile:p-4">
-      <AttendenceHero overallAttendance={attendance?.Average_attendance} />
+      <AttendenceHero
+        overallAttendance={parseFloat(attendance?.Average_attendance).toFixed(
+          2
+        )}
+      />
       <Box className="text-center">
         <Text className="my-10 text-2xl font-bold">Detailed Attendance</Text>
         <Box className="grid grid-cols-4 auto-cols-max gap-5 mobile:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 ">

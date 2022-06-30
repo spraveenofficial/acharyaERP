@@ -1,5 +1,6 @@
-// import PaytmChecksum from "../payments/checksum.js";
 import Event from "../models/event.js";
+import Booking from "../models/bookings.js";
+
 import paytmParams from "../payments/config.js";
 // import formidable from "formidable";
 import https from "https";
@@ -16,6 +17,17 @@ const makePayment = async (req, res) => {
           ...paytmParams(orderId, email, phone, amount, auid),
           CHECKSUMHASH: checksum,
         };
+        // Save user in DB
+        const order = new Booking({
+          orderId,
+          name,
+          email,
+          phone,
+          auid,
+          event: eventId,
+          status: "pending",
+        });
+        order.save();
         res.json({
           success: true,
           message: "Payment proceed",
@@ -62,19 +74,34 @@ const verifyPayment = async (request, response) => {
 
         var res = "";
         var post_req = https.request(options, function (post_res) {
-          console.log("Response Code : " + post_res);
           post_res.on("data", function (chunk) {
             res += chunk;
           });
 
-          post_res.on("end", function () {
+          post_res.on("end", async function () {
             let result = JSON.parse(res);
-            // response.redirect(`http://localhost:3000/`);
-            response.json({
-              success: true,
-              message: "Payment success",
-              data: result,
-            });
+            console.log(result);
+            if (result.STATUS == "TXN_SUCCESS") {
+              const booking = await Booking.findOneAndUpdate(
+                { orderId: result.ORDERID },
+                { status: "confirmed", paymentDetails: result }
+              );
+              await Event.findOneAndUpdate(
+                {
+                  _id: booking.event,
+                },
+                { $inc: { slots: -1 } }
+              );
+            }
+            if (result.STATUS == "TXN_FAILURE") {
+              await Booking.findOneAndUpdate(
+                { orderId: result.ORDERID },
+                { status: "failed", paymentDetails: result }
+              );
+            }
+            response.redirect(
+              `http://localhost:3000/orderStatus/${result.ORDERID}`
+            );
           });
         });
         post_req.write(post_data);
