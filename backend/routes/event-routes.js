@@ -7,6 +7,7 @@ import {
   fetchCheckout,
   makeFreeOrder,
   fetchUserEachOrder,
+  fetchUserAllOrders,
 } from "../controllers/event-controller.js";
 
 import {
@@ -16,11 +17,10 @@ import {
 
 const router = express.Router();
 
+router.use(middleware).route("/my-bookings").get(fetchUserAllOrders);
 router.use(middleware).route("/order/:orderId").get(fetchUserEachOrder);
 router.route("/all-events").get(fetchEvents);
-
 router.route("/event/:id").get(fetchEvent);
-
 router.use(middleware).route("/checkout/:checkoutId").get(fetchCheckout);
 
 router

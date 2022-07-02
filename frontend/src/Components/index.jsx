@@ -32,3 +32,4 @@ export { AttendenceHero } from "./Attendence/AttendenceHero";
 export { Footer } from "./Footer";
 export { ClassCard } from "./ClassCard";
 export { Modal } from "./Modal";
+export { LoadingOrderCard } from "./Shared/Cards";

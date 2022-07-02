@@ -214,6 +214,34 @@ const fetchUserEachOrder = async (req, res) => {
   }
 };
 
+const fetchUserAllOrders = async (req, res) => {
+  const { id } = req.data;
+  try {
+    const user = await User.findById(id);
+    const events = await Booking.find({
+      auid: user.auid,
+    })
+      .populate("event")
+      .sort({ createdAt: -1 });
+    if (!events) {
+      return res.status(400).json({
+        success: false,
+        message: "No orders found",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Orders Fetched Successfully",
+      data: events,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "No orders found",
+    });
+  }
+};
+
 export {
   fetchEvents,
   fetchEvent,
@@ -221,4 +249,5 @@ export {
   fetchCheckout,
   makeFreeOrder,
   fetchUserEachOrder,
+  fetchUserAllOrders,
 };

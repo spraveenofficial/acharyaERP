@@ -11,6 +11,9 @@ import {
   SETUP_CHECKOUT_SUCCESS2,
   SETUP_CHECKOUT_FAILURE,
   CLEAR_CHECKOUT,
+  FETCH_MY_ORDERS_REQUEST,
+  FETCH_MY_ORDERS_SUCCESS,
+  FETCH_MY_ORDERS_FAILURE,
 } from "../Constants/event-constants";
 
 export const events = (
@@ -130,6 +133,36 @@ export const checkout = (
         message: "",
         eventId: "",
         error: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const myBookings = (
+  state = { loading: true, success: false, message: "", bookings: [] },
+  action
+) => {
+  switch (action.type) {
+    case FETCH_MY_ORDERS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FETCH_MY_ORDERS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        message: "Bookings Fetched Successfully",
+        bookings: action.payload,
+      };
+    case FETCH_MY_ORDERS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        message: action.payload,
       };
     default:
       return state;

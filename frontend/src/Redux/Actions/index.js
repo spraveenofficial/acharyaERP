@@ -7,6 +7,7 @@ export {
   initializeCheckout,
   fetchCheckout,
   fetchUserEachOrder,
+  fetchMyOrders,
 } from "./event-actions";
 
 export { initPayment, makeFreeOrder } from "./payment-action";

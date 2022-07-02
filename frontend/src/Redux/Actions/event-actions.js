@@ -9,6 +9,9 @@ import {
   SETUP_CHECKOUT_SUCCESS,
   SETUP_CHECKOUT_SUCCESS2,
   SETUP_CHECKOUT_FAILURE,
+  FETCH_MY_ORDERS_REQUEST,
+  FETCH_MY_ORDERS_SUCCESS,
+  FETCH_MY_ORDERS_FAILURE,
 } from "../Constants/event-constants";
 import axios from "axios";
 import baseUrl from "../../Utils/baseurl";
@@ -155,6 +158,34 @@ export const fetchUserEachOrder = (orderId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SETUP_CHECKOUT_FAILURE,
+      payload: error.message,
+    });
+  }
+};
+
+export const fetchMyOrders = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: FETCH_MY_ORDERS_REQUEST,
+    });
+    const { data } = await axios({
+      method: "get",
+      url: `${baseUrl}/events/my-bookings`,
+      headers: headerConfig(),
+    });
+    if (!data.success) {
+      return dispatch({
+        type: FETCH_MY_ORDERS_FAILURE,
+        payload: data.message,
+      });
+    }
+    dispatch({
+      type: FETCH_MY_ORDERS_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_MY_ORDERS_FAILURE,
       payload: error.message,
     });
   }
