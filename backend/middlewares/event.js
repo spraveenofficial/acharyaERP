@@ -5,7 +5,7 @@ import Booking from "../models/bookings.js";
 
 const checkBookingConditions = async (req, res, next) => {
   const { id } = req.data;
-  console.log("fnefbiun");
+  // console.log("fnefbiun");
   const { name, email, phone, amount, eventId, auid, orderId, checkOutId } = req
     .body?.auid
     ? req.body

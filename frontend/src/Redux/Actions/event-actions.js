@@ -82,7 +82,7 @@ export const initializeCheckout = (eventId) => async (dispatch) => {
     });
     const { data } = await axios({
       method: "POST",
-      url: `${baseUrl}/events/checkout`,
+      url: `${baseUrl}/events/init/checkout`,
       headers: headerConfig(),
       data: {
         eventId,

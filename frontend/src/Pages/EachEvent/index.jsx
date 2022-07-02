@@ -18,7 +18,7 @@ const EventPage = () => {
     time,
     thumbnail,
     entryFee,
-    id,
+    _id,
     suggestedEvents,
   } = event;
   const { eventId } = useParams();
@@ -30,9 +30,9 @@ const EventPage = () => {
   const handleInitializeCheckout = () => {
     dispatch({
       type: "SETUP_CHECKOUT_EVENTID",
-      payload: id,
+      payload: _id,
     });
-    dispatch(initializeCheckout(id));
+    dispatch(initializeCheckout(_id));
     return navigate("/checkout");
   };
 

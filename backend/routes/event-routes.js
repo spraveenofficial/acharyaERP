@@ -18,11 +18,23 @@ import {
 const router = express.Router();
 
 router.route("/all-events").get(fetchEvents);
-router.use(middleware).route("/my-bookings").get(fetchUserAllOrders);
-router.use(middleware).route("/order/:orderId").get(fetchUserEachOrder);
-router.use(middleware).route("/checkout").post(initializeCheckout);
 router.route("/event/:id").get(fetchEvent);
-router.use(middleware).route("/checkout/:checkoutId").get(fetchCheckout);
+router.post(
+  "/init/checkout",
+  middleware,
+  checkOutConditions,
+  initializeCheckout
+);
+
+router.get(
+  "/checkout/:checkoutId",
+  middleware,
+  // checkBookingConditions,
+  fetchCheckout
+);
+router.get("/my-bookings", middleware, fetchUserAllOrders);
+
+router.use(middleware).route("/order/:orderId").get(fetchUserEachOrder);
 
 router.use(middleware).route("/book").post(makeFreeOrder);
 
