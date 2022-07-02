@@ -187,7 +187,6 @@ const makeFreeOrder = async (req, res) => {
 };
 
 const fetchUserEachOrder = async (req, res) => {
-  console.log("fef");
   const { id } = req.data;
   const { orderId } = req.params;
   try {

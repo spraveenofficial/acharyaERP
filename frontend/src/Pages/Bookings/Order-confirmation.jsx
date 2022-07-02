@@ -23,10 +23,11 @@ const OrderConfirmation = () => {
   const { loading, success, error, checkout, message } = useSelector(
     (state) => state.checkout
   );
-  console.log(checkout);
-
   useEffect(() => {
     dispatch(fetchUserEachOrder(orderId));
+    return () => {
+      dispatch({ type: "CLEAR_CHECKOUT" });
+    };
   }, []);
   const { event, paymentDetails } = checkout;
   if (loading) {

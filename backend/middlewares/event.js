@@ -143,20 +143,24 @@ const checkOutConditions = async (req, res, next) => {
         message: "Oops, Event is expired",
       });
     }
-    const booking = await Booking.findOne({
+    const booking = await Booking.find({
       auid: isUserExist.auid,
       event: event._id,
     });
-    if (booking?.status === "confirmed") {
-      return res.status(400).json({
-        success: false,
-        message: "You have already booked this event",
-      });
-    }
-    if (booking?.status === "pending") {
-      return res.status(400).json({
-        success: false,
-        message: "You have already booked this event, Its pending.",
+    if (booking.length > 0) {
+      booking.forEach((book) => {
+        if (book.status === "confirmed") {
+          return res.status(400).json({
+            success: false,
+            message: "You have already booked this event",
+          });
+        }
+        if (book.status === "pending") {
+          return res.status(400).json({
+            success: false,
+            message: "You have already booked this event, Its pending.",
+          });
+        }
       });
     }
     next();
