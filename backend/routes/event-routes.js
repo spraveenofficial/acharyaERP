@@ -17,20 +17,13 @@ import {
 
 const router = express.Router();
 
+router.route("/all-events").get(fetchEvents);
 router.use(middleware).route("/my-bookings").get(fetchUserAllOrders);
 router.use(middleware).route("/order/:orderId").get(fetchUserEachOrder);
-router.route("/all-events").get(fetchEvents);
+router.use(middleware).route("/checkout").post(initializeCheckout);
 router.route("/event/:id").get(fetchEvent);
 router.use(middleware).route("/checkout/:checkoutId").get(fetchCheckout);
 
-router
-  .use(middleware, checkOutConditions)
-  .route("/checkout")
-  .post(initializeCheckout);
-
-router
-  .use(middleware, checkBookingConditions)
-  .route("/book")
-  .post(makeFreeOrder);
+router.use(middleware).route("/book").post(makeFreeOrder);
 
 export default router;

@@ -4,6 +4,7 @@ import { fetchEvent, initializeCheckout } from "../../Redux/Actions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Error } from "..";
+import { EventCard } from "../../Components";
 const EventPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const EventPage = () => {
     thumbnail,
     entryFee,
     id,
+    suggestedEvents,
   } = event;
   const { eventId } = useParams();
 
@@ -108,6 +110,11 @@ const EventPage = () => {
       <Text className="my-10 font-extrabold text-3xl font-[Acharya-bold]">
         Suggested Events
       </Text>
+      <Box className="grid grid-cols-4 auto-cols-max gap-5 mobile:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+        {suggestedEvents.map((event) => (
+          <EventCard event={event} />
+        ))}
+      </Box>
     </Box>
   );
 };

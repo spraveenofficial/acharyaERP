@@ -53,8 +53,10 @@ const fetchEvent = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Event Fetched Successfully",
-      data: event,
-      suggestedEvents,
+      data: {
+        ...event.toObject(),
+        suggestedEvents,
+      },
     });
   } catch (error) {
     return res.status(400).json({
@@ -95,6 +97,7 @@ const initializeCheckout = async (req, res) => {
       data: checkout,
     });
   } catch (error) {
+    console.log(error);
     return res.status(400).json({
       success: false,
       message: "Something went Wrong, Please Try again Later.",
