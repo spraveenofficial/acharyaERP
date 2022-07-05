@@ -30,6 +30,11 @@ const BookingSchema = new Schema(
       ref: "Event",
       required: true,
     },
+    paymentMode: {
+      type: String,
+      required: true,
+      enum: ["cash", "online", "free"],
+    },
     paymentDetails: {
       type: Object,
       required: false,
