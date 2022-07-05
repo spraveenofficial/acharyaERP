@@ -7,7 +7,7 @@ const paytmParams = (orderId, email, phone, amount, auid) => {
     CHANNEL_ID: "WEB",
     TXN_AMOUNT: amount,
     WEBSITE: "WEBSTAGING",
-    CALLBACK_URL: `${process.env.BACKEND_URL}/v1/api/payment/verify`,
+    CALLBACK_URL: `${process.env.BACKEND_URL}v1/api/payment/verify`,
     EMAIL: email,
     MOBILE_NO: phone,
     // CUST_NAME: name,

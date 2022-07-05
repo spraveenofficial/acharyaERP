@@ -90,8 +90,10 @@ const Checkout = () => {
   const handleProceedToPayment = async () => {
     if (datatoSend.amount === 0) {
       const response = await makeFreeOrder(datatoSend);
-
-      console.log(response);
+      if (response?.orderId) {
+        navigate(`/orderStatus/${response.orderId}`);
+      }
+      // console.log(response);
       return;
     }
     const response = await initPayment(datatoSend);

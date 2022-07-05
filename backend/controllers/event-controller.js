@@ -169,6 +169,7 @@ const makeFreeOrder = async (req, res) => {
       auid,
       event: eventId,
       status: "confirmed",
+      paymentMode: "free",
       paymentDetails: {
         amount,
         paymentMethod: "free",

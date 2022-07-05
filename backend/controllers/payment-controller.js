@@ -24,6 +24,7 @@ const makePayment = async (req, res) => {
           auid,
           event: eventId,
           status: "pending",
+          paymentMode: "online",
         });
         order.save();
         res.json({
@@ -98,7 +99,7 @@ const verifyPayment = async (request, response) => {
               );
             }
             response.redirect(
-              `${process.env.CLIENT_URL}/orderStatus/${result.ORDERID}`
+              `${process.env.CLIENT_URL}orderStatus/${result.ORDERID}`
             );
           });
         });
