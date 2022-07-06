@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Flex, Heading, Spinner, Text } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { fetchMyOrders } from "../../Redux/Actions";
 
 
 const MyBookings = () => {
@@ -41,7 +42,7 @@ const MyBookings = () => {
     );
   }
 
-  
+
   return (
     <div>
       <div className="p-10 mobile:p-4 w-full">
