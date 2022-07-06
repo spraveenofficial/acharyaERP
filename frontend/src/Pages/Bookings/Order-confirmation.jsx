@@ -23,7 +23,6 @@ const OrderConfirmation = () => {
     };
   }, []);
   const { event, paymentDetails } = checkout;
-  console.log(checkout);
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">

@@ -1,13 +1,9 @@
 import "./style.css";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
 import { Box, Flex, Heading, Spinner, Text } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchMyOrders } from "../../Redux/Actions";
-import { LoadingOrderCard } from "../../Components";
-import { CloseIcon } from "@chakra-ui/icons";
+
 
 const MyBookings = () => {
   const dispatch = useDispatch();
@@ -16,7 +12,6 @@ const MyBookings = () => {
     (state) => state.myBookings
   );
   const handleNavigateToBill = (params) => {
-    console.log(params);
     navigate(`/orderStatus/${params}`);
   };
 
@@ -32,6 +27,8 @@ const MyBookings = () => {
         return "bg-gray-500";
     }
   };
+
+
   useEffect(() => {
     dispatch(fetchMyOrders());
   }, []);
@@ -43,6 +40,8 @@ const MyBookings = () => {
       </div>
     );
   }
+
+  
   return (
     <div>
       <div className="p-10 mobile:p-4 w-full">
