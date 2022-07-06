@@ -79,7 +79,6 @@ const verifyPayment = async (request, response) => {
 
           post_res.on("end", async function () {
             let result = JSON.parse(res);
-            console.log(result);
             if (result.STATUS == "TXN_SUCCESS") {
               const booking = await Booking.findOneAndUpdate(
                 { orderId: result.ORDERID },
