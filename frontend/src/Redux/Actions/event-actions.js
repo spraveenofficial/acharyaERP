@@ -186,7 +186,10 @@ export const fetchMyOrders = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: FETCH_MY_ORDERS_FAILURE,
-      payload: error.message,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };

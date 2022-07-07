@@ -48,6 +48,8 @@ const fetchEvent = async (req, res) => {
       $and: [
         { _id: { $ne: event._id } },
         { _id: { $nin: event.suggestedEvents } },
+        { status: "active" },
+        { slots: { $gt: 0 } },
       ],
     }).limit(4);
     return res.status(200).json({
@@ -227,7 +229,7 @@ const fetchUserAllOrders = async (req, res) => {
     })
       .populate("event")
       .sort({ createdAt: -1 });
-    if (!events) {
+    if (events.length === 0) {
       return res.status(400).json({
         success: false,
         message: "No orders found",
@@ -241,7 +243,7 @@ const fetchUserAllOrders = async (req, res) => {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: "No orders found",
+      message: "Something Went Wrong. Please Try Again Later.",
     });
   }
 };

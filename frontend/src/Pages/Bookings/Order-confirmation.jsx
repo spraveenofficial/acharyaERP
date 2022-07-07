@@ -1,17 +1,14 @@
 import { Box, Spinner, Text, useColorMode } from "@chakra-ui/react";
-import { Buttons } from "../../Components";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserEachOrder } from "../../Redux/Actions";
 import moment from "moment";
 import { Error } from "..";
 import QRCode from "react-qr-code";
 const OrderConfirmation = () => {
-  const { user } = useSelector((state) => state.auth);
   const { orderId } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { colorMode } = useColorMode();
   const { loading, success, error, checkout, message } = useSelector(
     (state) => state.checkout
@@ -118,7 +115,7 @@ const OrderConfirmation = () => {
                       margin: "auto",
                     }}
                     viewBox={`0 0 256 256`}
-                    value="123434"
+                    value={checkout.orderId}
                     bgColor="#FFFFFF"
                     level="Q"
                     fgColor="#000000"

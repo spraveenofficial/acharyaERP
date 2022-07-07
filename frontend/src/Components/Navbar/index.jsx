@@ -297,7 +297,7 @@ const Navbar = () => {
                   </span>
                   <img
                     className="w-8 h-8 rounded-full"
-                    src={`${user.photo}`}
+                    src={`https://www.acharyainstitutes.in/${user.photo}`}
                     alt="user photo"
                   />
                 </button>

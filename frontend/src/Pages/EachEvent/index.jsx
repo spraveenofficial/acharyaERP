@@ -25,7 +25,7 @@ const EventPage = () => {
 
   useEffect(() => {
     dispatch(fetchEvent(eventId));
-  }, []);
+  }, [eventId]);
 
   const handleInitializeCheckout = () => {
     dispatch({
