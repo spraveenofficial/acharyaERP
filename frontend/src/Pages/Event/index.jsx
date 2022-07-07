@@ -11,13 +11,12 @@ const Event = () => {
   const dispatch = useDispatch();
   const navigateToAddToRoutes = () => navigate("/admin/add-event");
   const { loading, success, events } = useSelector((state) => state.events);
-  // console.log(loading, success, events);
   const { user } = useSelector((state) => state.auth);
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(fetchEvents());
   }, []);
 
-  
   return (
     <>
       <Helmet>

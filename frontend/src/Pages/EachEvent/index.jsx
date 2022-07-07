@@ -24,6 +24,7 @@ const EventPage = () => {
   const { eventId } = useParams();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(fetchEvent(eventId));
   }, [eventId]);
 
