@@ -130,7 +130,10 @@ export const fetchCheckout = (checkoutId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SETUP_CHECKOUT_FAILURE,
-      payload: error.message,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };

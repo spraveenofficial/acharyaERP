@@ -8,7 +8,7 @@ import {
   Spinner,
   useColorMode,
 } from "@chakra-ui/react";
-import { Buttons, Modal } from "../../Components";
+import { Buttons, Modal, ErrorMessage } from "../../Components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchCheckout, initPayment, makeFreeOrder } from "../../Redux/Actions";
@@ -73,7 +73,12 @@ const Checkout = () => {
   }
 
   if (!loading && error && message) {
-    return <Error />;
+    return (
+      <ErrorMessage
+        message={message}
+        submessage={"Please Go Back and Try Again."}
+      />
+    );
   }
 
   const datatoSend = {
@@ -111,7 +116,7 @@ const Checkout = () => {
       </h1>
       <p className="text-slate-500 mb-4 ">Go back, and try Again.</p>
       <button
-        onClick={() => navigate(`/events/${event.id}`) || setModal(false)}
+        onClick={() => setModal(false) || navigate(`/events/${event.id}`)}
         className="bg-red-500 px-7 py-2 ml-2 rounded-md text-md text-white "
       >
         Take me Back

@@ -56,7 +56,7 @@ export function Footer() {
           </Stack>
           <Stack align={"flex-start"} fontWeight="bold">
             <ListHeader>Support</ListHeader>
-            <Link to={"/attendance"}>Help Center</Link>
+            <Link to={"/attendance"}>Contribute Us</Link>
             <Link to={"/attendance"}>Terms of Service</Link>
             <Link to={"/attendance"}>Legal</Link>
             <Link to={"/attendance"}>Privacy Policy</Link>
@@ -66,7 +66,6 @@ export function Footer() {
             <ListHeader>Follow Us</ListHeader>
             <Link to={"/attendance"}>Facebook</Link>
             <Link to={"/attendance"}>Twitter</Link>
-            <Link to={"/attendance"}>Dribbble</Link>
             <Link to={"/attendance"}>Instagram</Link>
             <Link to={"/attendance"}>LinkedIn</Link>
           </Stack>

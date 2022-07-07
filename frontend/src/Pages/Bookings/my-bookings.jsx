@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchMyOrders } from "../../Redux/Actions";
 import { CloseIcon } from "@chakra-ui/icons";
-
+import { ErrorMessage } from "../../Components";
 const MyBookings = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -45,34 +45,10 @@ const MyBookings = () => {
 
   if (error || bookings.length === 0) {
     return (
-      <Box
-        textAlign="center"
-        height={500}
-        className="flex flex-col justify-center text-center items-center"
-        py={10}
-        px={6}
-      >
-        <Box display="inline-block">
-          <Flex
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-            bg={"red.500"}
-            rounded={"50px"}
-            w={"55px"}
-            h={"55px"}
-            textAlign="center"
-          >
-            <CloseIcon boxSize={"20px"} color={"white"} />
-          </Flex>
-        </Box>
-        <Heading as="h2" size="xl" mt={6} mb={2}>
-          {message}
-        </Heading>
-        <Text color={"gray.500"}>
-          Oops, Something Hitted Hard. Books Orders Now.
-        </Text>
-      </Box>
+      <ErrorMessage
+        message={message}
+        submessage="Oops, Something Hitted Hard. Books Orders Now."
+      />
     );
   }
 

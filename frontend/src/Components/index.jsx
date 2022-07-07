@@ -33,3 +33,4 @@ export { Footer } from "./Footer";
 export { ClassCard } from "./ClassCard";
 export { Modal } from "./Modal";
 export { LoadingOrderCard } from "./Shared/Cards";
+export { ErrorMessage } from "./Shared/ErrorMessage";

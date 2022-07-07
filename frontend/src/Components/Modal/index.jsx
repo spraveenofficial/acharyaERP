@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { animationForModal } from "../../Utils/animation";
 
 export function Modal(props) {
+  console.log(props);
   const [show, setShow] = useState(props.isOpen);
   useEffect(() => {
     if (show === true) {
@@ -11,7 +12,7 @@ export function Modal(props) {
       document.body.style.overflow = "unset";
     }
   }, [show]);
-  
+
   return (
     show && (
       <AnimatePresence>
