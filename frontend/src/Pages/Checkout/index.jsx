@@ -3,6 +3,7 @@ import {
   Box,
   Flex,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Input,
   Spinner,
@@ -14,10 +15,25 @@ import { useEffect, useState } from "react";
 import { fetchCheckout, initPayment, makeFreeOrder } from "../../Redux/Actions";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
-import { Error } from "..";
 import { post } from "../../Utils/paytm";
+import { useFormik } from "formik";
 const Checkout = () => {
   const { user } = useSelector((state) => state.auth);
+  const formik = useFormik({
+    initialValues: {
+      mobile: user?.mobile,
+    },
+    validate: (values) => {
+      let errors = {};
+      if (!values.mobile) {
+        errors.mobile = "Mobile is required";
+      }
+      if (!/^[0-9]{10}$/.test(values.mobile)) {
+        errors.mobile = "Mobile must be 10 digits";
+      }
+      return errors;
+    },
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { checkOutId } = useParams();
@@ -86,19 +102,21 @@ const Checkout = () => {
     eventId: event.id,
     name: user.student_name,
     email: user.acerp_email,
-    phone: user.mobile,
+    phone: formik.values.mobile,
     amount: generateBill().total,
     orderId: checkout?.orderId,
     checkOutId: checkout?._id,
   };
 
   const handleProceedToPayment = async () => {
+    if (formik.errors.mobile) {
+      return;
+    }
     if (datatoSend.amount === 0) {
       const response = await makeFreeOrder(datatoSend);
       if (response?.orderId) {
         navigate(`/orderStatus/${response.orderId}`);
       }
-      // console.log(response);
       return;
     }
     const response = await initPayment(datatoSend);
@@ -170,16 +188,16 @@ const Checkout = () => {
                         Your Email Id
                       </FormLabel>
                       <Input
-                        id="title"
+                        id="mobile"
                         type="title"
-                        name="title"
+                        name="mobile"
                         placeholder="Event Title"
                         className="text-white"
                         value={user?.acerp_email}
                         disabled
                       />
                     </FormControl>
-                    <FormControl isInvalid={false}>
+                    <FormControl isInvalid={formik.errors.mobile}>
                       <FormLabel
                         className="text-white mobile:mt-4"
                         htmlFor="title"
@@ -187,13 +205,19 @@ const Checkout = () => {
                         Your Contact No.
                       </FormLabel>
                       <Input
-                        id="title"
-                        type="title"
-                        name="title"
-                        placeholder="Event Title"
+                        id="mobile"
+                        type="number"
+                        name="mobile"
+                        placeholder="Your Phone Number"
                         className="text-white"
-                        value={user?.mobile}
+                        value={formik.values.mobile}
+                        onChange={formik.handleChange}
                       />
+                      {formik.errors.mobile && (
+                        <FormErrorMessage>
+                          {formik.errors.mobile}
+                        </FormErrorMessage>
+                      )}
                     </FormControl>
                   </Box>
                   <p className="mt-3">
