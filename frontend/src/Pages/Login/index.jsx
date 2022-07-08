@@ -141,7 +141,7 @@ const Login = () => {
               type="auid"
               name="auid"
               onChange={formik.handleChange}
-              value={formik.values.auid}
+              value={formik.values.auid.toUpperCase()}
               onBlur={formik.handleBlur}
               placeholder="Enter AUID"
               autoComplete="off"

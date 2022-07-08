@@ -15,7 +15,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
-import { Buttons } from "../../Components";
+import { Buttons, Editors } from "../../Components";
 import { newEvent } from "../../Redux/Actions";
 import { useEffect } from "react";
 const AddEvent = () => {
@@ -265,6 +265,7 @@ const AddEvent = () => {
             <FormLabel mt={4} htmlFor="description">
               Enter Event Description
             </FormLabel>
+            <Editors />
             <Textarea
               id="description"
               type="description"

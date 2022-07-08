@@ -33,6 +33,7 @@ const Classes = () => {
           <Box className="grid grid-cols-4 auto-cols-max gap-5 mobile:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
             {offlineClasses?.map((eachClasses) => (
               <ClassCard
+                key={eachClasses.time_table_id}
                 bg="#1F2889"
                 date={eachClasses.selected_date}
                 subjectName={eachClasses.subject_name}

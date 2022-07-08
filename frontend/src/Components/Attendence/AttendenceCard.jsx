@@ -23,7 +23,7 @@ const Attendence = ({
           <h1>{attendedClasses}</h1>
         </div>
       </div>
-      <div className={Styles.third}>
+      <div className="h-12">
         <Progress percentage={percentage} />
       </div>
     </motion.div>
