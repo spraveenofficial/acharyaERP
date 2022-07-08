@@ -5,8 +5,6 @@ import { Editor, Transforms, createEditor } from "slate";
 import { withHistory } from "slate-history";
 import { Box } from "@chakra-ui/react";
 import { Element, Leaf, toggleMark, Toolbar } from "./components";
-import { Node } from "slate";
-
 const HOTKEYS = {
   "mod+b": "bold",
   "mod+i": "italic",

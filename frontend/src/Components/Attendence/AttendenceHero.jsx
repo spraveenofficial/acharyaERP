@@ -15,10 +15,10 @@ const AttendenceHero = (props) => {
             _dark={{
               bg: "#23314d",
             }}
-            className="min-h-full py-8 px-6 space-y-6 rounded-xl border  bg-white"
+            className="min-h-full py-8 px-6 space-y-6 rounded-xl border bg-white flex flex-col justify-center items-center"
           >
             <svg
-              className="w-40 m-auto opacity-75"
+              className="w-40 opacity-75"
               viewBox="0 0 146 146"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -157,10 +157,14 @@ const AttendenceHero = (props) => {
                 until we can. Either for your Attendance you can report to your
                 respected HODs and Proctors.
               </li>
-              <li>
+              <li className="mb-2">
                 III. If you found any bug, please report it to us. We'll fix it
                 until we can. Either for your Attendance you can report to your
                 respected HODs and Proctors.
+              </li>
+              <li>
+                IV. If any discrepancy is found in your attendance, please bring
+                it to the attention of the HODs and Proctors.
               </li>
             </ul>
           </div>

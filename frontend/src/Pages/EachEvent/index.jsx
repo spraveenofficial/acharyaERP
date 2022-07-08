@@ -24,7 +24,7 @@ const EventPage = () => {
     suggestedEvents,
     rules,
   } = event;
-  console.log(rules);
+
   const { eventId } = useParams();
 
   useEffect(() => {

@@ -33,7 +33,10 @@ export const fetchAttendance = () => async (dispatch) => {
   } catch (error) {
     return dispatch({
       type: FETCH_STUDENT_ATTENDANCE_FAILURE,
-      payload: error.message,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -64,7 +67,10 @@ export const fetchClasses = () => async (dispatch) => {
   } catch (error) {
     return dispatch({
       type: FETCH_STUDENT_CLASSES_FAILURE,
-      payload: error.message,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };

@@ -1,12 +1,12 @@
 import { Box, Spinner, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { AttendenceHero } from "../../Components";
+import { AttendenceHero, ErrorMessage } from "../../Components";
 import AttendenceCard from "../../Components/Attendence/AttendenceCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAttendance } from "../../Redux/Actions";
 const Attendence = () => {
   const dispatch = useDispatch();
-  const { loading, attendance, success, error } = useSelector(
+  const { loading, attendance, success, error, message } = useSelector(
     (state) => state.attendance
   );
   useEffect(() => {
@@ -20,7 +20,14 @@ const Attendence = () => {
       </div>
     );
   }
-
+  if (error && !success) {
+    return (
+      <ErrorMessage
+        message={message}
+        submessage={"Oops, Something went Wrong."}
+      />
+    );
+  }
   const { data } = attendance;
   return (
     <Box className="p-10 mobile:p-4">

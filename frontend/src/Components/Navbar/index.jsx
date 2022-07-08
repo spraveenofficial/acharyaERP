@@ -90,7 +90,7 @@ const Navbar = () => {
                       Acharya
                     </h1>
                   </motion.div>
-                  <motion.div className="navitems relative">
+                  <motion.div className="navitems relative lg:gap-5 desktop:gap-7">
                     <Link className="font-bold" to={"/"}>
                       Home
                     </Link>

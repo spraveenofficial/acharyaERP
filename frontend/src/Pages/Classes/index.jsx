@@ -2,10 +2,12 @@ import { Box, Spinner, Text } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchClasses } from "../../Redux/Actions";
 import { useEffect } from "react";
-import { ClassCard } from "../../Components";
+import { ClassCard, ErrorMessage } from "../../Components";
 const Classes = () => {
   const dispatch = useDispatch();
-  const { loading, classes } = useSelector((state) => state.classes);
+  const { loading, classes, error, success, message } = useSelector(
+    (state) => state.classes
+  );
   const { onlineClasses, offlineClasses } = classes;
   useEffect(() => {
     dispatch(fetchClasses());
@@ -17,6 +19,14 @@ const Classes = () => {
       <div className="flex justify-center items-center min-h-screen">
         <Spinner size="xl" />
       </div>
+    );
+  }
+  if (error && !success) {
+    return (
+      <ErrorMessage
+        message={message}
+        submessage={"Oops, Something went Wrong."}
+      />
     );
   }
   return (
