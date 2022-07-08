@@ -31,6 +31,7 @@ const addEvent = async (req, res) => {
     eventDate,
     timing,
     organisedBy,
+    rules,
   } = req.body;
   const buffer = Buffer.from(
     thumbnail.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""),
@@ -56,6 +57,7 @@ const addEvent = async (req, res) => {
       eventDate,
       timing,
       organisedBy,
+      rules,
     });
     await event.save();
     return res.status(200).json({

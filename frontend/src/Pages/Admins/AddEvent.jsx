@@ -34,6 +34,7 @@ const AddEvent = () => {
       timing: "",
       organisedBy: user.auid,
       description: "",
+      rules: [],
     },
     onSubmit: async (values) => {
       const response = await dispatch(newEvent(values));
@@ -70,10 +71,12 @@ const AddEvent = () => {
       if (!values.description) {
         errors.description = "Description is Required";
       }
+      if (values.rules.length === 0) {
+        errors.rules = "Rules is Required";
+      }
       return errors;
     },
   });
-
   const handleAvatar = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -85,7 +88,6 @@ const AddEvent = () => {
   const isInvalid = (name) => {
     return formik.errors[name] && formik.touched[name];
   };
-
   const handleClearForm = () => {
     formik.resetForm();
   };
@@ -162,7 +164,7 @@ const AddEvent = () => {
   }, []);
   return (
     <Box className="p-10 mobile:p-4 items-center  font-bold min-h-screen flex flex-col text-center ">
-      <Box className="w-2/4 mobile:w-full">
+      <Box className="w-2/4 mobile:w-full xl:w-3/4">
         <form onSubmit={formik.handleSubmit}>
           {formik.values.thumbnail && (
             <FormLabel htmlFor="dropzone-file">Event Thumbnail</FormLabel>
@@ -265,7 +267,6 @@ const AddEvent = () => {
             <FormLabel mt={4} htmlFor="description">
               Enter Event Description
             </FormLabel>
-            <Editors />
             <Textarea
               id="description"
               type="description"
@@ -276,6 +277,21 @@ const AddEvent = () => {
             />
             {formik.touched.description && formik.errors.description && (
               <FormErrorMessage>{formik.errors.description}</FormErrorMessage>
+            )}
+          </FormControl>
+          <FormControl isInvalid={isInvalid("rules")}>
+            <FormLabel mt={4} htmlFor="rules">
+              Enter Event Rules
+            </FormLabel>
+            <Editors
+              id="rules"
+              type="rules"
+              name="rules"
+              onChange={(e) => formik.setFieldValue("rules", e)}
+              value={formik.values.rules}
+            />
+            {formik.touched.rules && formik.errors.rules && (
+              <FormErrorMessage>{formik.errors.rules}</FormErrorMessage>
             )}
           </FormControl>
           <FormControl isInvalid={isInvalid("category")}>

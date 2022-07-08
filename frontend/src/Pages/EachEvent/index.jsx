@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Error } from "..";
 import { EventCard } from "../../Components";
+import { Editable, withReact, Slate, ReactEditor } from "slate-react";
+import { Editor, Transforms, createEditor } from "slate";
 const EventPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,7 +22,9 @@ const EventPage = () => {
     entryFee,
     _id,
     suggestedEvents,
+    rules,
   } = event;
+  console.log(rules);
   const { eventId } = useParams();
 
   useEffect(() => {
@@ -56,6 +60,7 @@ const EventPage = () => {
         }}
         className="text-gray-400 bg-blue-700 body-font overflow-hidden rounded-sm"
       >
+        <Slate editor={withReact(createEditor())} value={rules} />
         <div className="containe mx-auto desktop:flex">
           <div className="mx-auto flex flex-wrap desktop:p-2 lg:p-2">
             <Image

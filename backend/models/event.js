@@ -48,6 +48,10 @@ const eventSchema = new Schema(
       type: String,
       required: true,
     },
+    rules: {
+      type: Array,
+      required: true,
+    },
     status: {
       type: String,
       enum: ["active", "expired", "cancelled", "completed"],
