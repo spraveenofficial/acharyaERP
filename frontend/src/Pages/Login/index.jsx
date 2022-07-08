@@ -62,7 +62,7 @@ const Login = () => {
           </h1>
           <p className="text-white mt-1 w-auto">
             This is the minimal Acharya ERP, where acharyan's can access all the
-            perks in there fingertip.
+            perks from there fingertip.
           </p>
           <button className="block w-28 bg-white text-indigo-800 mt-4 py-2 rounded-2xl font-bold mb-2">
             Read More
