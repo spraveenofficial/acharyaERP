@@ -146,21 +146,12 @@ const checkOutConditions = async (req, res, next) => {
     const booking = await Booking.find({
       auid: isUserExist.auid,
       event: event._id,
+      status: { $in: ["pending", "confirmed"] },
     });
     if (booking.length > 0) {
-      booking.forEach((book) => {
-        if (book.status === "confirmed") {
-          return res.status(400).json({
-            success: false,
-            message: "You have already booked this event",
-          });
-        }
-        if (book.status === "pending") {
-          return res.status(400).json({
-            success: false,
-            message: "You have already booked this event, Its pending.",
-          });
-        }
+      return res.status(400).json({
+        success: false,
+        message: "You have already booked this event.",
       });
     }
     next();

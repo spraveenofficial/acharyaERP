@@ -160,7 +160,6 @@ const fetchCheckout = async (req, res) => {
 };
 
 const makeFreeOrder = async (req, res) => {
-  // const { id } = req.data;
   const { name, email, phone, amount, eventId, auid, orderId } = req.body;
   try {
     const order = new Booking({
@@ -171,11 +170,19 @@ const makeFreeOrder = async (req, res) => {
       auid,
       event: eventId,
       status: "confirmed",
-      paymentMode: "free",
+      paymentMode: amount < 0 ? "Cash" : "Voucher",
       paymentDetails: {
-        amount,
-        paymentMethod: "free",
-        paymentStatus: "success",
+        TXNID: Math.floor(Math.random() * 1000000),
+        ORDERID: orderId,
+        TXNAMOUNT: amount,
+        STATUS: "TXN_SUCCESS",
+        TXNTYPE: "SALE",
+        RESPMSG: "Txn Success",
+        BANKNAME: "Acharya ERP",
+        MID: "uskHMG50484262730530",
+        PAYMENTMODE: amount < 0 ? "Cash" : "Voucher",
+        REFUNDAMT: "0.00",
+        TXNDATE: Date.now(),
       },
     });
     await order.save();
@@ -185,6 +192,7 @@ const makeFreeOrder = async (req, res) => {
       data: order,
     });
   } catch (error) {
+    console.log(error);
     return res.status(400).json({
       success: false,
       message: "Something Went Wrong While Booking. Please Try Again Later",

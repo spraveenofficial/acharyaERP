@@ -33,7 +33,7 @@ const BookingSchema = new Schema(
     paymentMode: {
       type: String,
       required: true,
-      enum: ["cash", "online", "free"],
+      enum: ["Cash", "online", "Voucher"],
     },
     paymentDetails: {
       type: Object,

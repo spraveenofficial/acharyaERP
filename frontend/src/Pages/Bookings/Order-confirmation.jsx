@@ -1,7 +1,7 @@
 import { Box, Spinner, Text, useColorMode } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { fetchUserEachOrder } from "../../Redux/Actions";
 import moment from "moment";
 import { Error } from "..";
@@ -40,8 +40,10 @@ const OrderConfirmation = () => {
         return "Wallet";
       case "UPI":
         return "UPI";
-      case "CASH":
+      case "Cash":
         return "Cash";
+      case "Voucher":
+        return "Voucher";
       default:
         return "Online Payment";
     }
@@ -64,7 +66,7 @@ const OrderConfirmation = () => {
                   <p className="mt-3">Your Order ID: {checkout?.orderId}</p>
                 </div>
               </Box>
-              <Box className="checkout-widget checkout-contact min-h-fit checkout-personal">
+              <Box className="checkout-widget checkout-contact min-h-fit">
                 <h5 className="title text-white text-xl font-bold">
                   Personal Details
                 </h5>
@@ -81,11 +83,11 @@ const OrderConfirmation = () => {
                   </Text>
                 </Box>
               </Box>
-              <Box className="checkout-widget checkout-contact min-h-fit checkout-personal">
+              <Box className="checkout-widget checkout-contact min-h-fit">
                 <h5 className="title text-white text-xl font-bold">
                   Transaction Details
                 </h5>
-                <Box className="flex gap-2 flex-col pb-0">
+                <Box className="flex gap-2 flex-col">
                   <Box className="flex justify-between mobile:flex-col mobile:gap-2">
                     <Text>TXN ID: {paymentDetails?.TXNID}</Text>
                     <Text>
