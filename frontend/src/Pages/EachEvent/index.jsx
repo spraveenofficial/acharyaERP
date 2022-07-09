@@ -1,16 +1,16 @@
-import { Box, Image, Spinner, Text } from "@chakra-ui/react";
+import { Box, Image, Spinner, Text, useToast } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchEvent, initializeCheckout } from "../../Redux/Actions";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Error } from "..";
-import { EventCard, Notification } from "../../Components";
+import { EventCard, Toast } from "../../Components";
 
 const EventPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const toast = useToast();
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const [showNotification, setShowNotification] = useState("");
   const { loading, event, success } = useSelector((state) => state.event);
   const {
     title,
@@ -34,9 +34,17 @@ const EventPage = () => {
   }, [eventId]);
 
   const handleInitializeCheckout = () => {
-    setShowNotification("");
     if (!isAuthenticated) {
-      return setShowNotification(() => "You need to be logged in to book");
+      toast({
+        title: "Something went wrong",
+        description: "You need to login to continue",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-left",
+        zIndex: 110000000,
+      });
+      return;
     }
     dispatch({
       type: "SETUP_CHECKOUT_EVENTID",
@@ -59,9 +67,6 @@ const EventPage = () => {
   }
   return (
     <Box className="p-10 mobile:p-4">
-      {showNotification && (
-        <Notification success={false} message={showNotification} />
-      )}
       <Box
         _dark={{
           background: "rgba(0, 0, 0, 0.1)",
@@ -125,7 +130,7 @@ const EventPage = () => {
       </Text>
       <Box className="grid grid-cols-4 auto-cols-max gap-5 mobile:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
         {suggestedEvents.map((event) => (
-          <EventCard event={event} />
+          <EventCard key={event.id} event={event} />
         ))}
       </Box>
     </Box>
