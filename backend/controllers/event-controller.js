@@ -90,7 +90,7 @@ const initializeCheckout = async (req, res) => {
       auid: isUserExist.auid,
       event: event._id,
       isProcessed: false,
-      expiry: Date.now() + 60000,
+      expiry: Date.now() + 600000,
     });
     await checkout.save();
     return res.status(200).json({
@@ -170,7 +170,7 @@ const makeFreeOrder = async (req, res) => {
       auid,
       event: eventId,
       status: "confirmed",
-      paymentMode: amount < 0 ? "Cash" : "Voucher",
+      paymentMode: amount > 0 ? "Cash" : "Voucher",
       paymentDetails: {
         TXNID: Math.floor(Math.random() * 1000000),
         ORDERID: orderId,
@@ -180,12 +180,18 @@ const makeFreeOrder = async (req, res) => {
         RESPMSG: "Txn Success",
         BANKNAME: "Acharya ERP",
         MID: "uskHMG50484262730530",
-        PAYMENTMODE: amount < 0 ? "Cash" : "Voucher",
+        PAYMENTMODE: amount > 0 ? "Cash" : "Voucher",
         REFUNDAMT: "0.00",
         TXNDATE: Date.now(),
       },
     });
     await order.save();
+    await Event.findOneAndUpdate(
+      {
+        _id: eventId,
+      },
+      { $inc: { slots: -1 } }
+    );
     return res.status(200).json({
       success: true,
       message: "Event Booked Successfully",

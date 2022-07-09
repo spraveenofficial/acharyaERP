@@ -8,6 +8,8 @@ import {
   Input,
   Spinner,
   useColorMode,
+  Radio,
+  RadioGroup,
 } from "@chakra-ui/react";
 import { Buttons, Modal, ErrorMessage } from "../../Components";
 import { useDispatch, useSelector } from "react-redux";
@@ -44,6 +46,7 @@ const Checkout = () => {
   const { event } = checkout;
   const [totalTimer, setTotalTimer] = useState("");
   const [modal, setModal] = useState(false);
+  const [payment, setPayment] = useState("1");
   const generateBill = () => {
     const entryFee = event.entryFee;
     if (entryFee === 0) {
@@ -61,6 +64,9 @@ const Checkout = () => {
   }, []);
 
   useEffect(() => {
+    if (event?.entryFee === 0) {
+      setPayment("3");
+    }
     if (checkout.expiry) {
       const expiry = moment(checkout.expiry);
       const interval = setInterval(() => {
@@ -112,19 +118,21 @@ const Checkout = () => {
     if (formik.errors.mobile) {
       return;
     }
-    if (datatoSend.amount === 0) {
+    if (payment === "2" || payment === "3") {
       const response = await makeFreeOrder(datatoSend);
       if (response?.orderId) {
         navigate(`/orderStatus/${response.orderId}`);
       }
       return;
     }
-    const response = await initPayment(datatoSend);
-    var details = {
-      action: "https://securegw-stage.paytm.in/order/process",
-      params: response,
-    };
-    post(details);
+    if (payment === "1") {
+      const response = await initPayment(datatoSend);
+      var details = {
+        action: "https://securegw-stage.paytm.in/order/process",
+        params: response,
+      };
+      post(details);
+    }
   };
 
   const ShowModalToExpiredCheckOut = () => (
@@ -241,115 +249,6 @@ const Checkout = () => {
                   </Flex>
                 </form>
               </Box>
-              {/* <div className="checkout-widget checkout-contact checkout-card mb-0">
-                <h5 className="title text-xl text-white font-bold">
-                  Payment Option
-                </h5>
-                <ul className="payment-option">
-                  <li className="active">
-                    <a href="#0">
-                      <img
-                        src="./assets/images/payment/card.png"
-                        alt="payment"
-                      />
-                      <span>Credit Card</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#0">
-                      <img
-                        src="./assets/images/payment/card.png"
-                        alt="payment"
-                      />
-                      <span>Debit Card</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#0">
-                      <img
-                        src="./assets/images/payment/paypal.png"
-                        alt="payment"
-                      />
-                      <span>paypal</span>
-                    </a>
-                  </li>
-                </ul>
-                <h6 className="text-bold text-center text-white text-2xl mb-4 uppercase font-[Acharya-bold]">
-                  Enter Your Card Details
-                </h6>
-                <form className="payment-card-form">
-                  <FormControl isInvalid={false}>
-                    <FormLabel className="text-white" htmlFor="title">
-                      Enter Card Holder Name
-                    </FormLabel>
-                    <Input
-                      id="title"
-                      type="title"
-                      name="title"
-                      placeholder="Event Title"
-                      height="50px"
-                      className="text-white"
-                    />
-                  </FormControl>
-                  <FormControl mt={4} isInvalid={false}>
-                    <FormLabel className="text-white" htmlFor="title">
-                      Enter Card Number
-                    </FormLabel>
-                    <Input
-                      id="title"
-                      type="title"
-                      name="title"
-                      placeholder="Enter Card Number"
-                      height="50px"
-                      className="text-white"
-                    />
-                  </FormControl>
-                  <Flex
-                    gap={5}
-                    mt={4}
-                    className="items-center w-full text-white"
-                  >
-                    <FormControl isInvalid={false}>
-                      <FormLabel className="text-white" htmlFor="title">
-                        Enter Expiry Date
-                      </FormLabel>
-                      <Input
-                        id="title"
-                        type="title"
-                        name="title"
-                        placeholder="MM/YY"
-                        height="50px"
-                        className="text-white"
-                      />
-                    </FormControl>
-                    <FormControl isInvalid={false}>
-                      <FormLabel htmlFor="title">Enter CVV</FormLabel>
-                      <Input
-                        id="title"
-                        type="title"
-                        name="title"
-                        placeholder="CVV"
-                        height="50px"
-                      />
-                    </FormControl>
-                  </Flex>
-                  <div className="form-group check-group text-white">
-                    <input id="card5" type="checkbox" defaultChecked />
-                    <label htmlFor="card5">
-                      <span className="title">QuickPay</span>
-                      <span className="info">
-                        Save this card information to my Boleto account and make
-                        faster payments.
-                      </span>
-                    </label>
-                  </div>
-                  <Buttons className="mt-3 mb-3">Proceed</Buttons>
-                </form>
-                <p className="notice">
-                  By Clicking "Make Payment" you agree to the
-                  <a href="#0">terms and conditions</a>
-                </p>
-              </div> */}
             </div>
             <div className="col-lg-4 summary-mobile">
               <div className="booking-summery bg-one text-white">
@@ -414,12 +313,29 @@ const Checkout = () => {
                 </ul>
               </div>
               <div className="proceed-area text-center text-white">
-                <h6 className="subtitle">
+                <h6 className="flex font-bold uppercase mb-4 justify-between">
                   <span>Amount Payable</span>
                   <span className="font-bold">{generateBill().total} ₹</span>
                 </h6>
+                {event?.entryFee > 0 && (
+                  <Box className="flex justify-start">
+                    <RadioGroup
+                      onChange={setPayment}
+                      value={payment}
+                      name="form-name"
+                      className="flex flex-col gap-2 mb-4"
+                    >
+                      <Radio value="1">Pay Online</Radio>
+                      <Radio value="2">Pay Before Event</Radio>
+                    </RadioGroup>
+                  </Box>
+                )}
                 <Buttons onClick={handleProceedToPayment}>
-                  Proceed to Pay
+                  {payment === "1"
+                    ? "Proceed to Payment"
+                    : payment === "3"
+                    ? "Confirm Booking"
+                    : "Pay Before Event"}
                 </Buttons>
               </div>
             </div>

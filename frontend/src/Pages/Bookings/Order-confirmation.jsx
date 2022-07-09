@@ -41,7 +41,7 @@ const OrderConfirmation = () => {
       case "UPI":
         return "UPI";
       case "Cash":
-        return "Cash";
+        return "Pay Before Event";
       case "Voucher":
         return "Voucher";
       default:

@@ -47,7 +47,7 @@ const MyBookings = () => {
     return (
       <ErrorMessage
         message={message}
-        submessage="Oops, Something Hitted Hard. Books Orders Now."
+        submessage="Oops, Something Hitted Hard. Start Booking Events Now."
       />
     );
   }
