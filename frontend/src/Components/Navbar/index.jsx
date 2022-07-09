@@ -16,7 +16,13 @@ const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [deviceType, setDeviceType] = useState("desktop");
   const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const [isSuper, setSuper] = useState(false);
   useEffect(() => {
+    if (user?.role) {
+      if (user?.role === "ADMIN" || user?.role === "MODERATOR") {
+        setSuper(true);
+      }
+    }
     updateDeviceType(window.innerWidth);
   });
   useEffect(() => {
@@ -129,7 +135,7 @@ const Navbar = () => {
                         {isOpen ? (
                           <Box
                             bottom={{
-                              base: "-180px",
+                              base: isSuper ? "-210" : "-180",
                             }}
                             width="100%"
                             _dark={{
@@ -165,6 +171,17 @@ const Navbar = () => {
                                   Settings
                                 </Link>
                               </li>
+                              {isSuper ? (
+                                <li>
+                                  <Link
+                                    className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                    to={"/admin"}
+                                    onClick={() => setIsOpen(false)}
+                                  >
+                                    Manage Admin
+                                  </Link>
+                                </li>
+                              ) : null}
                               <li>
                                 <Text
                                   onClick={handleLogout}

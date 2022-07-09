@@ -36,3 +36,4 @@ export { LoadingOrderCard } from "./Shared/Cards";
 export { ErrorMessage } from "./Shared/ErrorMessage";
 export { Editors } from "./Shared/Editor";
 export { Notification } from "./Notification";
+export { SideBar } from "./SideBar";

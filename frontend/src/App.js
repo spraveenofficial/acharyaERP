@@ -15,6 +15,7 @@ import {
   CheckoutMain,
   MyBookings,
   OrderConfirmation,
+  Admin,
 } from "./Pages";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile } from "./Redux/Actions";
@@ -71,6 +72,7 @@ function App() {
         </Route>
         <Route element={<AdminAndModRoutes />}>
           <Route path="/admin/add-event" element={<AddEvent />} />
+          <Route path="/admin" element={<Admin />} />
         </Route>
       </Routes>
       <Footer />
