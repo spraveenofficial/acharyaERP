@@ -1,14 +1,16 @@
 import { Box, Image, Spinner, Text } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchEvent, initializeCheckout } from "../../Redux/Actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Error } from "..";
-import { EventCard } from "../../Components";
+import { EventCard, Notification } from "../../Components";
 
 const EventPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const [showNotification, setShowNotification] = useState("");
   const { loading, event, success } = useSelector((state) => state.event);
   const {
     title,
@@ -32,6 +34,10 @@ const EventPage = () => {
   }, [eventId]);
 
   const handleInitializeCheckout = () => {
+    setShowNotification("");
+    if (!isAuthenticated) {
+      return setShowNotification(() => "You need to be logged in to book");
+    }
     dispatch({
       type: "SETUP_CHECKOUT_EVENTID",
       payload: _id,
@@ -53,6 +59,9 @@ const EventPage = () => {
   }
   return (
     <Box className="p-10 mobile:p-4">
+      {showNotification && (
+        <Notification success={false} message={showNotification} />
+      )}
       <Box
         _dark={{
           background: "rgba(0, 0, 0, 0.1)",
