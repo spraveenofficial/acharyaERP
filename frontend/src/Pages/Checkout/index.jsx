@@ -314,7 +314,7 @@ const Checkout = () => {
               </div>
               <div className="proceed-area text-center text-white">
                 <h6 className="flex font-bold uppercase mb-4 justify-between">
-                  <span>Amount Payable</span>
+                  <span>Total Amount</span>
                   <span className="font-bold">{generateBill().total} ₹</span>
                 </h6>
                 {event?.entryFee > 0 && (

@@ -1,10 +1,9 @@
 import "./style.css";
 import { useNavigate } from "react-router-dom";
-import { Box, Flex, Heading, Spinner, Text } from "@chakra-ui/react";
+import { Spinner, Text } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchMyOrders } from "../../Redux/Actions";
-import { CloseIcon } from "@chakra-ui/icons";
 import { ErrorMessage } from "../../Components";
 const MyBookings = () => {
   const dispatch = useDispatch();

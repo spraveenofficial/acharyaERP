@@ -5,24 +5,13 @@ import Booking from "../models/bookings.js";
 
 const checkBookingConditions = async (req, res, next) => {
   const { id } = req.data;
-  // console.log("fnefbiun");
-  const { name, email, phone, amount, eventId, auid, orderId, checkOutId } = req
-    .body?.auid
-    ? req.body
-    : req.query;
+  const { amount, eventId, checkOutId } = req.body?.auid ? req.body : req.query;
   try {
     const isUserExist = await User.findById(id);
     if (!isUserExist) {
       return res.status(400).json({
         success: false,
         message: "User not found",
-      });
-    }
-
-    if (isUserExist.auid !== auid) {
-      return res.status(400).json({
-        success: false,
-        message: "AUID mismatched",
       });
     }
 
@@ -33,10 +22,7 @@ const checkBookingConditions = async (req, res, next) => {
         message: "Event not found",
       });
     }
-    // event.slots -= 1;
-    // event.save();
 
-    // Check if event have slot available
     if (event.slots === 0) {
       return res.status(400).json({
         success: false,
@@ -60,19 +46,22 @@ const checkBookingConditions = async (req, res, next) => {
         message: "Checkout not found",
       });
     }
-
-    // Check if the user have booked this event
-    const booking = await Booking.findOne({
-      user: isUserExist._id,
-      event: event._id,
-    });
-
-    console.log(booking);
-
-    if (booking) {
+    if (isUserExist.auid !== checkOut.auid) {
       return res.status(400).json({
         success: false,
-        message: "You have already booked this event",
+        message: "AUID mismatched",
+      });
+    }
+    // Check if the user have booked this event
+    const booking = await Booking.find({
+      auid: isUserExist.auid,
+      event: event._id,
+      status: { $in: ["pending", "confirmed"] },
+    });
+    if (booking.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: "You have already booked this event.",
       });
     }
 
@@ -108,7 +97,6 @@ const checkBookingConditions = async (req, res, next) => {
         message: "Amount does not match",
       });
     }
-    // Make purchase order
     next();
   } catch (error) {
     console.log(error);

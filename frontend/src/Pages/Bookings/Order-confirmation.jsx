@@ -1,4 +1,4 @@
-import { Box, Spinner, Text, useColorMode } from "@chakra-ui/react";
+import { Box, Spinner, Text } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -9,7 +9,6 @@ import QRCode from "react-qr-code";
 const OrderConfirmation = () => {
   const { orderId } = useParams();
   const dispatch = useDispatch();
-  const { colorMode } = useColorMode();
   const { loading, success, error, checkout, message } = useSelector(
     (state) => state.checkout
   );
@@ -27,6 +26,15 @@ const OrderConfirmation = () => {
       </div>
     );
   }
+  const generateBill = () => {
+    const entryFee = event.entryFee;
+    if (entryFee === 0) {
+      return { entryFee: 0, total: 0, tax: 0 };
+    }
+    const tax = entryFee * 0.16;
+    const total = entryFee + tax;
+    return { entryFee, tax, total };
+  };
 
   const fullPaymentModeName = (paymentMode) => {
     switch (paymentMode) {
@@ -46,6 +54,12 @@ const OrderConfirmation = () => {
         return "Voucher";
       default:
         return "Online Payment";
+    }
+  };
+
+  const RenderOrderNote = () => {
+    if (checkout.paymentMode === "Cash" || checkout.paymentMode === "Voucher") {
+      return <Text>Note: {paymentDetails?.RESPMSG} </Text>;
     }
   };
 
@@ -98,9 +112,7 @@ const OrderConfirmation = () => {
                     Payment Mode: {""}
                     {fullPaymentModeName(paymentDetails?.PAYMENTMODE)}
                   </Text>
-                  <Text>
-                    Amount: {paymentDetails?.TXNAMOUNT} (Including GST)
-                  </Text>
+                  <RenderOrderNote />
                 </Box>
               </Box>
             </div>
@@ -125,7 +137,7 @@ const OrderConfirmation = () => {
                 )}
                 <ul>
                   <li>
-                    <h6 className="subtitle">Event</h6>
+                    <h6 className="subtitle">Event:</h6>
                     <span className="info">{event?.title}</span>
                   </li>
                   <li>
@@ -147,37 +159,29 @@ const OrderConfirmation = () => {
                     </h6>
                   </li>
                 </ul>
-                <ul
-                  className={`side-shape mobile:hidden ${
-                    colorMode === "dark"
-                      ? "after:bg-[#1a202c] before:bg-[#1a202c]"
-                      : "after:bg-white before:bg-white"
-                  }`}
-                >
+                <ul>
                   <li>
-                    <h6 className="subtitle">
-                      <span>combos</span>
-                      <span>57 ₹</span>
-                    </h6>
                     <span className="info">
-                      <span>2 Nachos Combo</span>
+                      <span>price</span>
+                      <span>{generateBill().entryFee} ₹</span>
                     </span>
-                  </li>
-                  <li>
-                    <h6 className="subtitle">
-                      <span>food &amp; bevarage</span>
-                    </h6>
+                    <span className="info">
+                      <span>gst (16%)</span>
+                      <span>{generateBill().tax} ₹</span>
+                    </span>
+                    <span className="info">
+                      <span>Discount</span>
+                      <span>0 ₹</span>
+                    </span>
                   </li>
                 </ul>
                 <ul>
                   <li>
                     <span className="info">
-                      <span>price</span>
-                      <span>0₹</span>
-                    </span>
-                    <span className="info">
-                      <span>gst (16%)</span>
-                      <span>0 ₹</span>
+                      <span>Total Amount</span>
+                      <p className="font-bold font-white">
+                        {paymentDetails?.TXNAMOUNT} ₹
+                      </p>
                     </span>
                   </li>
                 </ul>

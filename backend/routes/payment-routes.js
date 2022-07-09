@@ -7,11 +7,9 @@ import {
 } from "../controllers/payment-controller.js";
 const router = express.Router();
 
-// router.use(middleware).route("/init/:params").post(makePayment);
-router.route("/verify").post(verifyPayment);
-// Make route as params
-router.use(middleware).route("/init").get(makePayment);
-// router.route("/verify").post(verifyPayment);
 
+router.route("/verify").post(verifyPayment);
+
+router.get("/init", middleware, checkBookingConditions, makePayment);
 
 export default router;

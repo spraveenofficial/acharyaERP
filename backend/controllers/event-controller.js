@@ -124,14 +124,14 @@ const fetchCheckout = async (req, res) => {
     if (!checkout) {
       return res.status(400).json({
         success: false,
-        message: "Checkout not found, testing",
+        message: "Checkout not found",
       });
     }
 
     if (checkout.isProcessed) {
       return res.status(400).json({
         success: false,
-        message: "Checkout already processed",
+        message: "Checkout already processed.",
       });
     }
 
@@ -139,7 +139,7 @@ const fetchCheckout = async (req, res) => {
     if (checkout.expiry < Date.now()) {
       return res.status(400).json({
         success: false,
-        message: "Oops, Checkout is expired",
+        message: "Oops, Checkout is expired.",
       });
     }
     return res.status(200).json({
@@ -162,41 +162,73 @@ const fetchCheckout = async (req, res) => {
 const makeFreeOrder = async (req, res) => {
   const { name, email, phone, amount, eventId, auid, orderId } = req.body;
   try {
-    const order = new Booking({
-      orderId,
-      name,
-      email,
-      phone,
-      auid,
-      event: eventId,
-      status: "confirmed",
-      paymentMode: amount > 0 ? "Cash" : "Voucher",
-      paymentDetails: {
-        TXNID: Math.floor(Math.random() * 1000000),
-        ORDERID: orderId,
-        TXNAMOUNT: amount,
-        STATUS: "TXN_SUCCESS",
-        TXNTYPE: "SALE",
-        RESPMSG: "Txn Success",
-        BANKNAME: "Acharya ERP",
-        MID: "uskHMG50484262730530",
-        PAYMENTMODE: amount > 0 ? "Cash" : "Voucher",
-        REFUNDAMT: "0.00",
-        TXNDATE: Date.now(),
-      },
-    });
-    await order.save();
-    await Event.findOneAndUpdate(
-      {
-        _id: eventId,
-      },
-      { $inc: { slots: -1 } }
-    );
-    return res.status(200).json({
-      success: true,
-      message: "Event Booked Successfully",
-      data: order,
-    });
+    const event = await Event.findById(eventId);
+    if (event.slots > 0) {
+      event.slots--;
+      await event.save();
+      const order = new Booking({
+        orderId,
+        name,
+        email,
+        phone,
+        auid,
+        event: eventId,
+        status: "confirmed",
+        paymentMode: amount > 0 ? "Cash" : "Voucher",
+        paymentDetails: {
+          TXNID: Math.floor(Math.random() * 1000000),
+          ORDERID: orderId,
+          TXNAMOUNT: amount,
+          STATUS: "TXN_SUCCESS",
+          TXNTYPE: "SALE",
+          RESPMSG:
+            amount > 0
+              ? "You need to Pay Amount Before Checking in to Event."
+              : "Voila, you have Dont need to Pay.",
+          BANKNAME: "Acharya ERP",
+          MID: "uskHMG50484262730530",
+          PAYMENTMODE: amount > 0 ? "Cash" : "Voucher",
+          REFUNDAMT: "0.00",
+          TXNDATE: Date.now(),
+        },
+      });
+      await order.save();
+      return res.status(200).json({
+        success: true,
+        message: "Event Booked Successfully",
+        data: order,
+      });
+    } else {
+      const order = new Booking({
+        orderId,
+        name,
+        email,
+        phone,
+        auid,
+        event: eventId,
+        status: "failed",
+        paymentMode: amount > 0 ? "Cash" : "Voucher",
+        paymentDetails: {
+          TXNID: Math.floor(Math.random() * 1000000),
+          ORDERID: orderId,
+          TXNAMOUNT: amount,
+          STATUS: "TXN_FAILURE",
+          TXNTYPE: "SALE",
+          RESPMSG: "Sorry, No Slots Available",
+          BANKNAME: "Acharya ERP",
+          MID: "uskHMG50484262730530",
+          PAYMENTMODE: amount > 0 ? "Cash" : "Voucher",
+          REFUNDAMT: "0.00",
+          TXNDATE: Date.now(),
+        },
+      });
+      await order.save();
+      return res.status(200).json({
+        success: true,
+        message: "Event Booked Successfully",
+        data: order,
+      });
+    }
   } catch (error) {
     console.log(error);
     return res.status(400).json({

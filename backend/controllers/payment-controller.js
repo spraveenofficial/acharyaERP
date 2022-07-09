@@ -80,16 +80,23 @@ const verifyPayment = async (request, response) => {
           post_res.on("end", async function () {
             let result = JSON.parse(res);
             if (result.STATUS == "TXN_SUCCESS") {
-              const booking = await Booking.findOneAndUpdate(
-                { orderId: result.ORDERID },
-                { status: "confirmed", paymentDetails: result }
-              );
-              await Event.findOneAndUpdate(
-                {
-                  _id: booking.event,
-                },
-                { $inc: { slots: -1 } }
-              );
+              const mainBooking = await Booking.findOne({
+                orderId: result.ORDERID,
+              });
+              const event = await Event.findById(mainBooking.event);
+              if (event.slots > 0) {
+                event.slots--;
+                await event.save();
+                await Booking.findOneAndUpdate(
+                  { orderId: result.ORDERID },
+                  { status: "confirmed", paymentDetails: result }
+                );
+              } else {
+                await Booking.findOneAndUpdate(
+                  { orderId: result.ORDERID },
+                  { status: "failed", paymentDetails: result }
+                );
+              }
             }
             if (result.STATUS == "TXN_FAILURE") {
               await Booking.findOneAndUpdate(

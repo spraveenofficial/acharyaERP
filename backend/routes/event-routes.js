@@ -26,16 +26,11 @@ router.post(
   initializeCheckout
 );
 
-router.get(
-  "/checkout/:checkoutId",
-  middleware,
-  // checkBookingConditions,
-  fetchCheckout
-);
+router.get("/checkout/:checkoutId", middleware, fetchCheckout);
 router.get("/my-bookings", middleware, fetchUserAllOrders);
 
 router.use(middleware).route("/order/:orderId").get(fetchUserEachOrder);
 
-router.use(middleware).route("/book").post(makeFreeOrder);
+router.post("/book", middleware, checkBookingConditions, makeFreeOrder);
 
 export default router;
