@@ -39,7 +39,7 @@ const Login = () => {
       if (!values.password) {
         errors.password = "Valid password is required";
       } else if (values.password.length < 5) {
-        errors.password = "Password must contain at least 6 characters.";
+        errors.password = "Password must contain at least 5 characters.";
       }
       return errors;
     },
@@ -79,6 +79,7 @@ const Login = () => {
         <form
           className="w-80 max-w-sm mobile:max-w-full mobile:p-10 mobile:w-full mobile:h-full"
           onSubmit={formik.handleSubmit}
+          name="login"
         >
           <Text
             className="text-gray-800 font-bold text-xl mb-1"
