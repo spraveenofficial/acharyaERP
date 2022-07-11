@@ -6,6 +6,9 @@ import { fetchUserEachOrder } from "../../Redux/Actions";
 import moment from "moment";
 import { Error } from "..";
 import QRCode from "react-qr-code";
+import Lottie from "react-lottie-player";
+import lottieJson from "../../Components/Icons/82748-sucess.json";
+
 const OrderConfirmation = () => {
   const { orderId } = useParams();
   const dispatch = useDispatch();
@@ -72,13 +75,20 @@ const OrderConfirmation = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-8">
-              <Box className="checkout-widget flex flex-wrap items-center justify-between bg-[#DEE2FF]">
-                <div className="title-area">
+              <Box className="checkout-widget flex flex-row flex-wrap  justify-between bg-[#DEE2FF]">
+                <div className="w-3/4 items-center">
                   <h5 className="text-white text-xl font-bold capitalize">
                     Thank you, Your booking is {checkout.status}
                   </h5>
                   <p className="mt-3">Your Order ID: {checkout?.orderId}</p>
                 </div>
+                <Lottie
+                  loop
+                  animationData={lottieJson}
+                  play
+                  // className="w-full h-full"
+                  style={{ width: 100, height: 100 }}
+                />
               </Box>
               <Box className="checkout-widget checkout-contact min-h-fit">
                 <h5 className="title text-white text-xl font-bold">

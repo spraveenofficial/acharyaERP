@@ -7,7 +7,7 @@ const Developers = () => {
             <h1 className="text-3xl font-semibold capitalize lg:text-4xl dark:text-white">
               Our Team
             </h1>
-            <p className="max-w-2xl mt-4 text-gray-500 dark:text-gray-300">
+            <p className="max-w-2xl mt-4 text-gray-500 dark:text-gray-300 mobile:mb-4">
               We are a team of developers who are passionate about building
               products that are easy to use and easy to understand and most
               importantly that product should serve the purpose of Users.
