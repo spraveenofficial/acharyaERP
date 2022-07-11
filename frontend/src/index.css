@@ -217,3 +217,10 @@ a {
   width: fit-content;
   height: fit-content;
 }
+
+/* Write min max media query */
+@media (min-width: 1277px) and (max-width: 1430px) {
+  .classgrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

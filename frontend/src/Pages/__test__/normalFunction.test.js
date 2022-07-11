@@ -15,12 +15,18 @@ const addSumOfArray = (array) => {
   return sum;
 };
 
+
 // Function to print my name
 const printMyName = (name) => name;
 
 // Test add function
-test("Add function test", () => {
-  expect(add(1, 2)).toBe(3);
+describe("should add two numbers", () => {
+  test("Add function test", () => {
+    expect(add(1, 2)).toBe(3);
+  })
+  test("Add function test", () => {
+    expect(add(1, 2)).toBe(5);
+  })
 });
 
 // Test subtract function

@@ -7,9 +7,12 @@ import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../../Utils/theme";
 import user from "@testing-library/user-event";
 
-// Jest Testing 1.2 for Login Page under Login.test.js
+// Jest Testing for Login Page under Login.test.js
 
 describe("Login Page Tests", () => {
+  
+  // Testing starts here
+
   test("Render Login Page with Two Input Field", async () => {
     render(
       <ChakraProvider theme={theme}>
@@ -43,7 +46,6 @@ describe("Login Page Tests", () => {
     expect(loginButton).toBeInTheDocument();
   });
 
-  //   Validation Tests aka Error Message Tests for Login Page
   test("Render Login Page with Error Message when we don't enter anything.", async () => {
     render(
       <ChakraProvider theme={theme}>
@@ -90,31 +92,7 @@ describe("Login Page Tests", () => {
     });
   });
 
-  //   test("Validate Credentials from Server Side / AKA Invalid Credentials", async () => {
-  //     render(
-  //       <ChakraProvider theme={theme}>
-  //         <Provider store={store}>
-  //           <Router>
-  //             <Login />
-  //           </Router>
-  //         </Provider>
-  //       </ChakraProvider>
-  //     );
-  //     const auidInput = screen.getByPlaceholderText(/Enter AUID/i);
-  //     const passwordInput = screen.getByPlaceholderText(/Enter Password/i);
-  //     user.type(auidInput, "AGS19ABACA072");
-  //     user.type(passwordInput, "Praveen");
-  //     user.click(screen.getByRole("button", { name: /login/i }));
-  //     await waitFor(
-  //       () => {
-  //         expect(screen.getByText(/Invalid Credentials/i)).toBeInTheDocument();
-  //       },
-  //       { timeout: 10000 }
-  //     );
-  //   });
-
-  it("Validate Credentials from Server Side / AKA Correct Credentials", async () => {
-    jest.useFakeTimers("legacy");
+  test("Validate Credentials from Server Side / AKA Invalid Credentials", async () => {
     render(
       <ChakraProvider theme={theme}>
         <Provider store={store}>
@@ -126,16 +104,40 @@ describe("Login Page Tests", () => {
     );
     const auidInput = screen.getByPlaceholderText(/Enter AUID/i);
     const passwordInput = screen.getByPlaceholderText(/Enter Password/i);
-    user.type(auidInput, "AGS19ABCA072");
-    user.type(passwordInput, "Praveen8874@");
+    user.type(auidInput, "AGS19ABACA072");
+    user.type(passwordInput, "Praveen");
     user.click(screen.getByRole("button", { name: /login/i }));
-    // Check if web page is redirecting to home page after giving correct
-    // credentials
     await waitFor(
       () => {
-        expect(screen.getByText(/Hi, Praveen/i)).toBeInTheDocument();
+        expect(screen.getByText(/Invalid Credentials/i)).toBeInTheDocument();
       },
-      { timeout: 90000 }
+      { timeout: 10000 }
     );
   });
+
+  // it("Validate Credentials from Server Side / AKA Correct Credentials", async () => {
+  //   jest.useFakeTimers("legacy");
+  //   render(
+  //     <ChakraProvider theme={theme}>
+  //       <Provider store={store}>
+  //         <Router>
+  //           <Login />
+  //         </Router>
+  //       </Provider>
+  //     </ChakraProvider>
+  //   );
+  //   const auidInput = screen.getByPlaceholderText(/Enter AUID/i);
+  //   const passwordInput = screen.getByPlaceholderText(/Enter Password/i);
+  //   user.type(auidInput, "AGS19ABCA072");
+  //   user.type(passwordInput, "Praveen8874@");
+  //   user.click(screen.getByRole("button", { name: /login/i }));
+  //   // Check if web page is redirecting to home page after giving correct
+  //   // credentials
+  //   await waitFor(
+  //     () => {
+  //       expect(screen.getByText(/Hi, Praveen/i)).toBeInTheDocument();
+  //     },
+  //     { timeout: 90000 }
+  //   );
+  // });
 });
