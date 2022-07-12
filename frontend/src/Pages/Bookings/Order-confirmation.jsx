@@ -7,8 +7,8 @@ import moment from "moment";
 import { Error } from "..";
 import QRCode from "react-qr-code";
 import Lottie from "react-lottie-player";
-import lottieJson from "../../Components/Icons/82748-sucess.json";
-
+import successIcon from "../../Components/Icons/success.json";
+import failureIcon from "../../Components/Icons/failure.json";
 const OrderConfirmation = () => {
   const { orderId } = useParams();
   const dispatch = useDispatch();
@@ -69,25 +69,37 @@ const OrderConfirmation = () => {
   if (!loading && error && message) {
     return <Error />;
   }
+
+  const getStatusText = () => {
+    if (checkout?.status === "confirmed") {
+      return "Your Booking has been Confirmed";
+    } else if (checkout?.status === "failed") {
+      return "Your Booking has been Failed";
+    } else if (checkout?.status === "pending") {
+      return "Your Booking is Pending";
+    }
+
+    return "Your Booking is Pending";
+  };
   return (
     success && (
       <div className="movie-facility mt-20 mb-20">
         <div className="container">
           <div className="row">
             <div className="col-lg-8">
-              <Box className="checkout-widget flex flex-row flex-wrap  justify-between bg-[#DEE2FF]">
+              <Box className="checkout-widget flex flex-row flex-wrap items-center justify-between bg-[#DEE2FF]">
                 <div className="w-3/4 items-center">
                   <h5 className="text-white text-xl font-bold capitalize">
-                    Thank you, Your booking is {checkout.status}
+                    {getStatusText()}
                   </h5>
-                  <p className="mt-3">Your Order ID: {checkout?.orderId}</p>
                 </div>
                 <Lottie
                   loop
-                  animationData={lottieJson}
+                  animationData={
+                    checkout?.status === "confirmed" ? successIcon : failureIcon
+                  }
                   play
-                  // className="w-full h-full"
-                  style={{ width: 100, height: 100 }}
+                  style={{ width: 100, height: 70 }}
                 />
               </Box>
               <Box className="checkout-widget checkout-contact min-h-fit">
