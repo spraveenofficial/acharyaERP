@@ -3,7 +3,7 @@ import { SideBar } from "../../Components";
 
 const Admin = () => {
   return (
-    <Box className="relative">
+    <Box className="relative min-h-screen">
         <SideBar />
     </Box>
   );
