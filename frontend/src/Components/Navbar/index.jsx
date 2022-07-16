@@ -113,7 +113,7 @@ const Navbar = () => {
                       <div className="flex items-center md:order-2 relative">
                         <button
                           type="button"
-                          className={`flex justify-center text-center items-center p-2 font-bold flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 ${
+                          className={`justify-center text-center items-center p-2 font-bold flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 ${
                             colorMode === "dark"
                               ? "bg-[#23314d]"
                               : "bg-[#DEE2FF]"
@@ -301,7 +301,7 @@ const Navbar = () => {
               <div className="w-1/2 flex items-center md:order-2 flex-col">
                 <button
                   type="button"
-                  className={`w-full flex justify-center text-center items-center p-2 font-bold flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 ${
+                  className={`w-full justify-center text-center items-center p-2 font-bold flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 ${
                     colorMode === "dark" ? "bg-[#23314d]" : "bg-[#DEE2FF]"
                   }`}
                   id="user-menu-button"

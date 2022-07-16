@@ -19,7 +19,10 @@ export {
   SearchIcon,
   TypingIcon,
   LikeIcon,
-  DashboardIcon
+  DashboardIcon,
+  EventIcon,
+  AdminIcon,
+  PaymentIcon,
 } from "./Icons";
 
 export { Toast } from "./Toast";
