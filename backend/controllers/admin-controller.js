@@ -74,4 +74,35 @@ const addEvent = async (req, res) => {
   }
 };
 
-export { addEvent };
+// @desc    - Access Admin Page
+// @route   POST /admin/home
+// @access  ADMIN / MODERATOR
+
+const getAdminPage = async (req, res) => {
+  const { id } = req.data;
+  const user = await User.findById(id);
+  // Get all the data from the database for the admin to manage
+  if (!user) {
+    return res.status(400).json({
+      success: false,
+      message: "Not Authorized to Access Admin Page",
+    });
+  }
+  if (user.role !== "ADMIN" && user.role !== "MODERATOR") {
+    return res.status(400).json({
+      success: false,
+      message: "Not Authorized to Access Admin Page",
+    });
+  }
+  const events = await Event.find({});
+
+  return res.status(200).json({
+    success: true,
+    message: "Access Granted",
+    data: [
+      
+    ]
+  });
+};
+
+export { addEvent, getAdminPage };
