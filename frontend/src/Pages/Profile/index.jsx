@@ -1,5 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 
 export const Profile = () => {
@@ -10,6 +11,10 @@ export const Profile = () => {
   }, []);
   return (
     <div className="container mx-auto my-5 p-5 h-auto">
+      <Helmet>
+        <title>My Profile - Acharya ERP</title>
+        <meta name="description" content="This is the home page." />
+      </Helmet>
       <div className="desktop:flex no-wrap desktop:-mx-2 ">
         <Box className="w-full md:w-3/12 md:mx-2">
           <Box
@@ -21,7 +26,7 @@ export const Profile = () => {
           >
             <div className="image overflow-hidden">
               <img
-                className="h-32 w-32 rounded-xl w-full mx-auto"
+                className="h-32 w-32 rounded-xl mx-auto"
                 src={`https://www.acharyainstitutes.in/${user.photo}`}
                 alt="userProfile"
               />

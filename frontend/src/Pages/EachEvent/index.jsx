@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Error } from "..";
 import { EventCard, Toast } from "../../Components";
+import { Helmet } from "react-helmet";
 
 const EventPage = () => {
   const dispatch = useDispatch();
@@ -67,6 +68,10 @@ const EventPage = () => {
   }
   return (
     <Box className="p-10 mobile:p-4">
+      <Helmet>
+        <title>{title} - Acharya ERP</title>
+        <meta name="description" content="This is the home page." />
+      </Helmet>
       <Box
         _dark={{
           background: "rgba(0, 0, 0, 0.1)",
@@ -78,7 +83,7 @@ const EventPage = () => {
             <Image
               maxHeight={"400px"}
               alt="ecommerce"
-              className="thumbnail desktop:w-1/2 w-full mobile:h-64 desktop:object-cover mobile:p-5 rounded mobile:w-screen mobile:h-auto"
+              className="thumbnail desktop:w-1/2 w-full mobile:h-64 desktop:object-cover mobile:p-5 rounded mobile:w-screen "
               src={thumbnail}
             />
             <div className="desktop:w-1/2 text-white w-full desktop:p-10 moblie:mt-0 mt-6 mobile:p-5 lg:p-5 desktop:mt-0">

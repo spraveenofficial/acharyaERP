@@ -9,6 +9,7 @@ import QRCode from "react-qr-code";
 import Lottie from "react-lottie-player";
 import successIcon from "../../Components/Icons/success.json";
 import failureIcon from "../../Components/Icons/failure.json";
+import { Helmet } from "react-helmet";
 const OrderConfirmation = () => {
   const { orderId } = useParams();
   const dispatch = useDispatch();
@@ -84,6 +85,10 @@ const OrderConfirmation = () => {
   return (
     success && (
       <div className="movie-facility mt-20 mb-20">
+        <Helmet>
+          <title>Order Confirmation - Acharya ERP</title>
+          <meta name="description" content="This is the home page." />
+        </Helmet>
         <div className="container">
           <div className="row">
             <div className="col-lg-8">

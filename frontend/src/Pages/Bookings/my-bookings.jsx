@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchMyOrders } from "../../Redux/Actions";
 import { ErrorMessage } from "../../Components";
+import { Helmet } from "react-helmet";
 const MyBookings = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -54,6 +55,10 @@ const MyBookings = () => {
   return (
     <div>
       <div className="p-10 mobile:p-4 w-full min-h-screen">
+      <Helmet>
+        <title>My Bookings - Acharya ERP</title>
+        <meta name="description" content="This is the home page." />
+      </Helmet>
         {/* <Text className="font-[Acharya-bold] text-2xl font-bold mb-5">
           My Bookings
         </Text> */}

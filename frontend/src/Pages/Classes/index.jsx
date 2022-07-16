@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchClasses } from "../../Redux/Actions";
 import { useEffect } from "react";
 import { ClassCard, ErrorMessage } from "../../Components";
+import { Helmet } from "react-helmet";
 const Classes = () => {
   const dispatch = useDispatch();
   const { loading, classes, error, success, message } = useSelector(
@@ -31,6 +32,10 @@ const Classes = () => {
   }
   return (
     <Box className="min-h-screen p-10 mobile:p-4">
+      <Helmet>
+        <title>Classes - Acharya ERP</title>
+        <meta name="description" content="This is the home page." />
+      </Helmet>
       <Box>
         <Text className="text-2xl font-bold font-[Acharya-bold]">
           Your Offline Classes

@@ -48,10 +48,10 @@ const Login = () => {
     <div className="h-screen flex mobile:flex-col ">
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Login - Acharya</title>
+        <title>Login - Acharya ERP</title>
       </Helmet>
       <Box
-        className="flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center mobile:w-full mobile:h-80"
+        className="flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 justify-around items-center mobile:w-full mobile:h-full"
         _dark={{
           bg: "#23314d",
         }}
@@ -74,10 +74,10 @@ const Login = () => {
           bg: "transparent",
           color: "white",
         }}
-        className="flex w-1/2 justify-center items-center bg-white mobile:w-full"
+        className="flex w-1/2 justify-center items-center bg-white mobile:w-full mobile:h-auto"
       >
         <form
-          className="w-80 max-w-sm mobile:max-w-full mobile:p-10 mobile:w-full mobile:h-full"
+          className="w-80 max-w-sm mobile:max-w-full mobile:p-10 mobile:w-full "
           onSubmit={formik.handleSubmit}
           name="login"
         >
@@ -90,7 +90,7 @@ const Login = () => {
             Welcome Acharyan !
           </Text>
           <Text
-            className="text-sm font-normal text-gray-600 text-xl mb-5"
+            className="font-normal text-gray-600 text-xl mb-5"
             _dark={{
               color: "white",
             }}

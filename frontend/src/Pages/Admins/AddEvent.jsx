@@ -18,6 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Buttons, Editors } from "../../Components";
 import { newEvent } from "../../Redux/Actions";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 const AddEvent = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -146,11 +147,11 @@ const AddEvent = () => {
     },
     {
       id: uuidv4(),
-      name: "Others",
+      name: "Seminar",
     },
     {
       id: uuidv4(),
-      name: "Seminar",
+      name: "Others",
     },
   ];
 
@@ -164,6 +165,10 @@ const AddEvent = () => {
   }, []);
   return (
     <Box className="p-10 mobile:p-4 items-center  font-bold min-h-screen flex flex-col text-center ">
+      <Helmet>
+        <title>Add Events - Acharya ERP</title>
+        <meta name="description" content="This is the home page." />
+      </Helmet>
       <Box className="w-2/4 mobile:w-full xl:w-3/4">
         <form onSubmit={formik.handleSubmit}>
           {formik.values.thumbnail && (

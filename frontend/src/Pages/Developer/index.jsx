@@ -1,7 +1,13 @@
+import { Helmet } from "react-helmet";
+
 const Developers = () => {
   return (
     <section>
       <div className="container p-10 mobile:p-4 mx-auto">
+        <Helmet>
+          <title>Developers - Acharya ERP</title>
+          <meta name="description" content="This is the home page." />
+        </Helmet>
         <div className="desktop:flex desktop:items-center desktop:-mx-4">
           <div className="desktop:w-1/2 desktop:justify-start">
             <h1 className="text-3xl font-semibold capitalize lg:text-4xl dark:text-white">

@@ -4,6 +4,7 @@ import { AttendenceHero, ErrorMessage } from "../../Components";
 import AttendenceCard from "../../Components/Attendence/AttendenceCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAttendance } from "../../Redux/Actions";
+import { Helmet } from "react-helmet";
 const Attendence = () => {
   const dispatch = useDispatch();
   const { loading, attendance, success, error, message } = useSelector(
@@ -31,6 +32,10 @@ const Attendence = () => {
   const { data } = attendance;
   return (
     <Box className="p-10 mobile:p-4">
+      <Helmet>
+        <title>Attendance Detail - Acharya ERP</title>
+        <meta name="description" content="This is the home page." />
+      </Helmet>
       <AttendenceHero
         overallAttendance={parseFloat(attendance?.Average_attendance).toFixed(
           2
