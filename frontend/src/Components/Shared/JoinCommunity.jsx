@@ -1,6 +1,9 @@
 import { Box, Button, Text } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 const JoinCommunity = () => {
+  const navigate = useNavigate();
+  const navigateToPage = () => navigate("/join-community");
   return (
     <Box className="w-full flex justify-center">
       <Box
@@ -24,6 +27,7 @@ const JoinCommunity = () => {
                   color: "white",
                   bg: "gray-600",
                 }}
+                onClick={navigateToPage}
                 role="button"
                 aria-label="Join the community"
                 className="mt-5 lg:mt-8 py-3 lg:py-4 px-4 lg:px-8 font-bold text-indigo-700 rounded-lg text-sm lg:text-lg xl:text-xl hover:bg-opacity-90  focus:ring-2 focus:ring-offset-2 focus:ring-white focus:outline-none"

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { DashboardIcon } from "..";
-const SideBar = () => {
+const SideBar = ({children}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [deviceType, setDeviceType] = useState("desktop");
   useEffect(() => {
@@ -36,9 +36,6 @@ const SideBar = () => {
                     <DashboardIcon />
                     <span className="text-sm ml-2">Dashboard</span>
                   </a>
-                  <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">
-                    5
-                  </div>
                 </li>
                 <li className="flex w-full justify-between text-gray-400 hover:text-gray-300 cursor-pointer items-center mb-6">
                   <a className="flex items-center focus:outline-none focus:ring-2 focus:ring-white">
@@ -59,9 +56,6 @@ const SideBar = () => {
                     </svg>
                     <span className="text-sm ml-2">Products</span>
                   </a>
-                  <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">
-                    8
-                  </div>
                 </li>
                 <li className="flex w-full justify-between text-gray-400 hover:text-gray-300 cursor-pointer items-center mb-6">
                   <a className="flex items-center focus:outline-none focus:ring-2 focus:ring-white">
@@ -125,9 +119,6 @@ const SideBar = () => {
                     </svg>
                     <span className="text-sm ml-2">Invoices</span>
                   </a>
-                  <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">
-                    25
-                  </div>
                 </li>
                 <li className="flex w-full justify-between text-gray-400 hover:text-gray-300 cursor-pointer items-center mb-6">
                   <a className="flex items-center focus:outline-none focus:ring-2 focus:ring-white">
@@ -272,9 +263,6 @@ const SideBar = () => {
                         </svg>
                         <span className="text-sm ml-2">Products</span>
                       </a>
-                      <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">
-                        8
-                      </div>
                     </li>
                     <li className="flex w-full justify-between text-gray-400 hover:text-gray-300 cursor-pointer items-center mb-6">
                       <a className="flex items-center focus:outline-none focus:ring-2 focus:ring-white">
@@ -341,9 +329,6 @@ const SideBar = () => {
                         </svg>
                         <span className="text-sm ml-2">Invoices</span>
                       </a>
-                      <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">
-                        25
-                      </div>
                     </li>
                     <li className="flex w-full justify-between text-gray-400 hover:text-gray-300 cursor-pointer items-center mb-6">
                       <a className="flex items-center focus:outline-none focus:ring-2 focus:ring-white">
@@ -394,8 +379,10 @@ const SideBar = () => {
             )}
           </div>
         )}
-        <div className="mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6">
-          <div className="w-full h-full rounded border-dashed border-2 border-gray-300"></div>
+        <div className="mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6 mobile:w-full">
+          <div className="w-full h-full rounded border-dashed border-2 border-gray-300">
+            {children}
+          </div>
         </div>
       </div>
     </div>

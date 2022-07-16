@@ -16,6 +16,7 @@ import {
   MyBookings,
   OrderConfirmation,
   Admin,
+  JoinCommunity
 } from "./Pages";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile } from "./Redux/Actions";
@@ -66,6 +67,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="class" element={<Classes />} />
           <Route path="my-bookings" element={<MyBookings />} />
+          <Route path="join-community" element={<JoinCommunity />} />
         </Route>
         <Route element={<GuestRoutes />}>
           <Route path="login" element={<Login />} />

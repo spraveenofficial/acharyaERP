@@ -3,8 +3,10 @@ import { SideBar } from "../../Components";
 
 const Admin = () => {
   return (
-    <Box className="relative min-h-screen">
-        <SideBar />
+    <Box className="min-h-screen flex flex-no-wrap">
+      <SideBar>
+        <h1>fnwinef</h1>
+      </SideBar>
     </Box>
   );
 };
