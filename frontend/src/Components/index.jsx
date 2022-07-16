@@ -19,6 +19,7 @@ export {
   SearchIcon,
   TypingIcon,
   LikeIcon,
+  DashboardIcon
 } from "./Icons";
 
 export { Toast } from "./Toast";
@@ -36,4 +37,4 @@ export { LoadingOrderCard } from "./Shared/Cards";
 export { ErrorMessage } from "./Shared/ErrorMessage";
 export { Editors } from "./Shared/Editor";
 export { Notification } from "./Notification";
-// export { SideBar } from "./SideBar";
+export { SideBar } from "./SideBar";
