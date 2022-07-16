@@ -54,11 +54,26 @@ const MyBookings = () => {
   return (
     <div>
       <div className="p-10 mobile:p-4 w-full min-h-screen">
-        <Text className="font-[Acharya-bold] text-2xl font-bold mb-5">
+        {/* <Text className="font-[Acharya-bold] text-2xl font-bold mb-5">
           My Bookings
-        </Text>
+        </Text> */}
         <div className="overflow-x-auto">
           <table className="w-full whitespace-nowrap">
+            <thead>
+              <tr>
+                <th className="text-left font-[Acharya-semi]  p-4 mobile:hidden">
+                  Booking ID
+                </th>
+                <th className="text-left font-[Acharya-semi]  p-4">
+                  Event Name
+                </th>
+                <th className="text-left font-[Acharya-semi]  p-4 mobile:hidden">
+                  Event Status
+                </th>
+                <th className="text-left font-[Acharya-semi]  p-4">View</th>
+                <th className="text-left font-[Acharya-semi]  p-4">Action</th>
+              </tr>
+            </thead>
             <tbody>
               {bookings?.map((event) => {
                 return (
@@ -158,6 +173,9 @@ const MyBookings = () => {
               })}
             </tbody>
           </table>
+          <Text className="text-center text-gray-600 font-bold w-full mt-5">
+            No more bookings found.
+          </Text>
         </div>
       </div>
     </div>
