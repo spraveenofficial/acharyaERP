@@ -11,7 +11,9 @@ const Attendence = () => {
     (state) => state.attendance
   );
   useEffect(() => {
-    dispatch(fetchAttendance());
+    if (!success) {
+      dispatch(fetchAttendance());
+    }
   }, []);
 
   if (loading) {

@@ -9,7 +9,7 @@ import { Helmet } from "react-helmet";
 const MyBookings = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error, bookings, message } = useSelector(
+  const { loading, error, bookings, message, success } = useSelector(
     (state) => state.myBookings
   );
   const handleNavigateToBill = (params) => {
@@ -32,7 +32,9 @@ const MyBookings = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchMyOrders());
+    if (!success) {
+      dispatch(fetchMyOrders());
+    }
   }, []);
 
   if (loading) {
@@ -55,10 +57,10 @@ const MyBookings = () => {
   return (
     <div>
       <div className="p-10 mobile:p-4 w-full min-h-screen">
-      <Helmet>
-        <title>My Bookings - Acharya ERP</title>
-        <meta name="description" content="This is the home page." />
-      </Helmet>
+        <Helmet>
+          <title>My Bookings - Acharya ERP</title>
+          <meta name="description" content="This is the home page." />
+        </Helmet>
         {/* <Text className="font-[Acharya-bold] text-2xl font-bold mb-5">
           My Bookings
         </Text> */}

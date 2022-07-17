@@ -11,7 +11,9 @@ const Classes = () => {
   );
   const { onlineClasses, offlineClasses } = classes;
   useEffect(() => {
-    dispatch(fetchClasses());
+    if (!success) {
+      dispatch(fetchClasses());
+    }
     window.scrollTo(0, 0);
   }, []);
 

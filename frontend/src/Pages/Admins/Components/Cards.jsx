@@ -22,13 +22,17 @@ export function StatsCard(props) {
       <Flex justifyContent={"space-between"}>
         <Box pl={{ base: 2, md: 4 }}>
           <StatLabel
-            fontSize={{ base: "xl", md: "2xl", xl: "3xl" }}
-            className="font-[Acharya-bold]"
+            fontSize={{ base: "md", md: "xl", xl: "2xl" }}
+            className="font-[Acharya-bold] whitespace-nowrap overflow-hidden text-ellipsis "
             isTruncated
           >
             {title}
           </StatLabel>
-          <StatNumber fontSize={"2xl"} fontWeight={"medium"}>
+          <StatNumber
+            width={"80%"}
+            fontSize={{ base: "md", md: "xl", xl: "2xl" }}
+            className="font-[Acharya-bold]"
+          >
             {stat}
           </StatNumber>
         </Box>

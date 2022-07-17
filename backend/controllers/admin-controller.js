@@ -105,16 +105,27 @@ const getAdminPage = async (req, res) => {
             {
               title: "Total Events",
               count: events.length,
+              icon: "BsCalendar3EventFill",
             },
             {
               title: "Total Users",
               count: await User.countDocuments(),
+              icon: "FaUserGraduate",
             },
             {
               title: "Total Sales",
               count: totalBookingConfirmedAmount[0]?.total
                 ? totalBookingConfirmedAmount[0].total
                 : 0,
+              icon: "FaRupeeSign",
+            },
+            {
+              title: "Super Users",
+              count: await User.countDocuments(
+                { role: "ADMIN" },
+                { role: "MODERATOR" }
+              ),
+              icon: "FaUserNurse",
             },
           ],
         },
@@ -148,12 +159,14 @@ const getAdminPage = async (req, res) => {
               title: "Your Events",
               count: events.filter((event) => event.organisedBy === user.auid)
                 .length,
+              icon: "BsCalendar3EventFill",
             },
             {
               title: "Total Amount",
               count: totalBookingConfirmedAmount[0]?.total
                 ? totalBookingConfirmedAmount[0].total
                 : 0,
+              icon: "FaRupeeSign",
             },
           ],
         },
