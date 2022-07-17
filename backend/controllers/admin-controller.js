@@ -1,6 +1,7 @@
 import User from "../models/login.js";
 import Event from "../models/event.js";
 import ImageServices from "../services/upload-image.js";
+import Booking from "../models/bookings.js";
 // @desc    - Add NEW Event
 // @route   POST /admin/add-event
 // @access  ADMIN / MODERATOR
@@ -80,29 +81,91 @@ const addEvent = async (req, res) => {
 
 const getAdminPage = async (req, res) => {
   const { id } = req.data;
-  const user = await User.findById(id);
-  // Get all the data from the database for the admin to manage
-  if (!user) {
+  try {
+    const user = await User.findById(id);
+    const events = await Event.find({});
+    if (user.role === "ADMIN") {
+      const totalBookingConfirmedAmount = await Booking.aggregate([
+        {
+          $lookup: {
+            from: "events",
+            localField: "event",
+            foreignField: "_id",
+            as: "event",
+          },
+        },
+        { $match: { "event.status": "completed", status: "completed" } },
+        { $group: { _id: null, total: { $sum: "$paymentDetails.TXNAMOUNT" } } },
+      ]);
+      return res.status(200).json({
+        success: true,
+        message: "Access Granted",
+        data: {
+          cardsOfHome: [
+            {
+              title: "Total Events",
+              count: events.length,
+            },
+            {
+              title: "Total Users",
+              count: await User.countDocuments(),
+            },
+            {
+              title: "Total Sales",
+              count: totalBookingConfirmedAmount[0]?.total
+                ? totalBookingConfirmedAmount[0].total
+                : 0,
+            },
+          ],
+        },
+      });
+    }
+    if (user.role === "MODERATOR") {
+      const totalBookingConfirmedAmount = await Booking.aggregate([
+        {
+          $lookup: {
+            from: "events",
+            localField: "event",
+            foreignField: "_id",
+            as: "event",
+          },
+        },
+        {
+          $match: {
+            "event.status": "completed",
+            status: "completed",
+            "event.organisedBy": user.auid,
+          },
+        },
+        { $group: { _id: null, total: { $sum: "$paymentDetails.TXNAMOUNT" } } },
+      ]);
+      return res.status(200).json({
+        success: true,
+        message: "Access Granted",
+        data: {
+          cardsOfHome: [
+            {
+              title: "Your Events",
+              count: events.filter((event) => event.organisedBy === user.auid)
+                .length,
+            },
+            {
+              title: "Total Amount",
+              count: totalBookingConfirmedAmount[0]?.total
+                ? totalBookingConfirmedAmount[0].total
+                : 0,
+            },
+          ],
+        },
+      });
+    }
+  } catch (error) {
     return res.status(400).json({
       success: false,
-      message: "Not Authorized to Access Admin Page",
+      message: "Access Denied",
+      error,
     });
   }
-  if (user.role !== "ADMIN" && user.role !== "MODERATOR") {
-    return res.status(400).json({
-      success: false,
-      message: "Not Authorized to Access Admin Page",
-    });
-  }
-  const events = await Event.find({});
-
-  return res.status(200).json({
-    success: true,
-    message: "Access Granted",
-    data: [
-      
-    ]
-  });
 };
 
 export { addEvent, getAdminPage };
