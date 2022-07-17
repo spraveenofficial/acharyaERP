@@ -14,4 +14,5 @@ export { MyBookings } from "./Bookings/my-bookings";
 export { OrderConfirmation } from "./Bookings/Order-confirmation";
 export { Admin } from "./Admins/admin";
 export { AdminUsers } from "./Admins/users";
+export { AdminAdmins } from "./Admins/admins";
 export { JoinCommunity } from "./Community/JoinCommunity";

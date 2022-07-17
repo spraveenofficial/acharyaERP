@@ -2,6 +2,8 @@ import User from "../models/login.js";
 import Event from "../models/event.js";
 import ImageServices from "../services/upload-image.js";
 import Booking from "../models/bookings.js";
+
+
 // @desc    - Add NEW Event
 // @route   POST /admin/add-event
 // @access  ADMIN / MODERATOR
@@ -76,7 +78,7 @@ const addEvent = async (req, res) => {
 };
 
 // @desc    - Access Admin Page
-// @route   POST /admin/home
+// @route   Get /admin/home
 // @access  ADMIN / MODERATOR
 
 const getAdminPage = async (req, res) => {
@@ -128,6 +130,9 @@ const getAdminPage = async (req, res) => {
               icon: "FaUserNurse",
             },
           ],
+          latestData: [
+            
+          ]
         },
       });
     }
@@ -182,15 +187,13 @@ const getAdminPage = async (req, res) => {
 };
 
 // @desc    - Access Users Page
-// @route   POST /admin/users
+// @route   Get /admin/users
 // @access  ADMIN
 
 const getUsersPage = async (req, res) => {
   const { id } = req.data;
-  const user = await User.findById(id);
-
   try {
-    const allUsers = await User.find({});
+    const allUsers = await User.find({ role: "STUDENT" });
     return res.status(200).json({
       success: true,
       message: "Access Granted",
@@ -205,9 +208,29 @@ const getUsersPage = async (req, res) => {
   }
 };
 
-const getEventsPage = async (req, res) => {
+// @desc    - Access Admin and Moderator Page
+// @route   Get /admin/admins
+// @access  ADMIN
+
+const getAdminsandModPage = async (req, res) => {
   const { id } = req.data;
-  const user = await User.findById(id);
-  
+  try {
+    const user = await User.find({
+      $or: [{ role: "ADMIN" }, { role: "MODERATOR" }],
+      _id: { $ne: id },
+    });
+    return res.status(200).json({
+      success: true,
+      message: "Access Granted",
+      data: user,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "Access Denied",
+      error,
+    });
+  }
 };
-export { addEvent, getAdminPage, getUsersPage };
+
+export { addEvent, getAdminPage, getUsersPage, getAdminsandModPage };

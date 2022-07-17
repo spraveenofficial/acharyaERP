@@ -18,6 +18,7 @@ import {
   Admin,
   JoinCommunity,
   AdminUsers,
+  AdminAdmins,
 } from "./Pages";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile } from "./Redux/Actions";
@@ -80,6 +81,7 @@ function App() {
         </Route>
         <Route element={<AdminRoutes />}>
           <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/admins" element={<AdminAdmins />} />
         </Route>
       </Routes>
       <Footer />

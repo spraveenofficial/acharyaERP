@@ -6,6 +6,9 @@ import {
   ADMIN_REQUEST,
   ADMIN_SUCCESS,
   ADMIN_FAILURE,
+  ADMIN_USER_REQUEST,
+  ADMIN_USER_SUCCESS,
+  ADMIN_USER_FAILURE,
 } from "../Constants/admin-constants";
 
 export const newEvent = (
@@ -70,6 +73,44 @@ export const admin = (
         data: action.payload,
       };
     case ADMIN_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: true,
+        message: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const adminuser = (
+  state = {
+    loading: false,
+    success: false,
+    message: "",
+    data: {},
+    error: false,
+  },
+  action
+) => {
+  switch (action.type) {
+    case ADMIN_USER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ADMIN_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        error: false,
+        message: "Access Granted",
+        data: action.payload,
+      };
+    case ADMIN_USER_FAILURE:
       return {
         ...state,
         loading: false,

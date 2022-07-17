@@ -41,3 +41,4 @@ export { ErrorMessage } from "./Shared/ErrorMessage";
 export { Editors } from "./Shared/Editor";
 export { Notification } from "./Notification";
 export { SideBar } from "./SideBar";
+export { ButtonQuickAction } from "./Button/ButtonWithOption";

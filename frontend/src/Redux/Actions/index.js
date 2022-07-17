@@ -1,6 +1,12 @@
 export { loginAction, getProfile, logoutUser } from "./auth-actions";
 export { fetchAttendance, fetchClasses } from "./studentactions-actions";
-export { newEvent, fetchAdminPage } from "./admin-actions";
+export {
+  newEvent,
+  fetchAdminPage,
+  fetchAdminUser,
+  fetchAdminModsAndAdmins,
+} from "./admin-actions";
+
 export {
   fetchEvents,
   fetchEvent,

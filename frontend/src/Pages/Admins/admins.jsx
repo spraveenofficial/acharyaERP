@@ -3,22 +3,22 @@ import { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { ButtonQuickAction, ErrorMessage, SideBar } from "../../Components";
-import { fetchAdminUser } from "../../Redux/Actions";
+import { fetchAdminModsAndAdmins } from "../../Redux/Actions";
 
-const AdminUsers = () => {
+const AdminAdmins = () => {
   const dispatch = useDispatch();
   const { loading, success, data, error, message } = useSelector(
     (state) => state.adminuser
   );
 
   useEffect(() => {
-    dispatch(fetchAdminUser());
+    dispatch(fetchAdminModsAndAdmins());
   }, []);
 
   return (
     <Box className="min-h-screen flex flex-no-wrap">
       <Helmet>
-        <title>Users Dashboard - Acharya ERP</title>
+        <title>Admins Dashboard - Acharya ERP</title>
         <meta name="description" content="This is the home page." />
       </Helmet>
       <SideBar>
@@ -36,11 +36,11 @@ const AdminUsers = () => {
         {!loading && !error && success && (
           <Box className="p-5 mobile:p-3">
             <Text fontSize="2xl" fontWeight="extrabold">
-              Users aka Students only
+              Admins and Moderators
             </Text>
             <Text>
-              We keep track of all the students who have registered on our with
-              auid number only.
+              This is the list of all the admins and moderators who have
+              registered with us.
             </Text>
             <table className="w-full whitespace-nowrap">
               <thead>
@@ -52,8 +52,10 @@ const AdminUsers = () => {
                   <th className="text-left font-[Acharya-semi]  p-4 mobile:hidden">
                     ROLE
                   </th>
-                  <th className="text-left font-[Acharya-semi]  p-4">View</th>
-                  <th className="text-left font-[Acharya-semi] hidden mobile:block p-4">Action</th>
+                  {/* <th className="text-left font-[Acharya-semi]  p-4">View</th> */}
+                  <th className="text-left font-[Acharya-semi] p-4 hidden mobile:block">
+                    Action
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -86,12 +88,7 @@ const AdminUsers = () => {
                           {user.role}
                         </p>
                       </td>
-                      <td className="pl-4">
-                        <button className="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-gray-100 rounded hover:bg-gray-200 focus:outline-none">
-                          View
-                        </button>
-                      </td>
-                      <td className="whitespace-normal w-fit">
+                      <td className="whitespace-normal">
                         <ButtonQuickAction />
                       </td>
                     </tr>
@@ -106,4 +103,4 @@ const AdminUsers = () => {
   );
 };
 
-export { AdminUsers };
+export { AdminAdmins };

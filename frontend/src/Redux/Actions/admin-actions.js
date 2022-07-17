@@ -5,6 +5,9 @@ import {
   ADMIN_REQUEST,
   ADMIN_SUCCESS,
   ADMIN_FAILURE,
+  ADMIN_USER_REQUEST,
+  ADMIN_USER_SUCCESS,
+  ADMIN_USER_FAILURE,
 } from "../Constants/admin-constants";
 import axios from "axios";
 import baseUrl from "../../Utils/baseurl";
@@ -68,6 +71,68 @@ export const fetchAdminPage = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ADMIN_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const fetchAdminUser = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: ADMIN_USER_REQUEST,
+    });
+    const { data } = await axios({
+      method: "get",
+      url: `${baseUrl}/admin/users`,
+      headers: headerConfig(),
+    });
+    if (!data.success) {
+      dispatch({
+        type: ADMIN_USER_FAILURE,
+        payload: data.message,
+      });
+    }
+    dispatch({
+      type: ADMIN_USER_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_USER_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const fetchAdminModsAndAdmins = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: ADMIN_USER_REQUEST,
+    });
+    const { data } = await axios({
+      method: "get",
+      url: `${baseUrl}/admin/admins`,
+      headers: headerConfig(),
+    });
+    if (!data.success) {
+      dispatch({
+        type: ADMIN_USER_FAILURE,
+        payload: data.message,
+      });
+    }
+    dispatch({
+      type: ADMIN_USER_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_USER_FAILURE,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
