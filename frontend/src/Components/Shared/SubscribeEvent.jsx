@@ -1,16 +1,25 @@
 import { Input } from "../Input";
 import { useFormik } from "formik";
-import { Alert, AlertIcon, AlertTitle, Box } from "@chakra-ui/react";
+import { Alert, AlertIcon, AlertTitle, Box, useToast } from "@chakra-ui/react";
 import { Buttons } from "../Button";
 import { useSelector } from "react-redux";
 const SubscribeEvent = () => {
   const { user } = useSelector((state) => state.auth);
+  const toast = useToast();
   const formik = useFormik({
     initialValues: {
       email: user?.acerp_email,
     },
     onSubmit: (values) => {
-      console.log(values);
+      toast({
+        title: "Something went wrong",
+        description: "Please try again later",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top-right",
+        zIndex: 110000000,
+      });
     },
     validate: (values) => {
       let errors = {};
