@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { menuItemsForAdmin, menuItemsForModerator } from "./menuItems";
+import { Link } from "react-router-dom";
 const SideBar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [deviceType, setDeviceType] = useState("desktop");
@@ -46,10 +47,13 @@ const SideBar = ({ children }) => {
                       key={index}
                       className="flex w-full justify-between hover:text-gray-500 cursor-pointer items-center mb-6"
                     >
-                      <a className="flex font-semibold items-center focus:outline-none focus:ring-2 focus:ring-white">
+                      <Link
+                        to={item.url}
+                        className="flex font-semibold items-center focus:outline-none focus:ring-2 focus:ring-white"
+                      >
                         {item.icon && <item.icon />}
                         <span className="text-md ml-2 ">{item.name}</span>
-                      </a>
+                      </Link>
                     </li>
                   );
                 })}
@@ -58,11 +62,15 @@ const SideBar = ({ children }) => {
           </Box>
         )}
         {deviceType === "mobile" && (
-          <div
-            className="w-64 z-40 absolute bg-gray-800 shadow md:h-full flex-col justify-between mobile:flex transition duration-150 ease-in-out"
+          <Box
+            className="w-64 z-40 absolute bg-[#DEE2FF] shadow md:h-full flex-col justify-between mobile:flex transition duration-150 ease-in-out"
             id="mobile-nav"
             style={{
               transform: isOpen ? "translateX(0px)" : "translateX(-260px)",
+            }}
+            _dark={{
+              bg: "#23314d",
+              color: "black",
             }}
           >
             <button
@@ -125,24 +133,28 @@ const SideBar = ({ children }) => {
               </svg>
             </button>
             {isOpen && (
-              <>
-                <div className="px-8 h-screen">
-                  <ul className="mt-12">
-                    {itemsOFMenu.map((item, index) => {
-                      return (
-                        <li className="flex w-full justify-between text-gray-400 hover:text-gray-300 cursor-pointer items-center mb-6">
-                          <a className="flex items-center focus:outline-none focus:ring-2 focus:ring-white">
-                            {item.icon && <item.icon />}
-                            <span className="text-sm ml-2">{item.name}</span>
-                          </a>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              </>
+              <div className="px-8 h-screen">
+                <ul className="mt-12">
+                  {itemsOFMenu.map((item, index) => {
+                    return (
+                      <li
+                        key={index}
+                        className="flex w-full justify-between  hover:text-gray-300 cursor-pointer items-center mb-6"
+                      >
+                        <Link
+                          to={item.url}
+                          className="flex items-center focus:outline-none focus:ring-2 focus:ring-white"
+                        >
+                          {item.icon && <item.icon />}
+                          <span className="text-sm ml-2">{item.name}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             )}
-          </div>
+          </Box>
         )}
         <div className="mx-auto h-auto md:w-4/5 w-11/12 px-5 mobile:w-full mobile:min-h-screen mb-5">
           <div className="w-full h-full rounded border-dashed border-2 border-gray-300">

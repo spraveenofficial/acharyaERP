@@ -13,4 +13,5 @@ export { CheckoutMain } from "./Checkout/main";
 export { MyBookings } from "./Bookings/my-bookings";
 export { OrderConfirmation } from "./Bookings/Order-confirmation";
 export { Admin } from "./Admins/admin";
+export { AdminUsers } from "./Admins/users";
 export { JoinCommunity } from "./Community/JoinCommunity";

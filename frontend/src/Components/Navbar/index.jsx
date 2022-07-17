@@ -175,7 +175,7 @@ const Navbar = () => {
                                 <li>
                                   <Link
                                     className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                    to={"/admin"}
+                                    to={"/admin/home"}
                                     onClick={() => setIsOpen(false)}
                                   >
                                     Manage Admin
@@ -323,6 +323,7 @@ const Navbar = () => {
                     width="100%"
                     _dark={{
                       bg: "#DEE2FF",
+                      color: "black",
                     }}
                     className="z-50 g-5 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
                   >
@@ -354,6 +355,17 @@ const Navbar = () => {
                           Settings
                         </Link>
                       </li>
+                      {isSuper ? (
+                        <li>
+                          <Link
+                            className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                            to={"/admin/home"}
+                            onClick={() => setIsOpen(false)}
+                          >
+                            Manage Admin
+                          </Link>
+                        </li>
+                      ) : null}
                       <li>
                         <Text
                           onClick={handleLogout}

@@ -7,7 +7,7 @@ export const ProtectedRoutes = () => {
   return isAuthenticated ? (
     <Outlet />
   ) : (
-    <Navigate to={{ pathname: "/login", state: { from: location } }} />
+    <Navigate state={{ from: location }} replace to={{ pathname: "/login" }} />
   );
 };
 
@@ -17,17 +17,17 @@ export const GuestRoutes = () => {
   return !isAuthenticated ? (
     <Outlet />
   ) : (
-    <Navigate to={{ pathname: "/", state: { from: location } }} />
+    <Navigate state={{ from: location }} replace to={{ pathname: "/" }} />
   );
 };
 
 export const AdminRoutes = () => {
   const location = useLocation();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-  return !isAuthenticated && user.role === "ADMIN" ? (
+  return isAuthenticated && user.role === "ADMIN" ? (
     <Outlet />
   ) : (
-    <Navigate to={{ pathname: "/", state: { from: location } }} />
+    <Navigate state={{ from: location }} replace to={{ pathname: "/" }} />
   );
 };
 
@@ -37,7 +37,7 @@ export const ModeratorRoutes = () => {
   return isAuthenticated && user.role === "MODERATOR" ? (
     <Outlet />
   ) : (
-    <Navigate to={{ pathname: "/", state: { from: location } }} />
+    <Navigate state={{ from: location }} replace to={{ pathname: "/" }} />
   );
 };
 
@@ -48,7 +48,7 @@ export const AdminAndModRoutes = () => {
     user.role === "ADMIN" ? (
     <Outlet />
   ) : (
-    <Navigate to={{ pathname: "/", state: { from: location } }} />
+    <Navigate state={{ from: location }} replace to={{ pathname: "/" }} />
   );
 };
 
@@ -59,6 +59,6 @@ export const CheckOutRoutes = () => {
   return isAuthenticated && eventId ? (
     <Outlet />
   ) : (
-    <Navigate to={{ pathname: "/events", state: { from: location } }} />
+    <Navigate state={{ from: location }} replace to={{ pathname: "/events" }} />
   );
 };

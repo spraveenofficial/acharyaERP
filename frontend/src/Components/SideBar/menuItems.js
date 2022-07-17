@@ -9,37 +9,37 @@ import {
 export const menuItemsForAdmin = [
   {
     name: "Dashboard",
-    url: "/dashboard",
+    url: "/admin/home",
     icon: DashboardIcon,
     role: "admin",
   },
   {
     name: "Users",
-    url: "/users",
+    url: "/admin/users",
     icon: ProfileIcon,
     role: "admin",
   },
   {
     name: "Events",
-    url: "/events",
+    url: "/admin/events",
     icon: EventIcon,
     role: "admin",
   },
   {
     name: "Admins",
-    url: "/admins",
+    url: "/admin/admins",
     icon: AdminIcon,
     role: "admin",
   },
   {
     name: "Community",
-    url: "/community",
+    url: "/admin/community",
     icon: AdminIcon,
     role: "admin",
   },
   {
     name: "Payments",
-    url: "/payments",
+    url: "/admin/payments",
     icon: PaymentIcon,
     role: "admin",
   },
@@ -48,7 +48,7 @@ export const menuItemsForAdmin = [
 export const menuItemsForModerator = [
   {
     name: "Dashboard",
-    url: "/dashboard",
+    url: "/admin/home",
     icon: DashboardIcon,
     role: "moderator",
   },

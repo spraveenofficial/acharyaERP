@@ -16,7 +16,8 @@ import {
   MyBookings,
   OrderConfirmation,
   Admin,
-  JoinCommunity
+  JoinCommunity,
+  AdminUsers,
 } from "./Pages";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile } from "./Redux/Actions";
@@ -27,6 +28,7 @@ import {
   GuestRoutes,
   ProtectedRoutes,
   CheckOutRoutes,
+  AdminRoutes,
 } from "./Utils/customRoutes";
 
 function App() {
@@ -74,7 +76,10 @@ function App() {
         </Route>
         <Route element={<AdminAndModRoutes />}>
           <Route path="/admin/add-event" element={<AddEvent />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/home" element={<Admin />} />
+        </Route>
+        <Route element={<AdminRoutes />}>
+          <Route path="/admin/users" element={<AdminUsers />} />
         </Route>
       </Routes>
       <Footer />
