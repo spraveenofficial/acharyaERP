@@ -17,7 +17,7 @@ import {
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useRef } from "react";
 
-const ButtonQuickAction = () => {
+const ButtonQuickAction = ({ children }) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = useRef(null);
   return (
@@ -49,15 +49,19 @@ const ButtonQuickAction = () => {
           <PopoverBody w="full">
             <Tabs isLazy colorScheme="green">
               <TabPanels h="fit-content">
-                <TabPanel h="fit-content">
-                  <Text>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Architecto doloremque vel nam sapiente omnis, eius aliquid
-                    fugit commodi! Earum aperiam beatae dolorum ipsum totam!
-                    Sunt iusto quae non obcaecati itaque.
-                  </Text>
-                  <Button onClick={onClose}>Kick This User</Button>
-                </TabPanel>
+                {children ? (
+                  children
+                ) : (
+                  <>
+                    <Text>
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                      Architecto doloremque vel nam sapiente omnis, eius aliquid
+                      fugit commodi! Earum aperiam beatae dolorum ipsum totam!
+                      Sunt iusto quae non obcaecati itaque.
+                    </Text>
+                    <Button onClick={onClose}>Kick This User</Button>
+                  </>
+                )}
               </TabPanels>
             </Tabs>
           </PopoverBody>

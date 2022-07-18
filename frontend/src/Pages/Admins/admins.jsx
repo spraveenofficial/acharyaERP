@@ -1,4 +1,4 @@
-import { Box, Spinner, Text } from "@chakra-ui/react";
+import { Box, Button, Spinner, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,34 @@ const AdminAdmins = () => {
   useEffect(() => {
     dispatch(fetchAdminModsAndAdmins());
   }, []);
+
+  const itemsForMenu = (role) => {
+    if (role === "ADMIN") {
+      return [
+        {
+          name: "Make Moderator",
+          link: "/admin/admins/add",
+        },
+        {
+          name: "Remove Admin",
+          link: "/admin/mods/add",
+        },
+      ];
+    } else if (role === "MODERATOR") {
+      return [
+        {
+          name: "Add Admin",
+          link: "/admin/admins/add",
+        },
+        {
+          name: "Remove Moderator",
+          link: "/admin/mods/add",
+        },
+      ];
+    }
+  };
+
+  console.log(itemsForMenu("ADMIN"));
 
   return (
     <Box className="min-h-screen flex flex-no-wrap">
@@ -52,7 +80,6 @@ const AdminAdmins = () => {
                   <th className="text-left font-[Acharya-semi]  p-4 mobile:hidden">
                     ROLE
                   </th>
-                  {/* <th className="text-left font-[Acharya-semi]  p-4">View</th> */}
                   <th className="text-left font-[Acharya-semi] p-4 hidden mobile:block">
                     Action
                   </th>
@@ -89,7 +116,15 @@ const AdminAdmins = () => {
                         </p>
                       </td>
                       <td className="whitespace-normal">
-                        <ButtonQuickAction />
+                        <ButtonQuickAction>
+                          {itemsForMenu(user.role).map((item) => {
+                            return (
+                              <Button w="100%" className="mb-2">
+                                {item.name}
+                              </Button>
+                            );
+                          })}
+                        </ButtonQuickAction>
                       </td>
                     </tr>
                   );
