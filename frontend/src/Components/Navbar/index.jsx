@@ -89,122 +89,121 @@ const Navbar = () => {
             className={`${deviceType === "mobile" ? "mobile-nav" : ""}`}
           >
             {deviceType === "desktop" ? (
-              <>
-                <motion.div className="desktop-navbar">
-                  <motion.div className="navheader">
-                    <h1 onClick={pushToHome} className="logo pointer">
-                      Acharya
-                    </h1>
-                  </motion.div>
-                  <motion.div className="navitems relative lg:gap-5 desktop:gap-7">
-                    <Link className="font-bold" to={"/"}>
-                      Home
-                    </Link>
-                    <Link className="font-bold" to={"/events"}>
-                      Events
-                    </Link>
-                    <Link className="font-bold" to={"/attendance"}>
-                      Attendance
-                    </Link>
-                    <Link className="font-bold" to={"/class"}>
-                      Classes
-                    </Link>
-                    {isAuthenticated ? (
-                      <div className="flex items-center md:order-2 relative">
-                        <button
-                          type="button"
-                          className={`justify-center text-center items-center p-2 font-bold flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 ${
-                            colorMode === "dark"
-                              ? "bg-[#23314d]"
-                              : "bg-[#DEE2FF]"
-                          }`}
-                          id="user-menu-button"
-                          aria-expanded="false"
-                          onClick={openDropdown}
-                          data-dropdown-toggle="dropdown"
-                        >
-                          <span className="mr-2 ml-2 font-auto">
-                            Hi, {getFirstName(user.student_name)}
-                          </span>
-                          <img
-                            className="w-8 h-8 rounded-full"
-                            src={`https://www.acharyainstitutes.in/${user.photo}`}
-                            alt="user photo"
-                          />
-                        </button>
-                        {isOpen ? (
-                          <Box
-                            bottom={{
-                              base: isSuper ? "-210" : "-180",
-                            }}
-                            width="100%"
-                            _dark={{
-                              bg: "#DEE2FF",
-                            }}
-                            className="z-50 g-5 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 absolute"
-                          >
-                            <ul className="py-1" aria-labelledby="dropdown">
-                              <li>
-                                <Link
-                                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                  to={"/profile"}
-                                  onClick={() => setIsOpen(false)}
-                                >
-                                  My Profile
-                                </Link>
-                              </li>
-                              <li>
-                                <Link
-                                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                  to={"/my-bookings"}
-                                  onClick={() => setIsOpen(false)}
-                                >
-                                  My Bookings
-                                </Link>
-                              </li>
-                              <li>
-                                <Link
-                                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                  to={"/settings"}
-                                  onClick={() => setIsOpen(false)}
-                                >
-                                  Settings
-                                </Link>
-                              </li>
-                              {isSuper ? (
-                                <li>
-                                  <Link
-                                    className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                    to={"/admin/home"}
-                                    onClick={() => setIsOpen(false)}
-                                  >
-                                    Manage Admin
-                                  </Link>
-                                </li>
-                              ) : null}
-                              <li>
-                                <Text
-                                  onClick={handleLogout}
-                                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                >
-                                  Signout
-                                </Text>
-                              </li>
-                            </ul>
-                          </Box>
-                        ) : null}
-                      </div>
-                    ) : (
-                      <Link className="font-bold" to={"/login"}>
-                        Login
-                      </Link>
-                    )}
-                    <Button onClick={toggleColorMode}>
-                      {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-                    </Button>
-                  </motion.div>
+              <motion.div className="desktop-navbar px-12 lg:px-6 xl:px-8 ">
+                <motion.div className="navheader">
+                  <h1
+                    onClick={pushToHome}
+                    className="logo pointer text-3xl lg:text-2xl mobile:text-xl"
+                  >
+                    Acharya
+                  </h1>
                 </motion.div>
-              </>
+                <motion.div className="navitems relative lg:gap-5 desktop:gap-7">
+                  <Link className="font-bold" to={"/"}>
+                    Home
+                  </Link>
+                  <Link className="font-bold" to={"/events"}>
+                    Events
+                  </Link>
+                  <Link className="font-bold" to={"/attendance"}>
+                    Attendance
+                  </Link>
+                  <Link className="font-bold" to={"/class"}>
+                    Classes
+                  </Link>
+                  {isAuthenticated ? (
+                    <div className="flex items-center md:order-2 relative">
+                      <button
+                        type="button"
+                        className={`justify-center text-center items-center p-2 font-bold flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 ${
+                          colorMode === "dark" ? "bg-[#23314d]" : "bg-[#DEE2FF]"
+                        }`}
+                        id="user-menu-button"
+                        aria-expanded="false"
+                        onClick={openDropdown}
+                        data-dropdown-toggle="dropdown"
+                      >
+                        <span className="mr-2 ml-2 font-auto">
+                          Hi, {getFirstName(user.student_name)}
+                        </span>
+                        <img
+                          className="w-8 h-8 rounded-full"
+                          src={`https://www.acharyainstitutes.in/${user.photo}`}
+                          alt="user photo"
+                        />
+                      </button>
+                      {isOpen ? (
+                        <Box
+                          bottom={{
+                            base: isSuper ? "-210" : "-180",
+                          }}
+                          width="100%"
+                          _dark={{
+                            bg: "#DEE2FF",
+                          }}
+                          className="z-50 g-5 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 absolute"
+                        >
+                          <ul className="py-1" aria-labelledby="dropdown">
+                            <li>
+                              <Link
+                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                to={"/profile"}
+                                onClick={() => setIsOpen(false)}
+                              >
+                                My Profile
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                to={"/my-bookings"}
+                                onClick={() => setIsOpen(false)}
+                              >
+                                My Bookings
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                to={"/settings"}
+                                onClick={() => setIsOpen(false)}
+                              >
+                                Settings
+                              </Link>
+                            </li>
+                            {isSuper ? (
+                              <li>
+                                <Link
+                                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                  to={"/admin/home"}
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  Manage Admin
+                                </Link>
+                              </li>
+                            ) : null}
+                            <li>
+                              <Text
+                                onClick={handleLogout}
+                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                              >
+                                Signout
+                              </Text>
+                            </li>
+                          </ul>
+                        </Box>
+                      ) : null}
+                    </div>
+                  ) : (
+                    <Link className="font-bold" to={"/login"}>
+                      Login
+                    </Link>
+                  )}
+                  <Button onClick={toggleColorMode}>
+                    {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                  </Button>
+                </motion.div>
+              </motion.div>
             ) : (
               <div className="mobile-menu">
                 <div className="navbar">
