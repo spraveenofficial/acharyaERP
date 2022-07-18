@@ -3,7 +3,6 @@ import Event from "../models/event.js";
 import ImageServices from "../services/upload-image.js";
 import Booking from "../models/bookings.js";
 
-
 // @desc    - Add NEW Event
 // @route   POST /admin/add-event
 // @access  ADMIN / MODERATOR
@@ -130,9 +129,7 @@ const getAdminPage = async (req, res) => {
               icon: "FaUserNurse",
             },
           ],
-          latestData: [
-            
-          ]
+          latestData: [],
         },
       });
     }
@@ -233,4 +230,37 @@ const getAdminsandModPage = async (req, res) => {
   }
 };
 
-export { addEvent, getAdminPage, getUsersPage, getAdminsandModPage };
+// @desc    - Remove Admins or Moderators
+// @route   Get /admin/admins
+// @access  ADMIN
+
+const removeAdminsAndMods = async (req, res) => {
+  const { auid, role } = req.body;
+
+  try {
+    if (auid === "AGS19ABCA072") {
+      return res.status(400).json({
+        success: false,
+        message: "All actions prohibited for this superuser.",
+      });
+    }
+    await User.findOneAndUpdate({ auid: auid }, { role: role });
+    return res.status(200).json({
+      success: true,
+      message: "Successfully Done.",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
+export {
+  addEvent,
+  getAdminPage,
+  getUsersPage,
+  getAdminsandModPage,
+  removeAdminsAndMods,
+};

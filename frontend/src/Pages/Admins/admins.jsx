@@ -1,48 +1,35 @@
-import { Box, Button, Spinner, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Spinner,
+  Text,
+  useDisclosure,
+  useToast,
+} from "@chakra-ui/react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { ButtonQuickAction, ErrorMessage, SideBar } from "../../Components";
-import { fetchAdminModsAndAdmins } from "../../Redux/Actions";
-
+import {
+  fetchAdminModsAndAdmins,
+  removeAdminOrMods,
+} from "../../Redux/Actions";
+import { itemsForAdminsMenu as itemsForMenu } from "./Utils/menus";
 const AdminAdmins = () => {
   const dispatch = useDispatch();
+  const [clicked, setClicked] = useState(false);
+  const toast = useToast();
   const { loading, success, data, error, message } = useSelector(
     (state) => state.adminuser
   );
-
   useEffect(() => {
     dispatch(fetchAdminModsAndAdmins());
   }, []);
 
-  const itemsForMenu = (role) => {
-    if (role === "ADMIN") {
-      return [
-        {
-          name: "Make Moderator",
-          link: "/admin/admins/add",
-        },
-        {
-          name: "Remove Admin",
-          link: "/admin/mods/add",
-        },
-      ];
-    } else if (role === "MODERATOR") {
-      return [
-        {
-          name: "Add Admin",
-          link: "/admin/admins/add",
-        },
-        {
-          name: "Remove Moderator",
-          link: "/admin/mods/add",
-        },
-      ];
-    }
+  const handleChangeRole = (auid, role) => {
+    dispatch(removeAdminOrMods({ auid, role }, toast));
   };
-
-  console.log(itemsForMenu("ADMIN"));
-
   return (
     <Box className="min-h-screen flex flex-no-wrap">
       <Helmet>
@@ -116,10 +103,21 @@ const AdminAdmins = () => {
                         </p>
                       </td>
                       <td className="whitespace-normal">
-                        <ButtonQuickAction>
-                          {itemsForMenu(user.role).map((item) => {
+                        <ButtonQuickAction
+                          isClicked={clicked}
+                          setClicked={setClicked}
+                        >
+                          {itemsForMenu(user.role)?.map((item, index) => {
                             return (
-                              <Button w="100%" className="mb-2">
+                              <Button
+                                key={index}
+                                onClick={() => {
+                                  handleChangeRole(user.auid, item.params);
+                                  setClicked(true);
+                                }}
+                                w="100%"
+                                className="mb-2"
+                              >
                                 {item.name}
                               </Button>
                             );

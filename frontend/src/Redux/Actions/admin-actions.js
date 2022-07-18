@@ -8,6 +8,7 @@ import {
   ADMIN_USER_REQUEST,
   ADMIN_USER_SUCCESS,
   ADMIN_USER_FAILURE,
+  ADMIN_USER_FILTER,
 } from "../Constants/admin-constants";
 import axios from "axios";
 import baseUrl from "../../Utils/baseurl";
@@ -138,5 +139,58 @@ export const fetchAdminModsAndAdmins = () => async (dispatch) => {
           ? error.response.data.message
           : error.message,
     });
+  }
+};
+
+export const removeAdminOrMods = (payload, toast) => async (dispatch) => {
+  try {
+    const { data } = await axios({
+      method: "POST",
+      url: `${baseUrl}/admin/admins/action`,
+      headers: headerConfig(),
+      data: payload,
+    });
+    if (payload.role === "STUDENT") {
+      dispatch({
+        type: ADMIN_USER_FILTER,
+        payload: {
+          method: "filter",
+          auid: payload.auid,
+        },
+      });
+    } else {
+      dispatch({
+        type: ADMIN_USER_FILTER,
+        payload: {
+          method: "modify",
+          auid: payload.auid,
+          role: payload.role,
+        },
+      });
+    }
+
+    toast({
+      title: data.message,
+      description: "Your action has been successfully reflected.",
+      status: `${data.success ? "success" : "error"}`,
+      duration: 5000,
+      isClosable: true,
+      position: "top-left",
+      zIndex: 110000000,
+    });
+  } catch (error) {
+    toast({
+      title: "Something went wrong",
+      description:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+      position: "top-left",
+      zIndex: 110000000,
+    });
+    return false;
   }
 };

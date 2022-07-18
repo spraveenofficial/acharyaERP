@@ -9,17 +9,24 @@ import {
   Button,
   Tabs,
   TabPanels,
-  TabPanel,
   Flex,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { useRef } from "react";
+import React, { useRef } from "react";
+import { useEffect } from "react";
 
-const ButtonQuickAction = ({ children }) => {
+
+const ButtonQuickAction = ({ children, isClicked, setClicked }) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = useRef(null);
+  useEffect(() => {
+    if (isClicked) {
+      setClicked(false);
+      onClose();
+    }
+  }, [isClicked]);
   return (
     <Flex justifyContent="center">
       <Popover
@@ -30,13 +37,13 @@ const ButtonQuickAction = ({ children }) => {
         onOpen={onOpen}
         onClose={onClose}
         closeOnBlur={true}
+        closeOnEsc={true}
       >
         <PopoverTrigger>
           <Button
             rightIcon={<ChevronDownIcon />}
             colorScheme="green"
             w="fit-content"
-            // onClick={onOpen}
           >
             Quick Actions
           </Button>

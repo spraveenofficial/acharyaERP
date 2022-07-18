@@ -9,6 +9,7 @@ import {
   ADMIN_USER_REQUEST,
   ADMIN_USER_SUCCESS,
   ADMIN_USER_FAILURE,
+  ADMIN_USER_FILTER,
 } from "../Constants/admin-constants";
 
 export const newEvent = (
@@ -118,6 +119,26 @@ export const adminuser = (
         error: true,
         message: action.payload,
       };
+    case ADMIN_USER_FILTER:
+      if (action.payload.method === "filter") {
+        return {
+          ...state,
+          data: state.data.filter((item) => {
+            return item.auid !== action.payload.auid;
+          }),
+        };
+      }
+      if (action.payload.method === "modify") {
+        return {
+          ...state,
+          data: state.data.map((item) => {
+            if (item.auid === action.payload.auid) {
+              return { ...item, role: action.payload.role };
+            }
+            return item;
+          }),
+        };
+      }
     default:
       return state;
   }

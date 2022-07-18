@@ -5,6 +5,7 @@ export {
   fetchAdminPage,
   fetchAdminUser,
   fetchAdminModsAndAdmins,
+  removeAdminOrMods,
 } from "./admin-actions";
 
 export {
