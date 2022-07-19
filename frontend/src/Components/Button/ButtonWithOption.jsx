@@ -17,8 +17,7 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import React, { useRef } from "react";
 import { useEffect } from "react";
 
-
-const ButtonQuickAction = ({ children, isClicked, setClicked }) => {
+const ButtonQuickAction = ({ children, isClicked, setClicked, title }) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = useRef(null);
   useEffect(() => {
@@ -45,7 +44,7 @@ const ButtonQuickAction = ({ children, isClicked, setClicked }) => {
             colorScheme="green"
             w="fit-content"
           >
-            Quick Actions
+            {title ? title : "Quick Actions"}
           </Button>
         </PopoverTrigger>
 

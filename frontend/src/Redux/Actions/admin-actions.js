@@ -171,7 +171,6 @@ export const removeAdminOrMods = (payload, toast) => async (dispatch) => {
 
     toast({
       title: data.message,
-      description: "Your action has been successfully reflected.",
       status: `${data.success ? "success" : "error"}`,
       duration: 5000,
       isClosable: true,
