@@ -57,12 +57,16 @@ const AdminAdmins = () => {
         title="Add Admin Or Moderator"
         btnName="Add Admin"
       >
-        <form onSubmit={() => handleChangeRole(values.auid, values.role, true)}>
+        <form
+          onSubmit={() =>
+            handleChangeRole(values.auid.toUpperCase(), values.role, true)
+          }
+        >
           <FormControl>
             <FormLabel>Enter AUID</FormLabel>
             <Input
               onChange={(e) => setValues({ ...values, auid: e.target.value })}
-              value={values.auid}
+              value={values.auid.toUpperCase()}
               required
               placeholder="Enter AUID Number"
             />

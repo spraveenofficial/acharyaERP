@@ -251,6 +251,14 @@ const removeAdminsAndMods = async (req, res) => {
         message: "User Not Found in our Database",
       });
     }
+    if (req.body.isNew) {
+      if (user.role !== "STUDENT") {
+        return res.status(400).json({
+          success: false,
+          message: "This user is already in admin panel.",
+        });
+      }
+    }
     await User.findOneAndUpdate({ auid: auid }, { role: role });
     return res.status(200).json({
       success: true,
