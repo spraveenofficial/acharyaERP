@@ -7,6 +7,9 @@ import {
   Input,
   FormControl,
   FormLabel,
+  RadioGroup,
+  Stack,
+  Radio,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -24,20 +27,6 @@ import {
 } from "../../Redux/Actions";
 import { itemsForAdminsMenu as itemsForMenu } from "./Utils/menus";
 
-const ModalForAdminAdd = () => {
-  return (
-    <ModalWithContent title="Add Admin Or Moderator" btnName="Add Admin">
-      <FormControl>
-        <FormLabel>Enter AUID</FormLabel>
-        <Input placeholder="Enter AUID Number" />
-      </FormControl>
-      <Button mt={5} className="float-right">
-        Add Admin
-      </Button>
-    </ModalWithContent>
-  );
-};
-
 const AdminAdmins = () => {
   const dispatch = useDispatch();
   const [clicked, setClicked] = useState(false);
@@ -49,11 +38,53 @@ const AdminAdmins = () => {
 
   useEffect(() => {
     dispatch(fetchAdminModsAndAdmins());
-  }, []);
+  }, [dispatch]);
 
-  const handleChangeRole = (auid, role) => {
-    dispatch(removeAdminOrMods({ auid, role }, toast));
+  const handleChangeRole = (auid, role, isNew) => {
+    dispatch(removeAdminOrMods({ auid, role, isNew }, toast));
     setClicked(true);
+  };
+
+  const ModalForAdminAdd = () => {
+    const [values, setValues] = useState({
+      auid: "",
+      role: "ADMIN",
+    });
+    return (
+      <ModalWithContent
+        isClicked={clicked}
+        setClicked={setClicked}
+        title="Add Admin Or Moderator"
+        btnName="Add Admin"
+      >
+        <form onSubmit={() => handleChangeRole(values.auid, values.role, true)}>
+          <FormControl>
+            <FormLabel>Enter AUID</FormLabel>
+            <Input
+              onChange={(e) => setValues({ ...values, auid: e.target.value })}
+              value={values.auid}
+              required
+              placeholder="Enter AUID Number"
+            />
+            <RadioGroup
+              required
+              mt={4}
+              onChange={(e) => setValues({ ...values, role: e })}
+              value={values.role}
+            >
+              <FormLabel>Select Role</FormLabel>
+              <Stack direction="row">
+                <Radio value="ADMIN">Admin</Radio>
+                <Radio value="MODERATOR">Moderator</Radio>
+              </Stack>
+            </RadioGroup>
+          </FormControl>
+          <Button mt={5} className="float-right" type="submit">
+            Add
+          </Button>
+        </form>
+      </ModalWithContent>
+    );
   };
 
   return (

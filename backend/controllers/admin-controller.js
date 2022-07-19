@@ -244,6 +244,13 @@ const removeAdminsAndMods = async (req, res) => {
         message: "All actions prohibited for this superuser.",
       });
     }
+    const user = await User.findOne({ auid });
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "User Not Found in our Database",
+      });
+    }
     await User.findOneAndUpdate({ auid: auid }, { role: role });
     return res.status(200).json({
       success: true,

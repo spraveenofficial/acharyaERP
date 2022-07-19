@@ -139,6 +139,13 @@ export const adminuser = (
           }),
         };
       }
+      if (action.payload.method === "add") {
+        return {
+          ...state,
+          data: [...state.data, action.payload],
+        };
+      }
+      break;
     default:
       return state;
   }

@@ -4,7 +4,6 @@ import {
   EventIcon,
   AdminIcon,
   PaymentIcon,
-  SuperProfileIcon,
 } from "..";
 
 export const menuItemsForAdmin = [
@@ -15,7 +14,7 @@ export const menuItemsForAdmin = [
     role: "admin",
   },
   {
-    name: "Users",
+    name: "Students",
     url: "/admin/users",
     icon: ProfileIcon,
     role: "admin",

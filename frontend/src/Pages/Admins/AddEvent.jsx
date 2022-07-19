@@ -162,7 +162,7 @@ const AddEvent = () => {
         type: "NEW_EVENT_CLEAR",
       });
     };
-  }, []);
+  }, [dispatch]);
   return (
     <Box className="p-10 mobile:p-4 items-center  font-bold min-h-screen flex flex-col text-center ">
       <Helmet>

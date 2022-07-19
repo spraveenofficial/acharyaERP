@@ -24,10 +24,10 @@ const Admin = () => {
   const today = new Date();
   const curHr = today.getHours();
   useEffect(() => {
-    if (!success) {
+    if (!success && !error) {
       dispatch(fetchAdminPage());
     }
-  }, []);
+  }, [success, error, dispatch]);
 
   const renderIcon = (name) => {
     switch (name) {

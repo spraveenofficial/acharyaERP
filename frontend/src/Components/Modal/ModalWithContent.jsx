@@ -3,7 +3,6 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   Button,
@@ -11,27 +10,42 @@ import {
   FormLabel,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../Input";
 
-const ModalWithContent = ({ children, title, btnName }) => {
+const ModalWithContent = ({
+  children,
+  title,
+  btnName,
+  isClicked,
+  setClicked,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const OverlayOne = () => (
+    <ModalOverlay
+      bg="blackAlpha.300"
+      backdropFilter="blur(10px) hue-rotate(90deg)"
+    />
+  );
 
-  const initialRef = useRef(null);
-  const finalRef = useRef(null);
-
+  const [overlay, setOverlay] = useState(<OverlayOne />);
+  useEffect(() => {
+    if (isClicked) {
+      setClicked(false);
+      onClose();
+    }
+  }, [isClicked]);
   return (
     <>
       <Button onClick={onOpen}>{btnName ? btnName : "Open Modal"}</Button>
       <Modal
-        // initialFocusRef={initialRef}
-        // finalFocusRef={finalRef}
         isOpen={isOpen}
         onClose={onClose}
         onEsc={onClose}
         onClickOutside={onClose}
         isCentered
       >
+        {overlay}
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{title ? title : "Create your account"}</ModalHeader>
@@ -53,13 +67,6 @@ const ModalWithContent = ({ children, title, btnName }) => {
               </>
             )}
           </ModalBody>
-
-          {/* <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
-              Save
-            </Button>
-            <Button onClick={onClose}>Cancel</Button>
-          </ModalFooter> */}
         </ModalContent>
       </Modal>
     </>

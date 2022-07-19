@@ -150,6 +150,16 @@ export const removeAdminOrMods = (payload, toast) => async (dispatch) => {
       headers: headerConfig(),
       data: payload,
     });
+    if (payload?.isNew) {
+      dispatch({
+        type: ADMIN_USER_FILTER,
+        payload: {
+          method: "add",
+          auid: payload.auid,
+          role: payload.role,
+        },
+      });
+    }
     if (payload.role === "STUDENT") {
       dispatch({
         type: ADMIN_USER_FILTER,
@@ -168,7 +178,6 @@ export const removeAdminOrMods = (payload, toast) => async (dispatch) => {
         },
       });
     }
-
     toast({
       title: data.message,
       status: `${data.success ? "success" : "error"}`,
