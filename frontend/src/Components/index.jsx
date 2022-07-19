@@ -23,6 +23,8 @@ export {
   EventIcon,
   AdminIcon,
   PaymentIcon,
+  CalendarIcon,
+  SuperProfileIcon,
 } from "./Icons";
 
 export { Toast } from "./Toast";
@@ -36,9 +38,10 @@ export { AttendenceHero } from "./Attendence/AttendenceHero";
 export { Footer } from "./Footer";
 export { ClassCard } from "./ClassCard";
 export { Modal } from "./Modal";
+export { ModalWithContent } from "./Modal/ModalWithContent";
 export { LoadingOrderCard } from "./Shared/Cards";
 export { ErrorMessage } from "./Shared/ErrorMessage";
-export { Editors } from "./Shared/Editor";
+// export { Editors } from "./Shared/Editor";
 export { Notification } from "./Notification";
 export { SideBar } from "./SideBar";
 export { ButtonQuickAction } from "./Button/ButtonWithOption";

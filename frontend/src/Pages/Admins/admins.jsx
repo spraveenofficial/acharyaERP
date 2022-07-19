@@ -1,14 +1,42 @@
-import { Box, Button, Spinner, Text, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Spinner,
+  Text,
+  useToast,
+  Input,
+  FormControl,
+  FormLabel,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
-import { ButtonQuickAction, ErrorMessage, SideBar } from "../../Components";
+import {
+  ButtonQuickAction,
+  ErrorMessage,
+  SideBar,
+  ModalWithContent,
+} from "../../Components";
 import {
   fetchAdminModsAndAdmins,
   removeAdminOrMods,
 } from "../../Redux/Actions";
 import { itemsForAdminsMenu as itemsForMenu } from "./Utils/menus";
+
+const ModalForAdminAdd = () => {
+  return (
+    <ModalWithContent title="Add Admin Or Moderator" btnName="Add Admin">
+      <FormControl>
+        <FormLabel>Enter AUID</FormLabel>
+        <Input placeholder="Enter AUID Number" />
+      </FormControl>
+      <Button mt={5} className="float-right">
+        Add Admin
+      </Button>
+    </ModalWithContent>
+  );
+};
 
 const AdminAdmins = () => {
   const dispatch = useDispatch();
@@ -48,13 +76,14 @@ const AdminAdmins = () => {
         )}
         {!loading && !error && success && (
           <Box className="p-5 mobile:p-3">
-            <Text fontSize="2xl" fontWeight="extrabold">
-              Admins
-            </Text>
-            <Text>
-              This is the list of all the admins and moderators who have
-              registered with us.
-            </Text>
+            <Box className="flex justify-between">
+              <Box>
+                <Text fontSize="2xl" fontWeight="extrabold">
+                  Admins
+                </Text>
+              </Box>
+              <ModalForAdminAdd />
+            </Box>
             {data.length === 0 ? (
               <ErrorMessage
                 message="No admin or Moderator"

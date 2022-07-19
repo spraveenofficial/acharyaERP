@@ -15,7 +15,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
-import { Buttons, Editors } from "../../Components";
+import { Buttons } from "../../Components";
 import { newEvent } from "../../Redux/Actions";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet";
@@ -72,9 +72,9 @@ const AddEvent = () => {
       if (!values.description) {
         errors.description = "Description is Required";
       }
-      if (values.rules.length === 0) {
-        errors.rules = "Rules is Required";
-      }
+      // if (values.rules.length === 0) {
+      //   errors.rules = "Rules is Required";
+      // }
       return errors;
     },
   });
@@ -284,7 +284,7 @@ const AddEvent = () => {
               <FormErrorMessage>{formik.errors.description}</FormErrorMessage>
             )}
           </FormControl>
-          <FormControl isInvalid={isInvalid("rules")}>
+          {/* <FormControl isInvalid={isInvalid("rules")}>
             <FormLabel mt={4} htmlFor="rules">
               Enter Event Rules
             </FormLabel>
@@ -298,7 +298,7 @@ const AddEvent = () => {
             {formik.touched.rules && formik.errors.rules && (
               <FormErrorMessage>{formik.errors.rules}</FormErrorMessage>
             )}
-          </FormControl>
+          </FormControl> */}
           <FormControl isInvalid={isInvalid("category")}>
             <FormLabel className="mt-4" htmlFor="category">
               Select Category

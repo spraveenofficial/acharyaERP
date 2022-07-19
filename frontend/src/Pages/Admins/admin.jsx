@@ -1,13 +1,17 @@
 import { Box, Spinner, Text } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
-import { ErrorMessage, SideBar } from "../../Components";
+import {
+  ErrorMessage,
+  SideBar,
+  CalendarIcon,
+  ProfileIcon,
+  PaymentIcon,
+  SuperProfileIcon,
+} from "../../Components";
 import { StatsCard } from "./Components/Cards";
 import { fetchAdminPage } from "../../Redux/Actions";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { BsCalendar3EventFill } from "react-icons/bs";
-import { FaUserGraduate, FaRupeeSign, FaUserNurse } from "react-icons/fa";
-// import {FaRupeeSign}
 import { Icon } from "@chakra-ui/react";
 const Admin = () => {
   const dispatch = useDispatch();
@@ -16,7 +20,7 @@ const Admin = () => {
     (state) => state.admin
   );
   const { cardsOfHome } = data;
-  const { student_name: name, auid } = user;
+  const { student_name: name } = user;
   const today = new Date();
   const curHr = today.getHours();
   useEffect(() => {
@@ -30,7 +34,7 @@ const Admin = () => {
       case "BsCalendar3EventFill":
         return (
           <Icon
-            as={BsCalendar3EventFill}
+            as={CalendarIcon}
             w={{ base: 10, md: 8, xl: 9 }}
             h={{ base: 10, md: 8, xl: 9 }}
           />
@@ -38,15 +42,16 @@ const Admin = () => {
       case "FaUserGraduate":
         return (
           <Icon
-            as={FaUserGraduate}
+            as={ProfileIcon}
             w={{ base: 10, md: 8, xl: 9 }}
             h={{ base: 10, md: 8, xl: 9 }}
           />
+          // ""
         );
       case "FaRupeeSign":
         return (
           <Icon
-            as={FaRupeeSign}
+            as={PaymentIcon}
             w={{ base: 10, md: 8, xl: 9 }}
             h={{ base: 10, md: 8, xl: 9 }}
           />
@@ -54,7 +59,7 @@ const Admin = () => {
       case "FaUserNurse":
         return (
           <Icon
-            as={FaUserNurse}
+            as={SuperProfileIcon}
             w={{ base: 10, md: 8, xl: 9 }}
             h={{ base: 10, md: 8, xl: 9 }}
           />
@@ -62,7 +67,7 @@ const Admin = () => {
       default:
         return (
           <Icon
-            as={BsCalendar3EventFill}
+            as={CalendarIcon}
             w={{ base: 10, md: 8, xl: 9 }}
             h={{ base: 10, md: 8, xl: 9 }}
           />

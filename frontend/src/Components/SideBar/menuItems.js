@@ -4,6 +4,7 @@ import {
   EventIcon,
   AdminIcon,
   PaymentIcon,
+  SuperProfileIcon,
 } from "..";
 
 export const menuItemsForAdmin = [
