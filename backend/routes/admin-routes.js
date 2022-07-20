@@ -7,6 +7,7 @@ import {
   getUsersPage,
   getAdminsandModPage,
   removeAdminsAndMods,
+  getAllEvents,
 } from "../controllers/admin-controller.js";
 const router = express.Router();
 
@@ -15,4 +16,5 @@ router.get("/home", middleware, adminOrMod, getAdminPage);
 router.get("/users", middleware, adminOnly, getUsersPage);
 router.get("/admins", middleware, adminOnly, getAdminsandModPage);
 router.post("/admins/action", middleware, adminOnly, removeAdminsAndMods);
+router.get("/events", middleware, adminOrMod, getAllEvents);
 export default router;

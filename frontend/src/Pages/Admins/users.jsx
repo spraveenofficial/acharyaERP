@@ -23,8 +23,10 @@ const AdminUsers = () => {
     dispatch(fetchAdminUser());
   }, []);
 
-  const handleClickAction = (event) => {
-    onOpen();
+  const handleClickAction = (data) => {
+    const { auid, params } = data;
+    console.log(auid, params);
+    // onOpen();
   };
   return (
     <Box className="min-h-screen flex flex-no-wrap">
@@ -49,7 +51,17 @@ const AdminUsers = () => {
             <Text fontSize="2xl" fontWeight="extrabold">
               All Users
             </Text>
-            <FullScreenModal onClose={onClose} isOpen={isOpen} />
+            <FullScreenModal
+              title="User Bookings"
+              onClose={onClose}
+              isOpen={isOpen}
+            >
+              <Box className="p-5">
+                <Text fontSize="2xl" fontWeight="extrabold">
+                  Loading
+                </Text>
+              </Box>
+            </FullScreenModal>
             <table className="w-full whitespace-nowrap">
               <thead>
                 <tr>
@@ -104,7 +116,12 @@ const AdminUsers = () => {
                             return (
                               <Button
                                 key={index}
-                                onClick={(e) => handleClickAction(e)}
+                                onClick={(e) =>
+                                  handleClickAction({
+                                    ...item,
+                                    auid: user.auid,
+                                  })
+                                }
                                 w="100%"
                                 className="mb-2"
                               >

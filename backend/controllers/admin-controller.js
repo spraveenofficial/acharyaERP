@@ -230,7 +230,7 @@ const getAdminsandModPage = async (req, res) => {
   }
 };
 
-// @desc    - Remove Admins or Moderators
+// @desc    - Manage Admins
 // @route   Get /admin/admins
 // @access  ADMIN
 
@@ -272,10 +272,44 @@ const removeAdminsAndMods = async (req, res) => {
   }
 };
 
+// @desc    - Get all events
+// @route   Get /admin/admins
+// @access  ADMIN/MODERATOR
+
+const getAllEvents = async (req, res) => {
+  const { id } = req.data;
+  try {
+    const user = await User.findById(id);
+    if (user.role === "ADMIN") {
+      const events = await Event.find({});
+      return res.status(200).json({
+        success: true,
+        message: "Access Granted",
+        data: events,
+      });
+    }
+    if (user.role === "MODERATOR") {
+      const events = await Event.find({ organisedBy: user.auid });
+      return res.status(200).json({
+        success: true,
+        message: "Access Granted",
+        data: events,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
 export {
   addEvent,
   getAdminPage,
   getUsersPage,
   getAdminsandModPage,
   removeAdminsAndMods,
+  getAllEvents,
 };

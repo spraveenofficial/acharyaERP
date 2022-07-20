@@ -9,18 +9,14 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 
-const FullScreenModal = ({ isOpen, onClose }) => {
+const FullScreenModal = ({ isOpen, onClose, title, children }) => {
   return (
     <Modal onClose={onClose} size="full" isOpen={isOpen}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Modal Title</ModalHeader>
+        <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro
-          reiciendis natus numquam qui nobis maiores et nam velit, cupiditate
-          magni at perferendis nisi, dolor dolore adipisci saepe quo illo ipsa.
-        </ModalBody>
+        <ModalBody>{children}</ModalBody>
         <ModalFooter>
           <Button onClick={onClose}>Close</Button>
         </ModalFooter>

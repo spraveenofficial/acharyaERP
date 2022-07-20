@@ -35,7 +35,10 @@ export const loginAction = (payload) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAILURE,
-      payload: "Server Error, Please try again later.",
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
     return false;
   }

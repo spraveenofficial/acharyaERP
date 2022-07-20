@@ -28,6 +28,12 @@ const login = async (req, res) => {
       var userId;
       const aliveToken = await Alive.aliveLogin(auid, password);
       const isExist = await User.findOne({ auid: auid });
+      if (isExist && isExist.role === "BANNED") {
+        return res.status(400).json({
+          success: false,
+          message: "Your account has been suspended.",
+        });
+      }
       if (!isExist) {
         const user = new User({
           auid: auid,
@@ -36,6 +42,7 @@ const login = async (req, res) => {
         await user.save();
         userId = user._id;
       }
+
       return res.status(200).json({
         success: true,
         message: "Successfully Logged in",
