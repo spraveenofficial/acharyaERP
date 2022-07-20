@@ -1,15 +1,13 @@
 import { Box } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { menuItemsForAdmin, menuItemsForModerator } from "./menuItems";
+import { menuItems } from "./menuItems";
 import { Link } from "react-router-dom";
 const SideBar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [deviceType, setDeviceType] = useState("desktop");
   const { user } = useSelector((state) => state.auth);
   const { role } = user;
-  const itemsOFMenu =
-    role === "ADMIN" ? menuItemsForAdmin : menuItemsForModerator;
   useEffect(() => {
     updateDeviceType(window.innerWidth);
     window.addEventListener("resize", () => {
@@ -41,22 +39,24 @@ const SideBar = ({ children }) => {
           >
             <div className="px-8">
               <ul className="mt-12">
-                {itemsOFMenu.map((item, index) => {
-                  return (
-                    <li
-                      key={index}
-                      className="flex w-full justify-between hover:text-gray-500 cursor-pointer items-center mb-6"
-                    >
-                      <Link
-                        to={item.url}
-                        className="flex font-semibold items-center focus:outline-none focus:ring-2 focus:ring-white"
+                {menuItems
+                  .filter((item) => item.role === role)
+                  .map((item, index) => {
+                    return (
+                      <li
+                        key={index}
+                        className="flex w-full justify-between hover:text-gray-500 cursor-pointer items-center mb-6"
                       >
-                        {item.icon && <item.icon />}
-                        <span className="text-md ml-2 ">{item.name}</span>
-                      </Link>
-                    </li>
-                  );
-                })}
+                        <Link
+                          to={item.url}
+                          className="flex font-semibold items-center focus:outline-none focus:ring-2 focus:ring-white"
+                        >
+                          {item.icon && <item.icon />}
+                          <span className="text-md ml-2 ">{item.name}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
               </ul>
             </div>
           </Box>
@@ -135,22 +135,24 @@ const SideBar = ({ children }) => {
             {isOpen && (
               <div className="px-8 h-screen">
                 <ul className="mt-12">
-                  {itemsOFMenu.map((item, index) => {
-                    return (
-                      <li
-                        key={index}
-                        className="flex w-full justify-between  hover:text-gray-300 cursor-pointer items-center mb-6"
-                      >
-                        <Link
-                          to={item.url}
-                          className="flex items-center focus:outline-none focus:ring-2 focus:ring-white"
+                  {menuItems
+                    .filter((item) => item.role === role)
+                    .map((item, index) => {
+                      return (
+                        <li
+                          key={index}
+                          className="flex w-full justify-between  hover:text-gray-300 cursor-pointer items-center mb-6"
                         >
-                          {item.icon && <item.icon />}
-                          <span className="text-sm ml-2">{item.name}</span>
-                        </Link>
-                      </li>
-                    );
-                  })}
+                          <Link
+                            to={item.url}
+                            className="flex items-center focus:outline-none focus:ring-2 focus:ring-white"
+                          >
+                            {item.icon && <item.icon />}
+                            <span className="text-sm ml-2">{item.name}</span>
+                          </Link>
+                        </li>
+                      );
+                    })}
                 </ul>
               </div>
             )}

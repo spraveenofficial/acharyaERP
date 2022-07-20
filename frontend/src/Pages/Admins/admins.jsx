@@ -25,7 +25,10 @@ import {
   fetchAdminModsAndAdmins,
   removeAdminOrMods,
 } from "../../Redux/Actions";
-import { itemsForAdminsMenu as itemsForMenu } from "./Utils/menus";
+import {
+  itemsForAdminsMenu as itemsForMenu,
+  itemsForAdminsMenu,
+} from "./Utils/menus";
 
 const AdminAdmins = () => {
   const dispatch = useDispatch();
@@ -178,20 +181,22 @@ const AdminAdmins = () => {
                             setClicked={setClicked}
                             title="Manage Admin"
                           >
-                            {itemsForMenu(user.role)?.map((item, index) => {
-                              return (
-                                <Button
-                                  key={index}
-                                  onClick={() =>
-                                    handleChangeRole(user.auid, item.params)
-                                  }
-                                  w="100%"
-                                  className="mb-2"
-                                >
-                                  {item.name}
-                                </Button>
-                              );
-                            })}
+                            {itemsForMenu
+                              .filter((item) => item.role === user.role)
+                              .map((item) => {
+                                return (
+                                  <Button
+                                    key={index}
+                                    onClick={() =>
+                                      handleChangeRole(user.auid, item.params)
+                                    }
+                                    w="100%"
+                                    className="mb-2"
+                                  >
+                                    {item.name}
+                                  </Button>
+                                );
+                              })}
                           </ButtonQuickAction>
                         </td>
                       </tr>

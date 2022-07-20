@@ -1,25 +1,22 @@
-export const itemsForAdminsMenu = (role) => {
-  if (role === "ADMIN") {
-    return [
-      {
-        name: "Make Moderator",
-        params: "MODERATOR",
-      },
-      {
-        name: "Remove Admin",
-        params: "STUDENT",
-      },
-    ];
-  } else if (role === "MODERATOR") {
-    return [
-      {
-        name: "Make Admin",
-        params: "ADMIN",
-      },
-      {
-        name: "Remove Moderator",
-        params: "STUDENT",
-      },
-    ];
-  }
-};
+export const itemsForAdminsMenu = [
+  {
+    name: "Make Moderator",
+    params: "MODERATOR",
+    role: "ADMIN",
+  },
+  {
+    name: "Remove Admin",
+    params: "STUDENT",
+    role: "ADMIN",
+  },
+  {
+    name: "Make Admin",
+    params: "ADMIN",
+    role: "MODERATOR",
+  },
+  {
+    name: "Remove Moderator",
+    params: "STUDENT",
+    role: "MODERATOR",
+  },
+];

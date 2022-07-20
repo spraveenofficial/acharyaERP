@@ -1,55 +1,52 @@
 import {
-  DashboardIcon,
-  ProfileIcon,
-  EventIcon,
-  AdminIcon,
-  PaymentIcon,
+  StylishDashboardIcon,
+  StylishUsersIcon,
+  StylishEventIcon,
+  StylishSuperUserIcon,
+  StylishPaymentIcon,
 } from "..";
 
-export const menuItemsForAdmin = [
+export const menuItems = [
   {
     name: "Dashboard",
     url: "/admin/home",
-    icon: DashboardIcon,
-    role: "admin",
+    icon: StylishDashboardIcon,
+    role: "ADMIN",
   },
   {
     name: "Students",
     url: "/admin/users",
-    icon: ProfileIcon,
-    role: "admin",
+    icon: StylishUsersIcon,
+    role: "ADMIN",
   },
   {
     name: "Events",
     url: "/admin/events",
-    icon: EventIcon,
-    role: "admin",
+    icon: StylishEventIcon,
+    role: "ADMIN",
   },
   {
     name: "Admins",
     url: "/admin/admins",
-    icon: AdminIcon,
-    role: "admin",
+    icon: StylishSuperUserIcon,
+    role: "ADMIN",
   },
   {
     name: "Community",
     url: "/admin/community",
-    icon: AdminIcon,
-    role: "admin",
+    icon: StylishSuperUserIcon,
+    role: "ADMIN",
   },
   {
     name: "Payments",
     url: "/admin/payments",
-    icon: PaymentIcon,
-    role: "admin",
+    icon: StylishPaymentIcon,
+    role: "ADMIN",
   },
-];
-
-export const menuItemsForModerator = [
   {
     name: "Dashboard",
     url: "/admin/home",
-    icon: DashboardIcon,
-    role: "moderator",
+    icon: StylishDashboardIcon,
+    role: "MODERATOR",
   },
 ];

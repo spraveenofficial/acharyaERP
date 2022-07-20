@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   ErrorMessage,
   SideBar,
-  CalendarIcon,
-  ProfileIcon,
-  PaymentIcon,
-  SuperProfileIcon,
+  StylishEventIcon,
+  StylishPaymentIcon,
+  StylishDashboardIcon,
+  StylishUsersIcon,
+  StylishSuperUserIcon,
 } from "../../Components";
 import { StatsCard } from "./Components/Cards";
 import { fetchAdminPage } from "../../Redux/Actions";
@@ -34,40 +35,39 @@ const Admin = () => {
       case "BsCalendar3EventFill":
         return (
           <Icon
-            as={CalendarIcon}
-            w={{ base: 10, md: 8, xl: 9 }}
-            h={{ base: 10, md: 8, xl: 9 }}
+            as={StylishEventIcon}
+            w={{ base: 12, md: 12, xl: 16 }}
+            h={{ base: 12, md: 12, xl: 16 }}
           />
         );
       case "FaUserGraduate":
         return (
           <Icon
-            as={ProfileIcon}
-            w={{ base: 10, md: 8, xl: 9 }}
-            h={{ base: 10, md: 8, xl: 9 }}
+            as={StylishUsersIcon}
+            w={{ base: 12, md: 12, xl: 16 }}
+            h={{ base: 12, md: 12, xl: 16 }}
           />
-          // ""
         );
       case "FaRupeeSign":
         return (
           <Icon
-            as={PaymentIcon}
-            w={{ base: 10, md: 8, xl: 9 }}
-            h={{ base: 10, md: 8, xl: 9 }}
+            as={StylishPaymentIcon}
+            w={{ base: 12, md: 12, xl: 16 }}
+            h={{ base: 12, md: 12, xl: 16 }}
           />
         );
       case "FaUserNurse":
         return (
           <Icon
-            as={SuperProfileIcon}
-            w={{ base: 10, md: 8, xl: 9 }}
-            h={{ base: 10, md: 8, xl: 9 }}
+            as={StylishSuperUserIcon}
+            w={{ base: 12, md: 12, xl: 16 }}
+            h={{ base: 12, md: 12, xl: 16 }}
           />
         );
       default:
         return (
           <Icon
-            as={CalendarIcon}
+            as={StylishDashboardIcon}
             w={{ base: 10, md: 8, xl: 9 }}
             h={{ base: 10, md: 8, xl: 9 }}
           />
