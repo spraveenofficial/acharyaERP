@@ -25,10 +25,8 @@ const Admin = () => {
   const today = new Date();
   const curHr = today.getHours();
   useEffect(() => {
-    if (!success && !error) {
-      dispatch(fetchAdminPage());
-    }
-  }, [success, error, dispatch]);
+    dispatch(fetchAdminPage());
+  }, []);
 
   const renderIcon = (name) => {
     switch (name) {

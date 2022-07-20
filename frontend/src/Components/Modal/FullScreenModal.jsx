@@ -16,7 +16,7 @@ const FullScreenModal = ({ isOpen, onClose, title, children }) => {
       <ModalContent>
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>{children}</ModalBody>
+        <ModalBody p={0}>{children}</ModalBody>
         <ModalFooter>
           <Button onClick={onClose}>Close</Button>
         </ModalFooter>

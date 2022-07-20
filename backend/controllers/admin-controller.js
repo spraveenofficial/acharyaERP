@@ -262,7 +262,7 @@ const removeAdminsAndMods = async (req, res) => {
     await User.findOneAndUpdate({ auid: auid }, { role: role });
     return res.status(200).json({
       success: true,
-      message: "Successfully Done.",
+      message: `Successfully updated ${auid} to ${role}`,
     });
   } catch (error) {
     return res.status(400).json({
@@ -305,6 +305,29 @@ const getAllEvents = async (req, res) => {
   }
 };
 
+const getSpecifyUserOrder = async (req, res) => {
+  const { auid } = req.body;
+  try {
+    const bookings = await Booking.find({ auid }).populate("event");
+    if (bookings.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: `No orders found for ${auid}`,
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Access Granted",
+      data: bookings,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
 export {
   addEvent,
   getAdminPage,
@@ -312,4 +335,5 @@ export {
   getAdminsandModPage,
   removeAdminsAndMods,
   getAllEvents,
+  getSpecifyUserOrder,
 };

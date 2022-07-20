@@ -30,16 +30,16 @@ export const itemsForUserMenu = [
   {
     name: "Make Admin",
     params: "ADMIN",
-    role: "STUDENT",
+    role: "ADMIN",
   },
   {
     name: "Make Moderator",
     params: "MODERATOR",
-    role: "STUDENT",
+    role: "MODERATOR",
   },
   {
     name: "Ban User",
     params: "BAN",
-    role: "ADMIN",
+    role: "BANNED",
   },
 ];

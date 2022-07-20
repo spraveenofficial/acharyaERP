@@ -202,3 +202,35 @@ export const removeAdminOrMods = (payload, toast) => async (dispatch) => {
     return false;
   }
 };
+
+export const fetchEachUserBooking = (auid) => async (dispatch) => {
+  try {
+    dispatch({
+      type: ADMIN_REQUEST,
+    });
+    const { data } = await axios({
+      method: "POST",
+      url: `${baseUrl}/admin/user/bookings`,
+      headers: headerConfig(),
+      data: { auid },
+    });
+    if (!data.success) {
+      dispatch({
+        type: ADMIN_FAILURE,
+        payload: data.message,
+      });
+    }
+    dispatch({
+      type: ADMIN_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

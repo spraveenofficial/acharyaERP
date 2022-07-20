@@ -1,18 +1,22 @@
-import { Box, Button, Spinner, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Spinner,
+  Text,
+  useDisclosure,
+  useToast,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  ButtonQuickAction,
-  ErrorMessage,
-  FullScreenModal,
-  SideBar,
-} from "../../Components";
-import { fetchAdminUser } from "../../Redux/Actions";
+import { ButtonQuickAction, ErrorMessage, SideBar } from "../../Components";
+import { ViewBookings } from "./Components/Bookings/steps";
+import { fetchAdminUser, removeAdminOrMods } from "../../Redux/Actions";
 import moment from "moment";
 import { itemsForUserMenu as Menu } from "./Utils/menus";
 const AdminUsers = () => {
   const dispatch = useDispatch();
+  const toast = useToast();
   const [clicked, setClicked] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { loading, success, data, error, message } = useSelector(
@@ -24,9 +28,19 @@ const AdminUsers = () => {
   }, []);
 
   const handleClickAction = (data) => {
-    const { auid, params } = data;
-    console.log(auid, params);
-    // onOpen();
+    const { auid, params, role } = data;
+    if (params !== "VIEW_ORDERS") {
+      dispatch(removeAdminOrMods({ auid, role, isNew: false }, toast));
+      setClicked(true);
+      return;
+    }
+    if (params === "VIEW_ORDERS") {
+      dispatch({
+        type: "SELECT_AUID_FOR_BOOKINGS",
+        payload: auid,
+      });
+      onOpen();
+    }
   };
   return (
     <Box className="min-h-screen flex flex-no-wrap">
@@ -51,17 +65,11 @@ const AdminUsers = () => {
             <Text fontSize="2xl" fontWeight="extrabold">
               All Users
             </Text>
-            <FullScreenModal
+            {isOpen && <ViewBookings
               title="User Bookings"
               onClose={onClose}
               isOpen={isOpen}
-            >
-              <Box className="p-5">
-                <Text fontSize="2xl" fontWeight="extrabold">
-                  Loading
-                </Text>
-              </Box>
-            </FullScreenModal>
+            />}
             <table className="w-full whitespace-nowrap">
               <thead>
                 <tr>

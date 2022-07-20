@@ -10,6 +10,8 @@ import {
   ADMIN_USER_SUCCESS,
   ADMIN_USER_FAILURE,
   ADMIN_USER_FILTER,
+  SELECT_AUID_FOR_BOOKINGS,
+  ADMIN_CLEAR_AUID,
 } from "../Constants/admin-constants";
 
 export const newEvent = (
@@ -55,6 +57,7 @@ export const admin = (
     message: "",
     data: {},
     error: false,
+    selectedAuid: "",
   },
   action
 ) => {
@@ -81,6 +84,17 @@ export const admin = (
         error: true,
         message: action.payload,
       };
+    case SELECT_AUID_FOR_BOOKINGS:
+      return {
+        ...state,
+        selectedAuid: action.payload,
+      };
+    case ADMIN_CLEAR_AUID:
+      return {
+        ...state,
+        selectedAuid: "",
+      };
+
     default:
       return state;
   }
@@ -146,6 +160,7 @@ export const adminuser = (
         };
       }
       break;
+
     default:
       return state;
   }
