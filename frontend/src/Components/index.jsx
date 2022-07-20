@@ -8,6 +8,7 @@ export {
   StylishDashboardIcon,
   StylishUsersIcon,
   StylishSuperUserIcon,
+  StylishCommunityIcon,
 } from "./Icons";
 
 export { Toast } from "./Toast";

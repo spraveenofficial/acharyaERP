@@ -36,11 +36,7 @@ const AdminUsers = () => {
         {!loading && !error && success && (
           <Box className="p-5 mobile:p-3">
             <Text fontSize="2xl" fontWeight="extrabold">
-              Users aka Students only
-            </Text>
-            <Text>
-              We keep track of all the students who have registered on our with
-              auid number only.
+              All Users
             </Text>
             <table className="w-full whitespace-nowrap">
               <thead>
@@ -53,7 +49,9 @@ const AdminUsers = () => {
                     ROLE
                   </th>
                   <th className="text-left font-[Acharya-semi]  p-4">View</th>
-                  <th className="text-left font-[Acharya-semi] hidden mobile:block p-4">Action</th>
+                  <th className="text-left font-[Acharya-semi] hidden mobile:block p-4">
+                    Action
+                  </th>
                 </tr>
               </thead>
               <tbody>

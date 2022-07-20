@@ -4,6 +4,7 @@ import {
   StylishEventIcon,
   StylishSuperUserIcon,
   StylishPaymentIcon,
+  StylishCommunityIcon,
 } from "..";
 
 export const menuItems = [
@@ -34,7 +35,7 @@ export const menuItems = [
   {
     name: "Community",
     url: "/admin/community",
-    icon: StylishSuperUserIcon,
+    icon: StylishCommunityIcon,
     role: "ADMIN",
   },
   {
