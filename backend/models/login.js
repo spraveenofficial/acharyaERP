@@ -15,7 +15,7 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       default: "STUDENT",
-      enum: ["STUDENT", "ADMIN", "MODERATOR"],
+      enum: ["STUDENT", "ADMIN", "MODERATOR", "BANNED"],
     },
   },
   {
@@ -27,7 +27,7 @@ const UserSchema = new Schema(
         ret.id = ret._id;
         delete ret._id;
         delete ret.__v;
-        delete ret.createdAt;
+        // delete ret.createdAt;
         delete ret.updatedAt;
         return ret;
       },

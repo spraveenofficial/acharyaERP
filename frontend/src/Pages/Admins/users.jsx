@@ -1,12 +1,14 @@
-import { Box, Spinner, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { Box, Button, Spinner, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { ButtonQuickAction, ErrorMessage, SideBar } from "../../Components";
 import { fetchAdminUser } from "../../Redux/Actions";
-
+import moment from "moment";
+import { itemsForUserMenu as Menu } from "./Utils/menus";
 const AdminUsers = () => {
   const dispatch = useDispatch();
+  const [clicked, setClicked] = useState(false);
   const { loading, success, data, error, message } = useSelector(
     (state) => state.adminuser
   );
@@ -15,6 +17,9 @@ const AdminUsers = () => {
     dispatch(fetchAdminUser());
   }, []);
 
+  const handleClickAction = (event) => {
+    console.log(event);
+  };
   return (
     <Box className="min-h-screen flex flex-no-wrap">
       <Helmet>
@@ -46,10 +51,9 @@ const AdminUsers = () => {
                   </th>
                   <th className="text-left font-[Acharya-semi]  p-4">AUID</th>
                   <th className="text-left font-[Acharya-semi]  p-4 mobile:hidden">
-                    ROLE
+                    Joined On
                   </th>
-                  <th className="text-left font-[Acharya-semi]  p-4">View</th>
-                  <th className="text-left font-[Acharya-semi] hidden mobile:block p-4">
+                  <th className="text-left font-[Acharya-semi] hidden p-4">
                     Action
                   </th>
                 </tr>
@@ -58,7 +62,7 @@ const AdminUsers = () => {
                 {data?.map((user, index) => {
                   return (
                     <tr
-                      key={user.id}
+                      key={user.auid}
                       tabIndex={0}
                       className="focus:outline-none h-16 border border-gray-100 rounded"
                     >
@@ -76,21 +80,32 @@ const AdminUsers = () => {
                           </p>
                         </div>
                       </td>
-
                       <td className="pl-5 mobile:hidden lg:table-cell">
                         <p
                           className={`capitalize py-3 px-3 text-sm focus:outline-none leading-none rounded `}
                         >
-                          {user.role}
+                          {moment(user.createdAt).format("LL")}
                         </p>
                       </td>
-                      <td className="pl-4">
-                        <button className="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-gray-100 rounded hover:bg-gray-200 focus:outline-none">
-                          View
-                        </button>
-                      </td>
                       <td className="whitespace-normal w-fit">
-                        <ButtonQuickAction />
+                        <ButtonQuickAction
+                          isClicked={clicked}
+                          setClicked={setClicked}
+                          title="Manage User"
+                        >
+                          {Menu.map((item, index) => {
+                            return (
+                              <Button
+                                key={index}
+                                onClick={(e) => handleClickAction(e)}
+                                w="100%"
+                                className="mb-2"
+                              >
+                                {item.name}
+                              </Button>
+                            );
+                          })}
+                        </ButtonQuickAction>
                       </td>
                     </tr>
                   );

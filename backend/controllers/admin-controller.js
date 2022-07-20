@@ -188,9 +188,10 @@ const getAdminPage = async (req, res) => {
 // @access  ADMIN
 
 const getUsersPage = async (req, res) => {
-  const { id } = req.data;
   try {
-    const allUsers = await User.find({ role: "STUDENT" });
+    const allUsers = await User.find({ role: "STUDENT" })
+      .select("createdAt auid -_id")
+      .sort({ createdAt: -1 });
     return res.status(200).json({
       success: true,
       message: "Access Granted",
@@ -199,8 +200,7 @@ const getUsersPage = async (req, res) => {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      message: "Access Denied",
-      error,
+      message: "Inter Server Error",
     });
   }
 };
