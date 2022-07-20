@@ -1,14 +1,20 @@
-import { Box, Button, Spinner, Text } from "@chakra-ui/react";
+import { Box, Button, Spinner, Text, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
-import { ButtonQuickAction, ErrorMessage, SideBar } from "../../Components";
+import {
+  ButtonQuickAction,
+  ErrorMessage,
+  FullScreenModal,
+  SideBar,
+} from "../../Components";
 import { fetchAdminUser } from "../../Redux/Actions";
 import moment from "moment";
 import { itemsForUserMenu as Menu } from "./Utils/menus";
 const AdminUsers = () => {
   const dispatch = useDispatch();
   const [clicked, setClicked] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { loading, success, data, error, message } = useSelector(
     (state) => state.adminuser
   );
@@ -18,7 +24,7 @@ const AdminUsers = () => {
   }, []);
 
   const handleClickAction = (event) => {
-    console.log(event);
+    onOpen();
   };
   return (
     <Box className="min-h-screen flex flex-no-wrap">
@@ -43,6 +49,7 @@ const AdminUsers = () => {
             <Text fontSize="2xl" fontWeight="extrabold">
               All Users
             </Text>
+            <FullScreenModal onClose={onClose} isOpen={isOpen} />
             <table className="w-full whitespace-nowrap">
               <thead>
                 <tr>
@@ -89,9 +96,9 @@ const AdminUsers = () => {
                       </td>
                       <td className="whitespace-normal w-fit">
                         <ButtonQuickAction
+                          title="Manage User"
                           isClicked={clicked}
                           setClicked={setClicked}
-                          title="Manage User"
                         >
                           {Menu.map((item, index) => {
                             return (

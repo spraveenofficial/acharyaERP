@@ -183,7 +183,7 @@ export const removeAdminOrMods = (payload, toast) => async (dispatch) => {
       status: `${data.success ? "success" : "error"}`,
       duration: 5000,
       isClosable: true,
-      position: "top-left",
+      position: "top-right",
       zIndex: 110000000,
     });
   } catch (error) {
@@ -196,7 +196,7 @@ export const removeAdminOrMods = (payload, toast) => async (dispatch) => {
       status: "error",
       duration: 5000,
       isClosable: true,
-      position: "top-left",
+      position: "top-right",
       zIndex: 110000000,
     });
     return false;

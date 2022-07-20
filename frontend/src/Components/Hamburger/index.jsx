@@ -10,7 +10,7 @@ export default function Hamburger({ show, onClick }) {
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
       className={`hamburger  ${
-        colorMode === "light" ? "fill-white" : "fill-white"
+        colorMode === "light" ? "fill-black" : "fill-white"
       }`}
       onClick={onClick}
     >

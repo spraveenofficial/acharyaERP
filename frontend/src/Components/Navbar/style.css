@@ -19,7 +19,7 @@ nav {
 .mobile-nav-container {
   position: fixed;
   z-index: 9999999;
-  top: 0;
+  top: 79px;
   width: 100vw;
   padding: 4rem 2rem 1rem 1rem;
   display: flex;
@@ -36,7 +36,6 @@ nav {
 
 .hamburger {
   width: 5rem;
-  z-index: 99999999;
   cursor: pointer;
   position: absolute;
   right: 0.5rem;

@@ -1,7 +1,7 @@
 import { Box, Image, Spinner, Text, useToast } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchEvent, initializeCheckout } from "../../Redux/Actions";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Error } from "..";
 import { EventCard, Toast } from "../../Components";
@@ -42,7 +42,7 @@ const EventPage = () => {
         status: "error",
         duration: 5000,
         isClosable: true,
-        position: "top-left",
+        position: "top-right",
         zIndex: 110000000,
       });
       return;

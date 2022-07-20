@@ -61,6 +61,14 @@ const Navbar = () => {
     }
     setDeviceType("mobile");
   };
+
+  useEffect(() => {
+    if (showNav === true) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [showNav]);
   const navVariants = {
     hidden: { y: -10, opacity: 0 },
     show: {
@@ -359,7 +367,7 @@ const Navbar = () => {
                           <Link
                             className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                             to={"/admin/home"}
-                            onClick={() => setIsOpen(false)}
+                            onClick={() => setIsOpen(false) || setNav(false)}
                           >
                             Manage Admin
                           </Link>

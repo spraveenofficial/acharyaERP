@@ -23,6 +23,7 @@ export { Footer } from "./Footer";
 export { ClassCard } from "./ClassCard";
 export { Modal } from "./Modal";
 export { ModalWithContent } from "./Modal/ModalWithContent";
+export { FullScreenModal } from "./Modal/FullScreenModal";
 export { LoadingOrderCard } from "./Shared/Cards";
 export { ErrorMessage } from "./Shared/ErrorMessage";
 // export { Editors } from "./Shared/Editor";
