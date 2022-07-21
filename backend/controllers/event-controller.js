@@ -9,7 +9,6 @@ import Booking from "../models/bookings.js";
 const fetchEvents = async (req, res) => {
   // Find all the events with status active
   const events = await Event.find({ status: "active" });
-  console.log(events);
   if (events.length === 0) {
     return res.status(400).json({
       success: false,
