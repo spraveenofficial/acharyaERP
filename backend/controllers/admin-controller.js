@@ -282,6 +282,12 @@ const getAllEvents = async (req, res) => {
     const user = await User.findById(id);
     if (user.role === "ADMIN") {
       const events = await Event.find({});
+      if (events.length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: "No Events Found",
+        });
+      }
       const eventsWithBookings = await Promise.all(
         events.map(async (event) => {
           const bookings = await Booking.find(

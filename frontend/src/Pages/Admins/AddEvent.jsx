@@ -35,7 +35,7 @@ const AddEvent = () => {
       timing: "",
       organisedBy: user.auid,
       description: "",
-      rules: [],
+      rules: "",
     },
     onSubmit: async (values) => {
       const response = await dispatch(newEvent(values));
@@ -72,9 +72,9 @@ const AddEvent = () => {
       if (!values.description) {
         errors.description = "Description is Required";
       }
-      // if (values.rules.length === 0) {
-      //   errors.rules = "Rules is Required";
-      // }
+      if (!values.rules) {
+        errors.rules = "Rules is Required";
+      }
       return errors;
     },
   });
@@ -284,21 +284,22 @@ const AddEvent = () => {
               <FormErrorMessage>{formik.errors.description}</FormErrorMessage>
             )}
           </FormControl>
-          {/* <FormControl isInvalid={isInvalid("rules")}>
+          <FormControl isInvalid={isInvalid("rules")}>
             <FormLabel mt={4} htmlFor="rules">
               Enter Event Rules
             </FormLabel>
-            <Editors
+            <Textarea
               id="rules"
               type="rules"
               name="rules"
-              onChange={(e) => formik.setFieldValue("rules", e)}
+              onChange={formik.handleChange}
+              placeholder="Event rules"
               value={formik.values.rules}
             />
             {formik.touched.rules && formik.errors.rules && (
               <FormErrorMessage>{formik.errors.rules}</FormErrorMessage>
             )}
-          </FormControl> */}
+          </FormControl>
           <FormControl isInvalid={isInvalid("category")}>
             <FormLabel className="mt-4" htmlFor="category">
               Select Category

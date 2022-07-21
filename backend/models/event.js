@@ -49,8 +49,8 @@ const eventSchema = new Schema(
       required: true,
     },
     rules: {
-      type: Array,
-      required: true,
+      type: String,
+      required: false,
     },
     status: {
       type: String,

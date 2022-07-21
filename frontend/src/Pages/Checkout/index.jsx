@@ -53,7 +53,7 @@ const Checkout = () => {
     if (entryFee === 0) {
       return { entryFee: 0, total: 0, tax: 0 };
     }
-    const tax = entryFee * 0.16;
+    const tax = 0;
     const total = entryFee + tax;
     return { entryFee, tax, total };
   };
@@ -307,8 +307,8 @@ const Checkout = () => {
                       <span>{generateBill().entryFee} ₹</span>
                     </span>
                     <span className="info">
-                      <span>gst (16%)</span>
-                      <span>{generateBill().tax} ₹</span>
+                      <span>gst (18%)</span>
+                      <span>Not Appplicable </span>
                     </span>
                   </li>
                 </ul>

@@ -86,7 +86,7 @@ const checkBookingConditions = async (req, res, next) => {
       if (entryFee === 0) {
         return { entryFee: 0, total: 0, tax: 0 };
       }
-      const tax = entryFee * 0.16;
+      const tax = 0;
       const total = entryFee + tax;
       return { entryFee, tax, total };
     };
@@ -99,7 +99,6 @@ const checkBookingConditions = async (req, res, next) => {
     }
     next();
   } catch (error) {
-    console.log(error);
     return res.status(400).json({
       success: false,
       message: "Event not found",
