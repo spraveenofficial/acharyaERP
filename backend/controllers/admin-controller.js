@@ -305,6 +305,11 @@ const getAllEvents = async (req, res) => {
   }
 };
 
+// @desc    - Get all booking events of each user
+// @route   POST /users/bookings
+// @access  ADMIN
+
+
 const getSpecifyUserOrder = async (req, res) => {
   const { auid } = req.body;
   try {

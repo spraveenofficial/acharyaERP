@@ -15,4 +15,5 @@ export { OrderConfirmation } from "./Bookings/Order-confirmation";
 export { Admin } from "./Admins/home";
 export { AdminUsers } from "./Admins/users";
 export { AdminAdmins } from "./Admins/admins";
+export { AdminEvents } from "./Admins/events";
 export { JoinCommunity } from "./Community/JoinCommunity";

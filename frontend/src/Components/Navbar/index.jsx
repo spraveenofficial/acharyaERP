@@ -123,9 +123,7 @@ const Navbar = () => {
                     <div className="flex items-center md:order-2 relative">
                       <button
                         type="button"
-                        className={`justify-center text-center items-center p-2 font-bold flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 ${
-                          colorMode === "dark" ? "bg-[#23314d]" : "bg-[#DEE2FF]"
-                        }`}
+                        className={`justify-center text-center items-center p-2 font-bold flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300  bg-[#DEE2FF] dark:bg-[#23314d]`}
                         id="user-menu-button"
                         aria-expanded="false"
                         onClick={openDropdown}
@@ -154,7 +152,7 @@ const Navbar = () => {
                           <ul className="py-1" aria-labelledby="dropdown">
                             <li>
                               <Link
-                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-black dark:hover:text-white"
                                 to={"/profile"}
                                 onClick={() => setIsOpen(false)}
                               >
@@ -163,7 +161,7 @@ const Navbar = () => {
                             </li>
                             <li>
                               <Link
-                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-black dark:hover:text-white"
                                 to={"/my-bookings"}
                                 onClick={() => setIsOpen(false)}
                               >
@@ -172,7 +170,7 @@ const Navbar = () => {
                             </li>
                             <li>
                               <Link
-                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-black dark:hover:text-white"
                                 to={"/settings"}
                                 onClick={() => setIsOpen(false)}
                               >
@@ -182,7 +180,7 @@ const Navbar = () => {
                             {isSuper ? (
                               <li>
                                 <Link
-                                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-black dark:hover:text-white"
                                   to={"/admin/home"}
                                   onClick={() => setIsOpen(false)}
                                 >
@@ -193,7 +191,7 @@ const Navbar = () => {
                             <li>
                               <Text
                                 onClick={handleLogout}
-                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-black dark:hover:text-white"
                               >
                                 Signout
                               </Text>
@@ -308,9 +306,7 @@ const Navbar = () => {
               <div className="w-1/2 flex items-center md:order-2 flex-col">
                 <button
                   type="button"
-                  className={`w-full justify-center text-center items-center p-2 font-bold flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 ${
-                    colorMode === "dark" ? "bg-[#23314d]" : "bg-[#DEE2FF]"
-                  }`}
+                  className={`w-full justify-center text-center items-center p-2 font-bold flex mr-3 text-sm  rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:bg-[#23314d] bg-[#DEE2FF]`}
                   id="user-menu-button"
                   aria-expanded="false"
                   onClick={openDropdown}
@@ -337,7 +333,7 @@ const Navbar = () => {
                     <ul className="py-1" aria-labelledby="dropdown">
                       <li>
                         <Link
-                          className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-black dark:hover:text-white"
                           to={"/profile"}
                           onClick={() => setIsOpen(false) || setNav(false)}
                         >
@@ -346,7 +342,7 @@ const Navbar = () => {
                       </li>
                       <li>
                         <Link
-                          className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-black dark:hover:text-white"
                           to={"/my-bookings"}
                           onClick={() => setIsOpen(false) || setNav(false)}
                         >
@@ -355,7 +351,7 @@ const Navbar = () => {
                       </li>
                       <li>
                         <Link
-                          className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-black dark:hover:text-white"
                           to={"/settings"}
                           onClick={() => setIsOpen(false) || setNav(false)}
                         >
@@ -365,7 +361,7 @@ const Navbar = () => {
                       {isSuper ? (
                         <li>
                           <Link
-                            className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                            className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-black dark:hover:text-white"
                             to={"/admin/home"}
                             onClick={() => setIsOpen(false) || setNav(false)}
                           >
@@ -376,7 +372,7 @@ const Navbar = () => {
                       <li>
                         <Text
                           onClick={handleLogout}
-                          className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-black dark:hover:text-white"
                         >
                           Signout
                         </Text>

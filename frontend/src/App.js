@@ -19,6 +19,7 @@ import {
   JoinCommunity,
   AdminUsers,
   AdminAdmins,
+  AdminEvents,
 } from "./Pages";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile } from "./Redux/Actions";
@@ -78,6 +79,7 @@ function App() {
         <Route element={<AdminAndModRoutes />}>
           <Route path="/admin/add-event" element={<AddEvent />} />
           <Route path="/admin/home" element={<Admin />} />
+          <Route path="/admin/events" element={<AdminEvents />} />
         </Route>
         <Route element={<AdminRoutes />}>
           <Route path="/admin/users" element={<AdminUsers />} />

@@ -234,3 +234,34 @@ export const fetchEachUserBooking = (auid) => async (dispatch) => {
     });
   }
 };
+
+export const fetchEventsForAdmin = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: ADMIN_REQUEST,
+    });
+    const { data } = await axios({
+      method: "get",
+      url: `${baseUrl}/admin/events`,
+      headers: headerConfig(),
+    });
+    if (!data.success) {
+      dispatch({
+        type: ADMIN_FAILURE,
+        payload: data.message,
+      });
+    }
+    dispatch({
+      type: ADMIN_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
