@@ -12,7 +12,7 @@ import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ButtonQuickAction, ErrorMessage, SideBar } from "../../Components";
-import { fetchEventsForAdmin } from "../../Redux/Actions";
+import { fetchEventsForAdmin, updateEventStatus } from "../../Redux/Actions";
 import { BookingStatus } from "./Components/Bookings/status";
 import { menuForEvents as Menu } from "./Utils/menus";
 import moment from "moment";
@@ -43,13 +43,22 @@ const AdminEvents = () => {
   };
 
   const handleClickAction = (payload) => {
-    // console.log(payload);
     const { eventId, params, role } = payload;
-    dispatch({
-      type: "SELECT_AUID_FOR_BOOKINGS",
-      payload: eventId,
-    });
-    onOpen();
+    if (params === "VIEW_ORDERS") {
+      dispatch({
+        type: "SELECT_AUID_FOR_BOOKINGS",
+        payload: eventId,
+      });
+      onOpen();
+    }
+    if (params === "CANCEL_EVENT") {
+      dispatch(updateEventStatus({ eventId, status: "cancelled" }, toast));
+      setClicked(true);
+    }
+    if (params === "MARK_COMPLETED") {
+      dispatch(updateEventStatus({ eventId, status: "completed" }, toast));
+      setClicked(true);
+    }
   };
   return (
     <Box className="min-h-screen flex flex-no-wrap">
@@ -124,7 +133,11 @@ const AdminEvents = () => {
                         </div>
                       </div>
                       <div className="flex flex-col flex-auto justify-end">
-                        <ButtonQuickAction title="Manage Event">
+                        <ButtonQuickAction
+                          title="Manage Event"
+                          isClicked={clicked}
+                          setClicked={setClicked}
+                        >
                           {getItemsForMenu(event.status).map((item) => {
                             return (
                               <Button

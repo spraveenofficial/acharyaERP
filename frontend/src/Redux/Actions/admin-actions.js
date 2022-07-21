@@ -9,6 +9,7 @@ import {
   ADMIN_USER_SUCCESS,
   ADMIN_USER_FAILURE,
   ADMIN_USER_FILTER,
+  CHANGE_EVENT_STATUS,
 } from "../Constants/admin-constants";
 import axios from "axios";
 import baseUrl from "../../Utils/baseurl";
@@ -295,5 +296,42 @@ export const fetchEventsForAdmin = () => async (dispatch) => {
           ? error.response.data.message
           : error.message,
     });
+  }
+};
+
+export const updateEventStatus = (payload, toast) => async (dispatch) => {
+  try {
+    const { data } = await axios({
+      method: "POST",
+      url: `${baseUrl}/admin/event/status`,
+      headers: headerConfig(),
+      data: payload,
+    });
+    dispatch({
+      type: CHANGE_EVENT_STATUS,
+      payload: { id: payload.eventId, status: payload.status },
+    });
+    toast({
+      title: data.message,
+      status: `${data.success ? "success" : "error"}`,
+      duration: 5000,
+      isClosable: true,
+      position: "top-right",
+      zIndex: 110000000,
+    });
+  } catch (error) {
+    toast({
+      title: "Something went wrong",
+      description:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+      position: "top-right",
+      zIndex: 110000000,
+    });
+    return false;
   }
 };

@@ -65,4 +65,9 @@ export const menuForEvents = [
     params: "CANCEL_EVENT",
     role: "active",
   },
+  {
+    name: "Mark Completed",
+    params: "MARK_COMPLETED",
+    role: "active",
+  },
 ];

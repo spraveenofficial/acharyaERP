@@ -2,7 +2,7 @@ import User from "../models/login.js";
 import Event from "../models/event.js";
 import ImageServices from "../services/upload-image.js";
 import Booking from "../models/bookings.js";
-
+import { updateEventStatus as UpdateStatus } from "../services/db.js";
 // @desc    - Add NEW Event
 // @route   POST /admin/add-event
 // @access  ADMIN / MODERATOR
@@ -356,6 +356,10 @@ const getSpecifyUserOrder = async (req, res) => {
   }
 };
 
+// @desc    - Get all booking events of events
+// @route   POST /events/bookings
+// @access  ADMIN/MODERATOR
+
 const getParticipants = async (req, res) => {
   const { eventId } = req.body;
   try {
@@ -378,6 +382,58 @@ const getParticipants = async (req, res) => {
     });
   }
 };
+
+// @desc    - Cancel Event
+// @route   POST /events/status
+// @access  ADMIN/MODERATOR
+
+const updateEventStatus = async (req, res) => {
+  const { id } = req.data;
+  const { eventId, status } = req.body;
+  try {
+    const user = await User.findById(id);
+    const event = await Event.findById(eventId);
+    if (user.role === "ADMIN") {
+      if (!event) {
+        return res.status(400).json({
+          success: false,
+          message: "Event Not Found",
+        });
+      }
+      await Event.findByIdAndUpdate(eventId, { status });
+      if (status === "cancelled") {
+        UpdateStatus(eventId, "cancelled");
+      }
+      return res.status(200).json({
+        success: true,
+        message: "Event Status Updated",
+      });
+    }
+    if (user.role === "MODERATOR") {
+      if (event.organisedBy !== user.auid) {
+        return res.status(400).json({
+          success: false,
+          message: "You are not authorised to update this event.",
+        });
+      }
+    } else {
+      await Event.findByIdAndUpdate(eventId, { status });
+      if (status === "cancelled") {
+        UpdateStatus(eventId, "cancelled");
+      }
+      return res.status(200).json({
+        success: true,
+        message: "Event Status Updated",
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
 export {
   addEvent,
   getAdminPage,
@@ -387,4 +443,5 @@ export {
   getAllEvents,
   getSpecifyUserOrder,
   getParticipants,
+  updateEventStatus,
 };

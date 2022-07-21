@@ -33,7 +33,7 @@ export const ViewParticipants = (props) => {
       case "confirmed":
         return "bg-green-400 text-white";
       case "cancelled":
-        return "bg-red-500 text-red-700";
+        return "bg-red-500 text-white";
       case "failed":
         return "bg-red-500 text-white";
       default:
@@ -178,7 +178,7 @@ export const ViewParticipants = (props) => {
       onClose={props.onClose}
       size="full"
       isOpen={props.isOpen}
-      title={`Bookings of ${selectedAuid}`}
+      title={`Event Participants`}
     >
       <DataForFirstPage />
     </FullScreenModal>

@@ -12,6 +12,7 @@ import {
   ADMIN_USER_FILTER,
   SELECT_AUID_FOR_BOOKINGS,
   ADMIN_CLEAR_AUID,
+  CHANGE_EVENT_STATUS,
 } from "../Constants/admin-constants";
 
 export const newEvent = (
@@ -133,6 +134,17 @@ export const adminuser = (
         error: true,
         message: action.payload,
       };
+    case CHANGE_EVENT_STATUS:
+      return {
+        ...state,
+        data: state.data.map((item) => {
+          if (item._id === action.payload.id) {
+            return {...item, status: action.payload.status};
+          }
+          return item;
+        }),
+      };
+
     case ADMIN_USER_FILTER:
       if (action.payload.method === "filter") {
         return {

@@ -23,7 +23,7 @@ const MyBookings = () => {
       case "confirmed":
         return "bg-green-400 text-white";
       case "cancelled":
-        return "bg-red-500 text-red-700";
+        return "bg-red-500 text-white";
       case "failed":
         return "bg-red-500 text-white";
       default:

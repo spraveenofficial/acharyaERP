@@ -9,6 +9,7 @@ export {
   fetchEachUserBooking,
   fetchEventsForAdmin,
   fetchEventParticipants,
+  updateEventStatus,
 } from "./admin-actions";
 
 export {
