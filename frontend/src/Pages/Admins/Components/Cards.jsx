@@ -24,7 +24,7 @@ export function StatsCard(props) {
           <StatLabel
             fontSize={{ base: "md", md: "xl", xl: "2xl" }}
             className="font-[Acharya-bold] whitespace-nowrap overflow-hidden text-ellipsis "
-            isTruncated
+            istruncated={"true"}
           >
             {title}
           </StatLabel>
