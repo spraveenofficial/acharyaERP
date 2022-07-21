@@ -13,13 +13,9 @@ import {
 import { useEffect, useState } from "react";
 import { Input } from "../Input";
 
-const ModalWithContent = ({
-  children,
-  title,
-  btnName,
-  isClicked,
-  setClicked,
-}) => {
+const ModalWithContent = (props) => {
+  const { children, title, btnName, isClicked, setClicked } = props;
+  console.log(props);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const OverlayOne = () => (
     <ModalOverlay
@@ -39,7 +35,7 @@ const ModalWithContent = ({
     <>
       <Button onClick={onOpen}>{btnName ? btnName : "Open Modal"}</Button>
       <Modal
-        isOpen={isOpen}
+        isOpen={props.isOpen ? props.isOpen : isOpen}
         onClose={onClose}
         onEsc={onClose}
         onClickOutside={onClose}

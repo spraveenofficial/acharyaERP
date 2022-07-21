@@ -11,7 +11,12 @@ import {
 
 const FullScreenModal = ({ isOpen, onClose, title, children }) => {
   return (
-    <Modal onClose={onClose} size="full" isOpen={isOpen}>
+    <Modal
+      scrollBehavior="outside"
+      onClose={onClose}
+      size="full"
+      isOpen={isOpen}
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{title}</ModalHeader>

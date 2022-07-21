@@ -25,10 +25,7 @@ import {
   fetchAdminModsAndAdmins,
   removeAdminOrMods,
 } from "../../Redux/Actions";
-import {
-  itemsForAdminsMenu as itemsForMenu,
-  itemsForAdminsMenu,
-} from "./Utils/menus";
+import { itemsForAdminsMenu as itemsForMenu } from "./Utils/menus";
 
 const AdminAdmins = () => {
   const dispatch = useDispatch();

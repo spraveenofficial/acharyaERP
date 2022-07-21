@@ -22,6 +22,7 @@ export { AttendenceHero } from "./Attendence/AttendenceHero";
 export { Footer } from "./Footer";
 export { ClassCard } from "./ClassCard";
 export { Modal } from "./Modal";
+export { NormalModal } from "./Modal/Modal";
 export { ModalWithContent } from "./Modal/ModalWithContent";
 export { FullScreenModal } from "./Modal/FullScreenModal";
 export { LoadingOrderCard } from "./Shared/Cards";

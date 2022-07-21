@@ -282,14 +282,32 @@ const getAllEvents = async (req, res) => {
     const user = await User.findById(id);
     if (user.role === "ADMIN") {
       const events = await Event.find({});
+      const eventsWithBookings = await Promise.all(
+        events.map(async (event) => {
+          const bookings = await Booking.find(
+            { event: event._id },
+            { status: { $ne: ["pending", "failed"] } }
+          );
+          return {
+            ...event.toObject(),
+            confirmedParticipients: bookings.length,
+          };
+        })
+      );
       return res.status(200).json({
         success: true,
         message: "Access Granted",
-        data: events,
+        data: eventsWithBookings,
       });
     }
     if (user.role === "MODERATOR") {
       const events = await Event.find({ organisedBy: user.auid });
+      if (events.length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: "No Events Found associated with you.",
+        });
+      }
       return res.status(200).json({
         success: true,
         message: "Access Granted",
@@ -308,7 +326,6 @@ const getAllEvents = async (req, res) => {
 // @desc    - Get all booking events of each user
 // @route   POST /users/bookings
 // @access  ADMIN
-
 
 const getSpecifyUserOrder = async (req, res) => {
   const { auid } = req.body;
@@ -333,6 +350,28 @@ const getSpecifyUserOrder = async (req, res) => {
   }
 };
 
+const getParticipants = async (req, res) => {
+  const { eventId } = req.body;
+  try {
+    const bookings = await Booking.find({ event: eventId });
+    if (bookings.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: `No orders found for ${eventId}`,
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Access Granted",
+      data: bookings,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
 export {
   addEvent,
   getAdminPage,
@@ -341,4 +380,5 @@ export {
   removeAdminsAndMods,
   getAllEvents,
   getSpecifyUserOrder,
+  getParticipants,
 };

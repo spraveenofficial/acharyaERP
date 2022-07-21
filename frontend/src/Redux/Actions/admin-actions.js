@@ -235,6 +235,38 @@ export const fetchEachUserBooking = (auid) => async (dispatch) => {
   }
 };
 
+export const fetchEventParticipants = (eventId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: ADMIN_REQUEST,
+    });
+    const { data } = await axios({
+      method: "POST",
+      url: `${baseUrl}/admin/event/participants`,
+      headers: headerConfig(),
+      data: { eventId },
+    });
+    if (!data.success) {
+      dispatch({
+        type: ADMIN_FAILURE,
+        payload: data.message,
+      });
+    }
+    dispatch({
+      type: ADMIN_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 export const fetchEventsForAdmin = () => async (dispatch) => {
   try {
     dispatch({

@@ -24,7 +24,7 @@ const makePayment = async (req, res) => {
           auid,
           event: eventId,
           status: "pending",
-          paymentMode: "online",
+          paymentMode: "Online",
         });
         order.save();
         res.json({

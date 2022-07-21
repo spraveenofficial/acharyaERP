@@ -50,4 +50,10 @@ export const menuItems = [
     icon: StylishDashboardIcon,
     role: "MODERATOR",
   },
+  {
+    name: "Your Events",
+    url: "/admin/events",
+    icon: StylishEventIcon,
+    role: "MODERATOR",
+  },
 ];

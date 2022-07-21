@@ -8,6 +8,7 @@ export {
   removeAdminOrMods,
   fetchEachUserBooking,
   fetchEventsForAdmin,
+  fetchEventParticipants,
 } from "./admin-actions";
 
 export {

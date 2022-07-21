@@ -9,6 +9,7 @@ import {
   removeAdminsAndMods,
   getAllEvents,
   getSpecifyUserOrder,
+  getParticipants,
 } from "../controllers/admin-controller.js";
 const router = express.Router();
 
@@ -19,5 +20,6 @@ router.get("/admins", middleware, adminOnly, getAdminsandModPage);
 router.post("/admins/action", middleware, adminOnly, removeAdminsAndMods);
 router.get("/events", middleware, adminOrMod, getAllEvents);
 router.post("/user/bookings", middleware, adminOnly, getSpecifyUserOrder);
+router.post("/event/participants", middleware, adminOnly, getParticipants);
 
 export default router;

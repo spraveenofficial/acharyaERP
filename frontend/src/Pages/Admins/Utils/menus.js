@@ -43,3 +43,26 @@ export const itemsForUserMenu = [
     role: "BANNED",
   },
 ];
+
+export const menuForEvents = [
+  {
+    name: "View Event",
+    params: "VIEW_EVENT",
+    role: "",
+  },
+  {
+    name: "View Bookings",
+    params: "VIEW_ORDERS",
+    role: "",
+  },
+  {
+    name: "Mark Attendance",
+    params: "MARK_ATTENDANCE",
+    role: "active",
+  },
+  {
+    name: "Cancel Event",
+    params: "CANCEL_EVENT",
+    role: "active",
+  },
+];
