@@ -400,10 +400,23 @@ const updateEventStatus = async (req, res) => {
           message: "Event Not Found",
         });
       }
-      await Event.findByIdAndUpdate(eventId, { status });
       if (status === "cancelled") {
         UpdateStatus(eventId, "cancelled");
       }
+      // Check if attendance has been taken by checking the status of booking
+      if (status === "completed") {
+        const bookings = await Booking.find({ event: eventId });
+        const attendance = bookings.filter(
+          (booking) => booking.status === "completed"
+        );
+        if (attendance.length === 0) {
+          return res.status(400).json({
+            success: false,
+            message: "Please take attendance first.",
+          });
+        }
+      }
+      await Event.findByIdAndUpdate(eventId, { status });
       return res.status(200).json({
         success: true,
         message: "Event Status Updated",

@@ -9,6 +9,7 @@ import {
   NormalModal,
 } from "../../../../Components";
 import { fetchEventParticipants } from "../../../../Redux/Actions";
+import { StatsCard } from "../Cards";
 export const ViewParticipants = (props) => {
   const { loading, success, data, error, message, selectedAuid } = useSelector(
     (state) => state.admin
@@ -80,6 +81,9 @@ export const ViewParticipants = (props) => {
         <Box className="p-5">
           <Text fontSize="2xl" fontWeight="extrabold">
             <PaymentDetailsModal />
+            <Box className="grid grid-cols-4 auto-cols-max gap-5 mobile:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+              <StatsCard key={1} title="Data 1" stat="1900" />
+            </Box>
             <div className="overflow-x-auto">
               <table className="w-full whitespace-nowrap">
                 <thead>
