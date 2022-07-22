@@ -52,7 +52,7 @@ export const Profile = () => {
               Reprehenderit, eligendi dolorum sequi illum qui unde aspernatur
               non deserunt
             </p>
-            <ul className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
+            <ul className="bg-gray-100 dark:bg-[#1a202c] dark:text-white text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
               <li className="flex items-center py-3">
                 <span>Current Year/Semester</span>
                 <span className="ml-auto">
