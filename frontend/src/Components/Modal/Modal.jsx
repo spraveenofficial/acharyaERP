@@ -28,7 +28,7 @@ const NormalModal = (props) => {
       {overlay}
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Payment Details</ModalHeader>
+        <ModalHeader>{props.title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>{children}</ModalBody>
       </ModalContent>

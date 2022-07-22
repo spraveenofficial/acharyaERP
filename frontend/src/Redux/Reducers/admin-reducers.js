@@ -13,6 +13,15 @@ import {
   SELECT_AUID_FOR_BOOKINGS,
   ADMIN_CLEAR_AUID,
   CHANGE_EVENT_STATUS,
+  FETCH_ATTENDANCE_REQUEST,
+  FETCH_ATTENDANCE_SUCCESS,
+  FETCH_ATTENDANCE_FAILURE,
+  MARK_ATTENDANCE_REQUEST,
+  MARK_ATTENDANCE_SUCCESS,
+  MARK_ATTENDANCE_FAILURE,
+  MARK_ATTENDANCE_CLEAR,
+  MARK_ATTENDANCE_FILTER,
+  SET_EVENT_ID_FOR_ATTENDANCE,
 } from "../Constants/admin-constants";
 
 export const newEvent = (
@@ -139,7 +148,7 @@ export const adminuser = (
         ...state,
         data: state.data.map((item) => {
           if (item._id === action.payload.id) {
-            return {...item, status: action.payload.status};
+            return { ...item, status: action.payload.status };
           }
           return item;
         }),
@@ -173,6 +182,82 @@ export const adminuser = (
       }
       break;
 
+    default:
+      return state;
+  }
+};
+
+export const eventattendance = (
+  state = {
+    loading: false,
+    success: false,
+    message: "",
+    data: [],
+    error: false,
+    selectedEvent: {},
+  },
+  action
+) => {
+  switch (action.type) {
+    case FETCH_ATTENDANCE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FETCH_ATTENDANCE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        error: false,
+        message: "Access Granted",
+        data: action.payload,
+      };
+    case FETCH_ATTENDANCE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: true,
+        message: action.payload,
+      };
+    case SET_EVENT_ID_FOR_ATTENDANCE:
+      return {
+        ...state,
+        selectedEvent: action.payload,
+      };
+    case MARK_ATTENDANCE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case MARK_ATTENDANCE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        error: false,
+        message: "Access Granted",
+        data: action.payload,
+      };
+    case MARK_ATTENDANCE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: true,
+        message: action.payload,
+      };
+    case MARK_ATTENDANCE_CLEAR:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        error: false,
+        message: "",
+        data: [],
+        selectedAuid: {},
+      };
     default:
       return state;
   }

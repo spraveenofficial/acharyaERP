@@ -24,7 +24,13 @@ const ErrorMessage = (props) => {
           <CloseIcon boxSize={"20px"} color={"white"} />
         </Flex>
       </Box>
-      <Heading as="h2" size="xl" mt={6} mb={2}>
+      <Heading
+        className={props.className}
+        as="h2"
+        size={`${props.className ? "" : "xl"}`}
+        mt={6}
+        mb={2}
+      >
         {props.message}
       </Heading>
       <Text color={"gray.500"}>{props.submessage}</Text>

@@ -17,11 +17,13 @@ import { BookingStatus } from "./Components/Bookings/status";
 import { menuForEvents as Menu } from "./Utils/menus";
 import moment from "moment";
 import { ViewParticipants } from "./Components/Bookings/participants";
+import { MarkAttendance } from "./Components/Attendance/attendance";
 const AdminEvents = () => {
   const dispatch = useDispatch();
   const toast = useToast();
   const navigate = useNavigate();
   const [clicked, setClicked] = useState(false);
+  const [clickTyped, setClickTyped] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { loading, success, data, error, message } = useSelector(
     (state) => state.adminuser
@@ -43,8 +45,10 @@ const AdminEvents = () => {
   };
 
   const handleClickAction = (payload) => {
-    const { eventId, params, role } = payload;
+    setClickTyped(null);
+    const { eventId, params, title } = payload;
     if (params === "VIEW_ORDERS") {
+      setClickTyped(params);
       dispatch({
         type: "SELECT_AUID_FOR_BOOKINGS",
         payload: eventId,
@@ -58,6 +62,14 @@ const AdminEvents = () => {
     if (params === "MARK_COMPLETED") {
       dispatch(updateEventStatus({ eventId, status: "completed" }, toast));
       setClicked(true);
+    }
+    if (params === "MARK_ATTENDANCE") {
+      dispatch({
+        type: "SET_EVENT_ID_FOR_ATTENDANCE",
+        payload: { eventId, title },
+      });
+      setClickTyped(params);
+      onOpen();
     }
   };
   return (
@@ -76,9 +88,16 @@ const AdminEvents = () => {
               Add Event
             </Button>
           </Box>
-          {isOpen && (
+          {isOpen && clickTyped === "VIEW_ORDERS" && (
             <ViewParticipants
               title="User Bookings"
+              onClose={onClose}
+              isOpen={isOpen}
+            />
+          )}
+          {isOpen && clickTyped === "MARK_ATTENDANCE" && (
+            <MarkAttendance
+              title="Mark Attendance"
               onClose={onClose}
               isOpen={isOpen}
             />
@@ -146,6 +165,7 @@ const AdminEvents = () => {
                                   handleClickAction({
                                     ...item,
                                     eventId: event._id,
+                                    title: event.title,
                                   })
                                 }
                                 className="w-full mb-2"

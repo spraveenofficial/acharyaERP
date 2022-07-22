@@ -26,6 +26,8 @@ const MyBookings = () => {
         return "bg-red-500 text-white";
       case "failed":
         return "bg-red-500 text-white";
+      case "completed":
+        return "bg-green-400 text-white";
       default:
         return "bg-gray-500";
     }

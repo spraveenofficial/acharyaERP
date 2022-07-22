@@ -10,6 +10,14 @@ import {
   ADMIN_USER_FAILURE,
   ADMIN_USER_FILTER,
   CHANGE_EVENT_STATUS,
+  FETCH_ATTENDANCE_REQUEST,
+  FETCH_ATTENDANCE_SUCCESS,
+  FETCH_ATTENDANCE_FAILURE,
+  MARK_ATTENDANCE_REQUEST,
+  MARK_ATTENDANCE_SUCCESS,
+  MARK_ATTENDANCE_FAILURE,
+  MARK_ATTENDANCE_CLEAR,
+  MARK_ATTENDANCE_FILTER,
 } from "../Constants/admin-constants";
 import axios from "axios";
 import baseUrl from "../../Utils/baseurl";
@@ -319,6 +327,78 @@ export const updateEventStatus = (payload, toast) => async (dispatch) => {
       position: "top-right",
       zIndex: 110000000,
     });
+  } catch (error) {
+    toast({
+      title: "Something went wrong",
+      description:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+      position: "top-right",
+      zIndex: 110000000,
+    });
+    return false;
+  }
+};
+
+export const fetchEventAttendees = (eventId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: FETCH_ATTENDANCE_REQUEST,
+    });
+    const { data } = await axios({
+      method: "GET",
+      url: `${baseUrl}/admin/event/attendance/${eventId}`,
+      headers: headerConfig(),
+    });
+    if (!data.success) {
+      return dispatch({
+        type: FETCH_ATTENDANCE_FAILURE,
+        payload: data.message,
+      });
+    }
+    dispatch({
+      type: FETCH_ATTENDANCE_SUCCESS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_ATTENDANCE_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const submitAttendance = (payload, toast) => async (dispatch) => {
+  try {
+    // dispatch({
+    //   type: SUBMIT_ATTENDANCE_REQUEST,
+    // });
+    const { data } = await axios({
+      method: "POST",
+      url: `${baseUrl}/admin/event/attendance/submit`,
+      headers: headerConfig(),
+      data: payload,
+    });
+    // dispatch({
+    //   type: SUBMIT_ATTENDANCE_SUCCESS,
+    //   payload: data.data,
+    // });
+    toast({
+      title: data.message,
+      status: `${data.success ? "success" : "error"}`,
+      duration: 5000,
+      isClosable: true,
+      position: "top-right",
+      zIndex: 110000000,
+    });
+    return data.success;
   } catch (error) {
     toast({
       title: "Something went wrong",

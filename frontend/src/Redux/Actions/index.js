@@ -10,6 +10,8 @@ export {
   fetchEventsForAdmin,
   fetchEventParticipants,
   updateEventStatus,
+  fetchEventAttendees,
+  submitAttendance,
 } from "./admin-actions";
 
 export {

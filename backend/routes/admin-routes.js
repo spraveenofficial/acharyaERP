@@ -11,6 +11,8 @@ import {
   getSpecifyUserOrder,
   getParticipants,
   updateEventStatus,
+  getAttendance,
+  submitAttendance,
 } from "../controllers/admin-controller.js";
 const router = express.Router();
 
@@ -23,4 +25,7 @@ router.get("/events", middleware, adminOrMod, getAllEvents);
 router.post("/user/bookings", middleware, adminOnly, getSpecifyUserOrder);
 router.post("/event/participants", middleware, adminOnly, getParticipants);
 router.post("/event/status", middleware, adminOnly, updateEventStatus);
+router.get("/event/attendance/:eventId", middleware, adminOrMod, getAttendance);
+router.post("/event/attendance/submit", middleware, adminOrMod, submitAttendance);
+
 export default router;

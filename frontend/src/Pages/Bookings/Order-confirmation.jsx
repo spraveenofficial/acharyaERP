@@ -78,6 +78,12 @@ const OrderConfirmation = () => {
       return "Your Booking has been Failed";
     } else if (checkout?.status === "pending") {
       return "Your Booking is Pending";
+    } else if (checkout?.status === "cancelled") {
+      return "Your Booking has been Cancelled";
+    } else if (checkout?.status === "completed") {
+      return "Your Booking has been Completed";
+    } else if (checkout?.status === "not attended") {
+      return "Your Booking has not been attended";
     }
 
     return "Your Booking is Pending";
@@ -101,7 +107,10 @@ const OrderConfirmation = () => {
                 <Lottie
                   loop
                   animationData={
-                    checkout?.status === "confirmed" ? successIcon : failureIcon
+                    checkout?.status === "confirmed" ||
+                    checkout?.status === "completed"
+                      ? successIcon
+                      : failureIcon
                   }
                   play
                   style={{ width: 100, height: 70 }}

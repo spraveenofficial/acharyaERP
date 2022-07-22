@@ -36,6 +36,8 @@ export const ViewParticipants = (props) => {
         return "bg-red-500 text-white";
       case "failed":
         return "bg-red-500 text-white";
+      case "completed":
+        return "bg-green-400 text-white";
       default:
         return "bg-gray-500";
     }
@@ -47,7 +49,12 @@ export const ViewParticipants = (props) => {
   };
   const PaymentDetailsModal = () => {
     return (
-      <NormalModal isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
+      <NormalModal
+        title="Payment Details"
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+      >
         {JSON.stringify(selectedPayment)}
       </NormalModal>
     );

@@ -434,6 +434,88 @@ const updateEventStatus = async (req, res) => {
   }
 };
 
+// @desc    - Get all the Participants for Attendance
+// @route   GET /events/attendance/:eventId
+// @access  ADMIN/MODERATOR
+
+const getAttendance = async (req, res) => {
+  const { id } = req.data;
+  const { eventId } = req.params;
+  try {
+    const user = await User.findById(id);
+    const event = await Event.findById(eventId);
+    if (user.role === "ADMIN" || user.auid === event.organisedBy) {
+      if (event.status !== "active") {
+        return res.status(400).json({
+          success: false,
+          message: "Event is not active",
+        });
+      }
+      const bookings = await Booking.find({
+        event: eventId,
+      }).select("auid name status");
+      if (bookings.length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: `No orders found for ${event.title}`,
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        message: "Access Granted",
+        data: bookings,
+      });
+    }
+    return res.status(500).json({
+      success: false,
+      message: "You are not authorised to update this event.",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
+// @desc    - Submit all the Participants for Attendance
+// @route   GET /events/attendance
+// @access  ADMIN/MODERATOR
+
+const submitAttendance = async (req, res) => {
+  const { id } = req.data;
+  const { eventId, attendance } = req.body;
+  try {
+    const user = await User.findById(id);
+    const event = await Event.findById(eventId);
+    if (user.role === "ADMIN" || user.auid === event.organisedBy) {
+      if (event.status !== "active") {
+        return res.status(400).json({
+          success: false,
+          message: "Event is not active",
+        });
+      } else {
+        attendance.forEach(async (auid) => {
+          await Booking.findOneAndUpdate(
+            { auid, event: eventId, status: "confirmed" },
+            { status: "completed" }
+          );
+        });
+        return res.status(200).json({
+          success: true,
+          message: "Attendance Submitted",
+        });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
 export {
   addEvent,
   getAdminPage,
@@ -444,4 +526,6 @@ export {
   getSpecifyUserOrder,
   getParticipants,
   updateEventStatus,
+  getAttendance,
+  submitAttendance,
 };
