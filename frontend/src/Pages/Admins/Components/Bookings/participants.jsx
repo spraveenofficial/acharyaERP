@@ -14,8 +14,10 @@ export const ViewParticipants = (props) => {
   const { loading, success, data, error, message, selectedAuid } = useSelector(
     (state) => state.admin
   );
-  var moneySettled, moneyOnPOD, onlinePayment;
-  if (success) {
+  var moneySettled = 0,
+    moneyOnPOD = 0,
+    onlinePayment = 0;
+  if (success && typeof data === "object") {
     moneySettled = data
       ?.filter((item) => item.status === "completed")
       .reduce((curr, accu) => curr + accu.paymentDetails.TXNAMOUNT, 0);
@@ -30,7 +32,6 @@ export const ViewParticipants = (props) => {
       )
       .reduce((curr, accu) => curr + accu.paymentDetails.TXNAMOUNT, 0);
   }
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedPayment, setSelectedPayment] = useState(null);
   const dispatch = useDispatch();

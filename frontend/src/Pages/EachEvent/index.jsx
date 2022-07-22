@@ -133,6 +133,11 @@ const EventPage = () => {
       <Text className="my-10 font-extrabold text-3xl font-[Acharya-bold]">
         Suggested Events
       </Text>
+      {!suggestedEvents.length && (
+        <Box className="w-full" height="100px">
+          <Text className="text-gray-400 text-center">No Suggested Events</Text>
+        </Box>
+      )}
       <Box className="grid grid-cols-4 auto-cols-max gap-5 mobile:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
         {suggestedEvents.map((event) => (
           <EventCard key={event.id} event={event} />
