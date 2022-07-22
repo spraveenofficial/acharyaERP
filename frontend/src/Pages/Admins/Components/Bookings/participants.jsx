@@ -14,6 +14,23 @@ export const ViewParticipants = (props) => {
   const { loading, success, data, error, message, selectedAuid } = useSelector(
     (state) => state.admin
   );
+  var moneySettled, moneyOnPOD, onlinePayment;
+  if (success) {
+    moneySettled = data
+      ?.filter((item) => item.status === "completed")
+      .reduce((curr, accu) => curr + accu.paymentDetails.TXNAMOUNT, 0);
+    moneyOnPOD = data
+      ?.filter(
+        (item) => item.paymentMode === "Cash" && item.status === "completed"
+      )
+      .reduce((curr, accu) => curr + accu.paymentDetails.TXNAMOUNT, 0);
+    onlinePayment = data
+      ?.filter(
+        (item) => item.paymentMode === "Online" && item.status === "completed"
+      )
+      .reduce((curr, accu) => curr + accu.paymentDetails.TXNAMOUNT, 0);
+  }
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedPayment, setSelectedPayment] = useState(null);
   const dispatch = useDispatch();
@@ -81,8 +98,11 @@ export const ViewParticipants = (props) => {
         <Box className="p-5">
           <Text fontSize="2xl" fontWeight="extrabold">
             <PaymentDetailsModal />
-            <Box className="grid grid-cols-4 auto-cols-max gap-5 mobile:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-              <StatsCard key={1} title="Data 1" stat="1900" />
+            <Box className="grid grid-cols-4 auto-cols-max gap-5 mobile:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 mb-4">
+              <StatsCard title="Confirmed Bookings" stat={data.length} />
+              <StatsCard title="Money Settled" stat={moneySettled} />
+              <StatsCard title="POD Amount" stat={moneyOnPOD} />
+              <StatsCard title="Online Amount" stat={onlinePayment} />
             </Box>
             <div className="overflow-x-auto">
               <table className="w-full whitespace-nowrap">

@@ -314,10 +314,22 @@ const getAllEvents = async (req, res) => {
           message: "No Events Found associated with you.",
         });
       }
+      const eventsWithBookings = await Promise.all(
+        events.map(async (event) => {
+          const bookings = await Booking.find(
+            { event: event._id },
+            { status: { $ne: ["pending", "failed"] } }
+          );
+          return {
+            ...event.toObject(),
+            confirmedParticipients: bookings.length,
+          };
+        })
+      );
       return res.status(200).json({
         success: true,
         message: "Access Granted",
-        data: events,
+        data: eventsWithBookings,
       });
     }
   } catch (error) {
@@ -372,7 +384,6 @@ const getParticipants = async (req, res) => {
         message: `No orders found for ${eventId}`,
       });
     }
-
     return res.status(200).json({
       success: true,
       message: "Access Granted",

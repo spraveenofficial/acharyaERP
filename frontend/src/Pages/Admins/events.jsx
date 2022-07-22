@@ -132,11 +132,13 @@ const AdminEvents = () => {
                     <div className="text-xl font-bold font-[Acharya-bold] truncate">
                       {event.title}
                     </div>
-                    <div className="text-xxs text-gray-400 truncate mt-1">
-                      by {event.organisedBy} in {event.category} Category
+                    <div className="text-xxs text-gray-400 truncate mt-1 capitalize">
+                      {event.status === "active"
+                        ? event.slots + " " + "Slots Left"
+                        : event.status}
                     </div>
-                    <div className="text-md font-[Acharya-bold] text-gray-600 font-bold mt-4">
-                      ${event.entryFee}
+                    <div className="text-md font-[Acharya-bold] text-gray-600 dark:text-white font-bold mt-4">
+                      ₹{event.entryFee}
                     </div>
                     <div className="flex flex-row mt-2">
                       <div className="flex flex-col flex-auto">
