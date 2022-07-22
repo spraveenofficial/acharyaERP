@@ -24,6 +24,7 @@ const NormalModal = (props) => {
       onEsc={onClose}
       onClickOutside={onClose}
       isCentered
+      scrollBehavior="inside"
     >
       {overlay}
       <ModalOverlay />

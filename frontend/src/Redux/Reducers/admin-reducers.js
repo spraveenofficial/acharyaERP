@@ -16,11 +16,7 @@ import {
   FETCH_ATTENDANCE_REQUEST,
   FETCH_ATTENDANCE_SUCCESS,
   FETCH_ATTENDANCE_FAILURE,
-  MARK_ATTENDANCE_REQUEST,
-  MARK_ATTENDANCE_SUCCESS,
-  MARK_ATTENDANCE_FAILURE,
   MARK_ATTENDANCE_CLEAR,
-  MARK_ATTENDANCE_FILTER,
   SET_EVENT_ID_FOR_ATTENDANCE,
 } from "../Constants/admin-constants";
 
@@ -225,28 +221,6 @@ export const eventattendance = (
       return {
         ...state,
         selectedEvent: action.payload,
-      };
-    case MARK_ATTENDANCE_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-    case MARK_ATTENDANCE_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        success: true,
-        error: false,
-        message: "Access Granted",
-        data: action.payload,
-      };
-    case MARK_ATTENDANCE_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        success: false,
-        error: true,
-        message: action.payload,
       };
     case MARK_ATTENDANCE_CLEAR:
       return {

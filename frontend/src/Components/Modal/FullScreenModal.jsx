@@ -12,7 +12,7 @@ import {
 const FullScreenModal = ({ isOpen, onClose, title, children }) => {
   return (
     <Modal
-      scrollBehavior="outside"
+      scrollBehavior="inside"
       onClose={onClose}
       size="full"
       isOpen={isOpen}

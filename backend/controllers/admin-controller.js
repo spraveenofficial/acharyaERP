@@ -363,13 +363,16 @@ const getSpecifyUserOrder = async (req, res) => {
 const getParticipants = async (req, res) => {
   const { eventId } = req.body;
   try {
-    const bookings = await Booking.find({ event: eventId });
+    const bookings = await Booking.find({
+      event: eventId,
+    }).sort({ createdAt: -1 });
     if (bookings.length === 0) {
       return res.status(400).json({
         success: false,
         message: `No orders found for ${eventId}`,
       });
     }
+
     return res.status(200).json({
       success: true,
       message: "Access Granted",
@@ -403,7 +406,6 @@ const updateEventStatus = async (req, res) => {
       if (status === "cancelled") {
         UpdateStatus(eventId, "cancelled");
       }
-      // Check if attendance has been taken by checking the status of booking
       if (status === "completed") {
         const bookings = await Booking.find({ event: eventId });
         const attendance = bookings.filter(

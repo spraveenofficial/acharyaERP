@@ -17,10 +17,10 @@ export const MarkAttendance = (props) => {
   const { loading, success, data, error, message, selectedEvent } = useSelector(
     (state) => state.eventattendance
   );
-  console.log(error);
   const toast = useToast();
   const dispatch = useDispatch();
   const [attendees, setAttendees] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { eventId, title } = selectedEvent;
   useEffect(() => {
     if (eventId) {
@@ -44,6 +44,7 @@ export const MarkAttendance = (props) => {
   };
 
   const handleSubmitAttendance = async () => {
+    setIsLoading(true);
     const auid = attendees.map((item) => item.auid);
     const payload = {
       eventId,
@@ -53,6 +54,7 @@ export const MarkAttendance = (props) => {
     if (data === true) {
       onClose();
     }
+    setIsLoading(false);
   };
   return (
     <NormalModal
@@ -95,7 +97,11 @@ export const MarkAttendance = (props) => {
           </CheckboxGroup>
           {attendees.length > 0 && (
             <div className="flex justify-end">
-              <Button onClick={handleSubmitAttendance}>
+              <Button
+                disabled={isLoading}
+                isLoading={isLoading}
+                onClick={handleSubmitAttendance}
+              >
                 Submit Attendance
               </Button>
             </div>
