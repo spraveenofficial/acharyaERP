@@ -17,7 +17,7 @@ export const ViewParticipants = (props) => {
   var moneySettled = 0,
     moneyOnPOD = 0,
     onlinePayment = 0;
-  if (success && typeof data === "object") {
+  if (success && data.length > 0) {
     moneySettled = data
       ?.filter((item) => item.status === "completed")
       .reduce((curr, accu) => curr + accu.paymentDetails.TXNAMOUNT, 0);

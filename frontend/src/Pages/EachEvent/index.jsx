@@ -25,6 +25,7 @@ const EventPage = () => {
     _id,
     suggestedEvents,
     rules,
+    isBooked,
   } = event;
 
   const { eventId } = useParams();
@@ -47,6 +48,16 @@ const EventPage = () => {
       });
       return;
     }
+    if (isBooked)
+      return toast({
+        title: "Something went wrong",
+        description: "You have already booked this event",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        zIndex: 110000000,
+      });
     dispatch({
       type: "SETUP_CHECKOUT_EVENTID",
       payload: _id,

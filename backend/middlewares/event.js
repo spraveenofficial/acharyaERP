@@ -2,7 +2,7 @@ import Event from "../models/event.js";
 import User from "../models/login.js";
 import Checkout from "../models/checkout.js";
 import Booking from "../models/bookings.js";
-
+import jwt from "jsonwebtoken";
 const checkBookingConditions = async (req, res, next) => {
   const { id } = req.data;
   const { amount, eventId, checkOutId } = req.body?.auid ? req.body : req.query;
@@ -151,4 +151,22 @@ const checkOutConditions = async (req, res, next) => {
   }
 };
 
-export { checkBookingConditions, checkOutConditions };
+const eitherPlainOrLoggedIn = async (req, res, next) => {
+  const { oauth } = req.headers;
+  if (oauth) {
+    let jwt_token = oauth;
+    jwt.verify(jwt_token, process.env.JWT_SECRET, function (err, decoded) {
+      if (decoded) {
+        req.isLoggedIn = decoded.id;
+        next();
+      } else if (err) {
+        req.isLoggedIn = false;
+        next();
+      }
+    });
+    return;
+  }
+  req.isLoggedIn = false;
+  next();
+};
+export { checkBookingConditions, checkOutConditions, eitherPlainOrLoggedIn };

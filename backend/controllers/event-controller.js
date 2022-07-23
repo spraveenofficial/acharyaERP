@@ -25,8 +25,8 @@ const fetchEvents = async (req, res) => {
 
   return res.status(200).json({
     success: true,
-    data: events,
     message: "Events Fetched Successfully",
+    data: events,
   });
 };
 
@@ -37,13 +37,23 @@ const fetchEvents = async (req, res) => {
 const fetchEvent = async (req, res) => {
   try {
     const event = await Event.findById(req.params.id);
+    const isLoggedIn = req.isLoggedIn;
     if (!event) {
       return res.status(400).json({
         success: false,
         message: "Event not found",
       });
     }
-    // Get suggested events
+    let isBooked = false;
+    if (isLoggedIn !== false) {
+      const user = await User.findById(isLoggedIn);
+      const booking = await Booking.findOne({
+        auid: user.auid,
+        event: event._id,
+        status: { $in: ["completed", "pending", "confirmed"] },
+      });
+      isBooked = booking ? true : false;
+    }
     const suggestedEvents = await Event.find({
       $and: [
         { _id: { $ne: event._id } },
@@ -57,6 +67,7 @@ const fetchEvent = async (req, res) => {
       message: "Event Fetched Successfully",
       data: {
         ...event.toObject(),
+        isBooked,
         suggestedEvents,
       },
     });

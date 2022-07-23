@@ -13,12 +13,12 @@ import {
 import {
   checkBookingConditions,
   checkOutConditions,
+  eitherPlainOrLoggedIn,
 } from "../middlewares/event.js";
-
 const router = express.Router();
 
 router.route("/all-events").get(fetchEvents);
-router.route("/event/:id").get(fetchEvent);
+router.use(eitherPlainOrLoggedIn).route("/event/:id").get(fetchEvent);
 router.post(
   "/init/checkout",
   middleware,
