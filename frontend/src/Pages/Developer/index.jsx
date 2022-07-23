@@ -2,54 +2,70 @@ import { Helmet } from "react-helmet";
 
 const Developers = () => {
   return (
-    <section>
-      <div className="container p-10 mobile:p-4 mx-auto">
-        <Helmet>
-          <title>Developers - Acharya ERP</title>
-          <meta name="description" content="This is the home page." />
-        </Helmet>
-        <div className="desktop:flex desktop:items-center desktop:-mx-4">
-          <div className="desktop:w-1/2 desktop:justify-start">
-            <h1 className="text-3xl font-semibold capitalize lg:text-4xl dark:text-white">
-              Our Team
-            </h1>
-            <p className="max-w-2xl mt-4 text-gray-500 dark:text-gray-300 mobile:mb-4">
-              We are a team of developers who are passionate about building
-              products that are easy to use and easy to understand and most
-              importantly that product should serve the purpose of Users.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-0 desktop:w-1/2 md:grid-cols-2">
+    <div className="py-20 dark:bg-[#23314d]">
+      <Helmet>
+        <title>Developers - Acharya ERP</title>
+        <meta name="description" content="This is the developer page." />
+      </Helmet>
+      <div className="container mx-auto px-6 desktop:px-12 xl:px-32">
+        <div className="mb-16 text-center">
+          <h2 className="mb-4 text-center text-2xl font-[Acharya-bold] text-gray-900 dark:text-white font-bold desktop:text-4xl">
+            Team Behind This Project
+          </h2>
+          <p className="text-gray-600 lg:w-8/12 lg:mx-auto">
+            Tailus prides itself not only on award-winning technology, but also
+            on the talent of its people of some of the brightest minds and most
+            experienced executives in business.
+          </p>
+        </div>
+        <div className="grid gap-12 items-center desktop:grid-cols-3">
+          <div className="space-y-4 text-center">
+            <img
+              className="w-64 h-64 mx-auto object-cover rounded-xl desktop:w-40 desktop:h-40 lg:w-64 lg:h-64"
+              src="https://tailus.io/sources/blocks/classic/preview/images/woman1.jpg"
+              alt="woman"
+              loading="lazy"
+              width={640}
+              height={805}
+            />
             <div>
-              <img
-                className="object-cover rounded-xl h-64 w-full"
-                src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
-                alt=""
-              />
-              <h1 className="mt-4 text-2xl font-semibold capitalize dark:text-white">
-                Praveen Kumar Singh
-              </h1>
-              <p className="mt-2 text-gray-500 capitalize dark:text-gray-300">
-                Full stack developer (MERN Stack), Final Year Graduate.
-              </p>
+              <h4 className="text-2xl">Hentoni Doe</h4>
+              <span className="block text-sm text-gray-500">CEO-Founder</span>
             </div>
+          </div>
+          <div className="space-y-4 text-center">
+            <img
+              className="w-64 h-64 mx-auto object-cover rounded-xl desktop:w-48 desktop:h-64 lg:w-64 lg:h-80"
+              src="https://tailus.io/sources/blocks/classic/preview/images/man.jpg"
+              alt="man"
+              loading="lazy"
+              width={1000}
+              height={667}
+            />
             <div>
-              <img
-                className="object-cover rounded-xl h-64 w-full"
-                src="https://images.unsplash.com/photo-1499470932971-a90681ce8530?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                alt=""
-              />
-              <h1 className="mt-4 text-2xl font-semibold capitalize dark:text-white">
-                Mia
-              </h1>
-              <p className="mt-2 text-gray-500 capitalize dark:text-gray-300">
-                Graphic Designer
-              </p>
+              <h4 className="text-2xl">Praveen Kr. Singh</h4>
+              <span className="block text-sm text-gray-500">SDE - 1</span>
+            </div>
+          </div>
+          <div className="space-y-4 text-center">
+            <img
+              className="w-64 h-64 mx-auto object-cover rounded-xl desktop:w-40 desktop:h-40 lg:w-64 lg:h-64"
+              src="https://tailus.io/sources/blocks/classic/preview/images/woman.jpg"
+              alt="woman"
+              loading="lazy"
+              width={1000}
+              height={667}
+            />
+            <div>
+              <h4 className="text-2xl">Anabelle Doe</h4>
+              <span className="block text-sm text-gray-500">
+                Chief Operations Officer
+              </span>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
