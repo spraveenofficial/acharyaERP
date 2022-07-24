@@ -15,14 +15,6 @@ const fetchEvents = async (req, res) => {
       message: "No events found",
     });
   }
-
-  events.forEach((event) => {
-    if (event.eventDate < Date.now() && event.status === "active") {
-      event.status = "expired";
-      event.save();
-    }
-  });
-
   return res.status(200).json({
     success: true,
     message: "Events Fetched Successfully",
@@ -110,7 +102,6 @@ const initializeCheckout = async (req, res) => {
       data: checkout,
     });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({
       success: false,
       message: "Something went Wrong, Please Try again Later.",
@@ -153,6 +144,12 @@ const fetchCheckout = async (req, res) => {
         message: "Oops, Checkout is expired.",
       });
     }
+    if (checkout.event.eventDate + checkout.event.timing < Date.now()) {
+      return res.status(400).json({
+        success: false,
+        message: "Oops, Event is expired",
+      });
+    }
     return res.status(200).json({
       success: true,
       message: "Checkout Fetched Successfully",
@@ -162,7 +159,6 @@ const fetchCheckout = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({
       success: false,
       message: "Checkout not found",
@@ -241,7 +237,6 @@ const makeFreeOrder = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     return res.status(400).json({
       success: false,
       message: "Something Went Wrong While Booking. Please Try Again Later",

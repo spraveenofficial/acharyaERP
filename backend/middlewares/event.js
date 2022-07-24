@@ -136,7 +136,7 @@ const checkOutConditions = async (req, res, next) => {
         message: "Oops, No slots available",
       });
     }
-    if (event.eventDate < Date.now()) {
+    if (event.eventDate + event.timing < Date.now()) {
       return res.status(400).json({
         success: false,
         message: "Oops, Event is expired",
@@ -144,6 +144,7 @@ const checkOutConditions = async (req, res, next) => {
     }
     next();
   } catch (error) {
+    console.log(error);
     res.status(400).json({
       success: false,
       message: "Something went Wrong. Please try again Later",

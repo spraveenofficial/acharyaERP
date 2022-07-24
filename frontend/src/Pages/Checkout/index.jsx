@@ -47,6 +47,7 @@ const Checkout = () => {
   const { event } = checkout;
   const [totalTimer, setTotalTimer] = useState("");
   const [modal, setModal] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
   const [payment, setPayment] = useState("1");
   const generateBill = () => {
     const entryFee = event.entryFee;
@@ -116,14 +117,17 @@ const Checkout = () => {
   };
 
   const handleProceedToPayment = async () => {
+    setisLoading(true);
     if (formik.errors.mobile) {
       return;
     }
+
     if (payment === "2" || payment === "3") {
       const response = await makeFreeOrder(datatoSend);
       if (response?.orderId) {
         navigate(`/orderStatus/${response.orderId}`);
       }
+      setisLoading(false);
       return;
     }
     if (payment === "1") {
@@ -133,6 +137,7 @@ const Checkout = () => {
         params: response,
       };
       post(details);
+      setisLoading(false);
     }
   };
 
@@ -331,7 +336,7 @@ const Checkout = () => {
                     </RadioGroup>
                   </Box>
                 )}
-                <Buttons onClick={handleProceedToPayment}>
+                <Buttons loading={isLoading} onClick={handleProceedToPayment}>
                   {payment === "1"
                     ? "Proceed to Payment"
                     : payment === "3"
