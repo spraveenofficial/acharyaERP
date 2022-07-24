@@ -9,6 +9,9 @@ export {
   StylishUsersIcon,
   StylishSuperUserIcon,
   StylishCommunityIcon,
+  StylishCalenderIcon,
+  StylishClockIcon,
+  StylishLocationIcon,
 } from "./Icons";
 
 export { Toast } from "./Toast";

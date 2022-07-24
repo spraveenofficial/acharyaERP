@@ -32,6 +32,7 @@ import {
   CheckOutRoutes,
   AdminRoutes,
 } from "./Utils/customRoutes";
+import Testing from "./Pages/EachEvent/testing";
 
 function App() {
   const dispatch = useDispatch();
@@ -72,6 +73,7 @@ function App() {
           <Route path="class" element={<Classes />} />
           <Route path="my-bookings" element={<MyBookings />} />
           <Route path="join-community" element={<JoinCommunity />} />
+          <Route path="testing" element={<Testing />} />
         </Route>
         <Route element={<GuestRoutes />}>
           <Route path="login" element={<Login />} />
