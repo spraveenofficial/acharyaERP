@@ -4,9 +4,8 @@ import { fetchEvent, initializeCheckout } from "../../Redux/Actions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Error } from "..";
-import { EventCard, Toast } from "../../Components";
+import { EventCard } from "../../Components";
 import { Helmet } from "react-helmet";
-
 const EventPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -58,6 +57,17 @@ const EventPage = () => {
         position: "top-right",
         zIndex: 110000000,
       });
+    if (slots === 0) {
+      return toast({
+        title: "Oops, You just missed.",
+        description: "No more slots available",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        zIndex: 110000000,
+      });
+    }
     dispatch({
       type: "SETUP_CHECKOUT_EVENTID",
       payload: _id,

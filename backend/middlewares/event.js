@@ -31,7 +31,7 @@ const checkBookingConditions = async (req, res, next) => {
     }
 
     // Check if event is expired
-    if (event.eventDate < Date.now()) {
+    if (event.eventDate + event.timing < Date.now()) {
       return res.status(400).json({
         success: false,
         message: "Oops, Event is expired",
@@ -58,7 +58,6 @@ const checkBookingConditions = async (req, res, next) => {
       event: event._id,
       status: { $in: ["pending", "confirmed"] },
     });
-    console.log(booking);
     if (booking.length > 0) {
       return res.status(400).json({
         success: false,

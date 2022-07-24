@@ -2,13 +2,17 @@ import Event from "../models/event.js";
 import User from "../models/login.js";
 import Checkout from "../models/checkout.js";
 import Booking from "../models/bookings.js";
+
+
 // @desc    - Fetch all Events
 // @route   POST /api/events
 // @access  Public
 
 const fetchEvents = async (req, res) => {
-  // Find all the events with status active
-  const events = await Event.find({ status: "active" });
+  const events = await Event.find({ status: "active" }).sort({
+    eventDate: 1,
+    timing: 1,
+  })
   if (events.length === 0) {
     return res.status(400).json({
       success: false,
@@ -42,7 +46,7 @@ const fetchEvent = async (req, res) => {
       const booking = await Booking.findOne({
         auid: user.auid,
         event: event._id,
-        status: { $in: ["completed", "pending", "confirmed"] },
+        status: { $in: ["completed", "confirmed"] },
       });
       isBooked = booking ? true : false;
     }

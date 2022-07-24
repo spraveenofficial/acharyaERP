@@ -2,7 +2,7 @@ import axios from "axios";
 import baseUrl from "../../Utils/baseurl";
 import { headerConfig } from "../../Utils/headerConfig";
 
-export const initPayment = async (params) => {
+export const initPayment = async (params, toast) => {
   try {
     const { data } = await axios({
       method: "get",
@@ -10,17 +10,30 @@ export const initPayment = async (params) => {
       headers: headerConfig(),
       params: params,
     });
-    console.log(data);
     if (!data.success) {
-      return data.message;
+      return toast({
+        title: data.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        zIndex: 110000000,
+      });
     }
     return data.data;
   } catch (error) {
-    return error.message;
+    toast({
+      title: error.response.data.message,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+      position: "top-right",
+      zIndex: 110000000,
+    });
   }
 };
 
-export const makeFreeOrder = async (payload) => {
+export const makeFreeOrder = async (payload, toast) => {
   try {
     const { data } = await axios({
       method: "post",
@@ -28,8 +41,27 @@ export const makeFreeOrder = async (payload) => {
       headers: headerConfig(),
       data: payload,
     });
+    if (!data.success) {
+      toast({
+        title: data.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        zIndex: 110000000,
+      });
+      return false
+    }
     return data.data;
   } catch (error) {
-    console.log(error);
+    toast({
+      title: error.response.data.message,
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+      position: "top-right",
+      zIndex: 110000000,
+    });
+    return false
   }
 };

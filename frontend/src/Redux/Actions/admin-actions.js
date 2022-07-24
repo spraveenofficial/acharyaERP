@@ -13,11 +13,6 @@ import {
   FETCH_ATTENDANCE_REQUEST,
   FETCH_ATTENDANCE_SUCCESS,
   FETCH_ATTENDANCE_FAILURE,
-  MARK_ATTENDANCE_REQUEST,
-  MARK_ATTENDANCE_SUCCESS,
-  MARK_ATTENDANCE_FAILURE,
-  MARK_ATTENDANCE_CLEAR,
-  MARK_ATTENDANCE_FILTER,
 } from "../Constants/admin-constants";
 import axios from "axios";
 import baseUrl from "../../Utils/baseurl";

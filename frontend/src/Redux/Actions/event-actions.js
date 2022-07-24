@@ -102,7 +102,9 @@ export const initializeCheckout = (eventId) => async (dispatch) => {
     console.log(error);
     dispatch({
       type: SETUP_CHECKOUT_FAILURE,
-      payload: error.response.data.message,
+      payload: error.response && error.response.data.message
+      ? error.response.data.message
+      : error.message,
     });
   }
 };

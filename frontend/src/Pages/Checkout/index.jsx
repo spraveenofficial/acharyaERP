@@ -10,6 +10,7 @@ import {
   useColorMode,
   Radio,
   RadioGroup,
+  useToast,
 } from "@chakra-ui/react";
 import { Buttons, Modal, ErrorMessage } from "../../Components";
 import { useDispatch, useSelector } from "react-redux";
@@ -41,6 +42,7 @@ const Checkout = () => {
   const navigate = useNavigate();
   const { checkOutId } = useParams();
   const { colorMode } = useColorMode();
+  const toast = useToast();
   const { loading, success, error, checkout, message } = useSelector(
     (state) => state.checkout
   );
@@ -123,20 +125,22 @@ const Checkout = () => {
     }
 
     if (payment === "2" || payment === "3") {
-      const response = await makeFreeOrder(datatoSend);
-      if (response?.orderId) {
-        navigate(`/orderStatus/${response.orderId}`);
+      const response = await makeFreeOrder(datatoSend, toast);
+      if (response !== false) {
+        navigate(`/orderStatus/${response?.orderId}`);
       }
       setisLoading(false);
       return;
     }
     if (payment === "1") {
-      const response = await initPayment(datatoSend);
-      var details = {
-        action: "https://securegw-stage.paytm.in/order/process",
-        params: response,
-      };
-      post(details);
+      const response = await initPayment(datatoSend, toast);
+      if (response !== false) {
+        var details = {
+          action: "https://securegw-stage.paytm.in/order/process",
+          params: response,
+        };
+        post(details);
+      }
       setisLoading(false);
     }
   };
@@ -170,7 +174,6 @@ const Checkout = () => {
                     Hi, {user.student_name}. Your booking is just a few steps
                     away
                   </h5>
-                  <p className="mt-3">Your Order ID: {checkout?.orderId}</p>
                   <p className="mt-3">
                     {totalTimer
                       ? `You have ${totalTimer} left to Checkout.`
