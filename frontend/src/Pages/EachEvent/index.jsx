@@ -1,30 +1,53 @@
-import { Box, Image, Spinner, Text, useToast } from "@chakra-ui/react";
-import { useNavigate, useParams } from "react-router-dom";
+import {
+  Box,
+  Image,
+  Spinner,
+  Text,
+  useToast,
+  Button,
+  Icon,
+} from "@chakra-ui/react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { fetchEvent, initializeCheckout } from "../../Redux/Actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Error } from "..";
-import { EventCard } from "../../Components";
+import {
+  EventCard,
+  BeatLoaderIcon,
+  StylishCalenderIcon,
+  StylishClockIcon,
+  StylishLocationIcon,
+  StylishTermsIcon,
+} from "../../Components";
 import { Helmet } from "react-helmet";
+import { ArrowBackIcon } from "@chakra-ui/icons";
+import moment from "moment";
+
 const EventPage = () => {
   const dispatch = useDispatch();
+  const locationquery = useLocation();
+  let from = locationquery.state?.from?.pathname || "/events";
   const navigate = useNavigate();
   const toast = useToast();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { loading, event, success } = useSelector((state) => state.event);
+  const [isLoading, setisLoading] = useState(false);
   const {
     title,
     category,
     slots,
     description,
     eventDate,
-    time,
+    timing,
     thumbnail,
     entryFee,
+    organisedBy,
     _id,
     suggestedEvents,
     rules,
     isBooked,
+    venue,
   } = event;
 
   const { eventId } = useParams();
@@ -68,6 +91,7 @@ const EventPage = () => {
         zIndex: 110000000,
       });
     }
+    setisLoading(true);
     dispatch({
       type: "SETUP_CHECKOUT_EVENTID",
       payload: _id,
@@ -76,6 +100,9 @@ const EventPage = () => {
     return navigate("/checkout");
   };
 
+  const handleGoBack = () => {
+    navigate(from);
+  };
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -87,82 +114,177 @@ const EventPage = () => {
   if ((!loading, !event, !success)) {
     return <Error />;
   }
+
   return (
-    <Box className="p-10 mobile:p-4">
+    <Box className="select-none">
       <Helmet>
         <title>{title} - Acharya ERP</title>
         <meta name="description" content="This is the home page." />
       </Helmet>
-      <Box
-        _dark={{
-          background: "rgba(0, 0, 0, 0.1)",
-        }}
-        className="text-gray-400 bg-blue-700 body-font overflow-hidden rounded-sm"
-      >
-        <div className="containe mx-auto desktop:flex">
-          <div className="mx-auto flex flex-wrap desktop:p-2 lg:p-2">
-            <Image
-              maxHeight={"400px"}
-              alt="ecommerce"
-              className="thumbnail desktop:w-1/2 w-full mobile:h-64 desktop:object-cover mobile:p-5 rounded mobile:w-screen "
-              src={thumbnail}
+      <Box className="px-16 gap-20 mt-2 mobile:px-4 flex mobile:flex-col lg:px-10 lg:gap-10 mobile:gap-5">
+        {/* Left Side  */}
+        <Box className="w-3/5 mobile:w-full">
+          <Box className="flex text-center items-center gap-2 text-gray-500 mb-5">
+            <ArrowBackIcon
+              onClick={handleGoBack}
+              size={[20, 22, 30, 34]}
+              cursor="pointer"
             />
-            <div className="desktop:w-1/2 text-white w-full desktop:p-10 moblie:mt-0 mt-6 mobile:p-5 lg:p-5 desktop:mt-0">
-              <Text className="text-sm title-font tracking-widest uppercase">
+            <Text className="select-none cursor-pointer" onClick={handleGoBack}>
+              Go Back to Events
+            </Text>
+          </Box>
+          <Text className="text-2xl font-bold mb-3 font-[Acharya-bold]">
+            {title}
+          </Text>
+          <Text className="text-sm text-gray-500 mb-4 font-[Acharya-semi]">
+            {description}
+          </Text>
+          <Image
+            src={thumbnail}
+            alt=""
+            className="min-w-full min-h-90 object-cover"
+            maxHeight={["300px", "400px", "350px", "400px"]}
+          />
+          <Box>
+            <Text className="text-xl font-bold my-4 font-[Acharya-bold]">
+              Rules
+            </Text>
+            <Text>{rules}</Text>
+          </Box>
+        </Box>
+        {/* Right Side */}
+        <Box className="w-2/5 p-2 mobile:w-full">
+          <Box className="flex gap-3 items-center mb-5">
+            <Text className="text-[#1BDC2E] text-2xl font-bold font-[Acharya-bold]">
+              {entryFee > 0 ? `₹ ${entryFee}` : "Free"}
+            </Text>
+            <Text className="text-md">{slots} Slots Left</Text>
+          </Box>
+          <Button
+            border="2px"
+            borderColor="black"
+            _dark={{
+              borderColor: "white",
+              colorScheme: "red",
+            }}
+            _disabled={{
+              opacity: 1,
+            }}
+            isLoading={isLoading}
+            colorScheme="yellow"
+            className="w-full"
+            fontSize={["sm", "md", "lg"]}
+            spinner={
+              <Icon
+                as={BeatLoaderIcon}
+                w={{ base: 12, md: 12, xl: 14 }}
+                h={{ base: 12, md: 12, xl: 14 }}
+                color="white"
+              />
+            }
+            onClick={handleInitializeCheckout}
+            p={6}
+          >
+            Book Now
+          </Button>
+          <Box className="flex justify-between my-12">
+            <Box className="w-[20%] xl:w-[25%] text-center">
+              <Icon
+                as={StylishCalenderIcon}
+                w={{ base: 12, md: 12, xl: 14 }}
+                h={{ base: 12, md: 12, xl: 14 }}
+              />
+              <Box className="my-2">
+                <Text className="text-2xl xl:text-xl font-extrabold font-[Acharya-bold]">
+                  {moment(eventDate).format("DD")}
+                </Text>
+                <Text className="text-md font-extrabold font-[Acharya-bold]">
+                  {moment(eventDate).format("MMM YY")}
+                </Text>
+              </Box>
+            </Box>
+            <Box className="w-[20%] xl:w-[25%] text-center">
+              <Icon
+                as={StylishClockIcon}
+                w={{ base: 12, md: 12, xl: 14 }}
+                h={{ base: 12, md: 12, xl: 14 }}
+              />
+              <Box className="my-2">
+                <Text className="text-2xl xl:text-xl font-extrabold font-[Acharya-bold]">
+                  {moment(timing, "HH:mm").format("h:mm")}
+                </Text>
+                <Text className="text-md font-extrabold font-[Acharya-bold] uppercase">
+                  {moment(timing, "HH:mm").format("A")}
+                </Text>
+              </Box>
+            </Box>
+            <Box className="w-[20%] xl:w-[25%] text-center">
+              <Icon
+                as={StylishTermsIcon}
+                w={{ base: 12, md: 12, xl: 14 }}
+                h={{ base: 12, md: 12, xl: 14 }}
+              />
+              <Box className="my-2">
+                <Text className="text-md font-extrabold font-[Acharya-bold]">
+                  NON
+                </Text>
+                <Text className="text-sm font-extrabold font-[Acharya-bold]">
+                  Refundable
+                </Text>
+              </Box>
+            </Box>
+          </Box>
+          <Box className="flex justify-start items-center mb-8">
+            <Icon
+              as={StylishLocationIcon}
+              w={{ base: 12, md: 12, xl: 14 }}
+              h={{ base: 12, md: 12, xl: 14 }}
+            />
+            <Box className="my-4 mx-2 ">
+              <Text className="text-md font-extrabold font-[Acharya-bold]">
+                {venue}
+              </Text>
+            </Box>
+          </Box>
+          <Box className="flex justify-start items-center mb-8">
+            <Icon
+              as={StylishLocationIcon}
+              w={{ base: 12, md: 12, xl: 14 }}
+              h={{ base: 12, md: 12, xl: 14 }}
+            />
+            <Box className="my-4 mx-2 ">
+              <Text className="text-md font-extrabold font-[Acharya-bold]">
                 {category}
               </Text>
-              <Text className="text-3xl title-font font-medium mb-1">
-                {title}
-              </Text>
-              <div className="flex mb-4">
-                <span className="flex items-center">
-                  <span>{slots} Slots Left</span>
-                </span>
-                <span className="flex ml-3 pl-2 py-2 border-l-2 border-currentColor-800">
-                  Non Refundable.
-                </span>
-              </div>
-              <p className="leading-relaxed">{description}</p>
-              <div className="flex mt-6 items-center pb-5 border-b-2 border-currentColor-800 mb-5"></div>
-              <div className="flex">
-                <span className="title-font font-medium text-2xl">
-                  {entryFee > 0 ? `${entryFee} ₹` : "Free"}
-                </span>
-                <button
-                  onClick={handleInitializeCheckout}
-                  className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-                >
-                  Book Now
-                </button>
-                <button className="rounded-full w-10 h-10 bg-gray-800 p-0 border-0 inline-flex items-center justify-center text-black ml-4">
-                  <svg
-                    fill="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Box>
-      <Text className="my-10 font-extrabold text-3xl font-[Acharya-bold]">
-        Suggested Events
-      </Text>
-      {!suggestedEvents.length && (
-        <Box className="w-full" height="100px">
-          <Text className="text-gray-400 text-center">No Suggested Events</Text>
+            </Box>
+          </Box>
+          <Box className="justify-start items-center">
+            <Text className="text-md text-gray-500 font-extrabold font-[Acharya-bold]">
+              Posted by:
+            </Text>
+            <Text className="text-md font-extrabold font-[Acharya-bold]">
+              {organisedBy}
+            </Text>
+          </Box>
         </Box>
-      )}
-      <Box className="grid grid-cols-4 auto-cols-max gap-5 mobile:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-        {suggestedEvents.map((event) => (
-          <EventCard key={event.id} event={event} />
-        ))}
+      </Box>
+      <Box className="px-10 mobile:px-4">
+        <Text className="my-10 font-extrabold text-3xl font-[Acharya-bold]">
+          Suggested Events
+        </Text>
+        {!suggestedEvents.length && (
+          <Box className="w-full" height="100px">
+            <Text className="text-gray-400 text-center">
+              No Suggested Events
+            </Text>
+          </Box>
+        )}
+        <Box className="grid grid-cols-4 auto-cols-max gap-5 mobile:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+          {suggestedEvents.map((event) => (
+            <EventCard key={event.id} event={event} />
+          ))}
+        </Box>
       </Box>
     </Box>
   );
