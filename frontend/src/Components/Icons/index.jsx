@@ -1144,9 +1144,9 @@ const StylishClockIcon = (props) => (
       d="M48 32.6667C48 41.5032 40.8366 48.6667 32 48.6667C23.1634 48.6667 16 41.5032 16 32.6667C16 23.8301 23.1634 16.6667 32 16.6667C40.8366 16.6667 48 23.8301 48 32.6667Z"
       fill="#FC3B7D"
       stroke="black"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
       d="M32 34.1667L32.5665 34.9907L33 34.6927V34.1667H32ZM23.4335 38.8426C22.9784 39.1555 22.8631 39.7781 23.176 40.2332C23.4888 40.6883 24.1114 40.8036 24.5665 40.4907L23.4335 38.8426ZM31 23.1667V34.1667H33V23.1667H31ZM31.4335 33.3426L23.4335 38.8426L24.5665 40.4907L32.5665 34.9907L31.4335 33.3426Z"
@@ -1159,7 +1159,7 @@ const StylishClockIcon = (props) => (
       height="62.5"
       rx="3.25"
       stroke="black"
-      stroke-width="1.5"
+      strokeWidth="1.5"
     />
   </svg>
 );
@@ -1214,6 +1214,88 @@ const StylishLocationIcon = (props) => (
     />
   </svg>
 );
+
+const BeatLoaderIcon = (props) => (
+  <svg
+    version="1.1"
+    className={props.className}
+    id="L4"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    x="0px"
+    y="0px"
+    viewBox="0 0 100 100"
+    enableBackground="new 0 0 0 0"
+    xmlSpace="preserve"
+  >
+    <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
+      <animate
+        attributeName="opacity"
+        dur="1s"
+        values="0;1;0"
+        repeatCount="indefinite"
+        begin="0.1"
+      />
+    </circle>
+    <circle fill="#fff" stroke="none" cx="26" cy="50" r="6">
+      <animate
+        attributeName="opacity"
+        dur="1s"
+        values="0;1;0"
+        repeatCount="indefinite"
+        begin="0.2"
+      />
+    </circle>
+    <circle fill="#fff" stroke="none" cx="46" cy="50" r="6">
+      <animate
+        attributeName="opacity"
+        dur="1s"
+        values="0;1;0"
+        repeatCount="indefinite"
+        begin="0.3"
+      />
+    </circle>
+  </svg>
+);
+
+const StylishTermsIcon = (props) => (
+  <svg
+    width="65"
+    height="65"
+    className={props.className}
+    viewBox="0 0 65 65"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      x="1.25"
+      y="1.41666"
+      width="62.5"
+      height="62.5"
+      rx="3.25"
+      fill="#FE78E3"
+    />
+    <path
+      d="M29.2222 25.8568C25.5 22.9821 22.5 28.4816 15 25.8568V30.3556C15 30.3556 17.2222 35.3766 22.1111 35.3766C27.4444 34.9737 29.2222 30.1386 29.2222 30.1386V25.8568Z"
+      fill="white"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M40.5 29.4975V17.6667H38.5V30.0952V30.6929L39.0264 30.976L43.3906 33.3224V46.677H45.3906V33.2354L49.9421 30.9922L50.5 30.7172V30.0952V17.6667H48.5V29.4732L45.3906 31.0057V17.6667H43.3906V31.0517L40.5 29.4975ZM15.5 17.8747H14.5V18.8747V30.3734V30.5848L14.5856 30.7781L15.5 30.3734C14.5856 30.7781 14.5857 30.7785 14.5859 30.7789L14.5863 30.7798L14.5873 30.782L14.5898 30.7876L14.5974 30.8044C14.6037 30.818 14.6121 30.8362 14.6229 30.8589C14.6444 30.9041 14.675 30.967 14.715 31.045C14.7948 31.2008 14.912 31.4177 15.068 31.6755C15.3786 32.1891 15.8489 32.8753 16.4897 33.5647C17.6111 34.7712 19.3072 36.0394 21.6111 36.3318V44.8704H16.8333V46.8704H22.6111H23.6111H27.9444V44.8704H23.6111V36.278C26.0949 35.8509 27.8114 34.5383 28.9165 33.286C29.532 32.5885 29.9621 31.9062 30.2396 31.3961C30.3787 31.1403 30.4807 30.9255 30.5494 30.7707C30.5838 30.6932 30.61 30.6305 30.6284 30.5849C30.6376 30.5621 30.6448 30.5436 30.6502 30.5296L30.6569 30.5121L30.6592 30.5059L30.6601 30.5035L30.6604 30.5025C30.6606 30.502 30.6608 30.5016 29.7222 30.1565L30.6608 30.5016L30.7222 30.3345V30.1565V18.8747V17.8747H29.7222H15.5ZM16.7793 30.6404C16.6539 30.4331 16.561 30.2614 16.5 30.1429V19.8747H28.7222V29.9575L28.7214 29.9594C28.6721 30.0705 28.5935 30.2366 28.4827 30.4404C28.2601 30.8495 27.9124 31.4012 27.4169 31.9627C26.4372 33.0729 24.8969 34.2079 22.5737 34.3944C20.5231 34.3817 19.0039 33.332 17.9547 32.2032C17.4288 31.6374 17.038 31.0682 16.7793 30.6404Z"
+      fill="black"
+    />
+    <rect
+      x="1.25"
+      y="1.41666"
+      width="62.5"
+      height="62.5"
+      rx="3.25"
+      stroke="black"
+      strokeWidth="1.5"
+    />
+  </svg>
+);
 // Exporting all the icons
 
 export {
@@ -1228,4 +1310,6 @@ export {
   StylishCalenderIcon,
   StylishClockIcon,
   StylishLocationIcon,
+  BeatLoaderIcon,
+  StylishTermsIcon,
 };

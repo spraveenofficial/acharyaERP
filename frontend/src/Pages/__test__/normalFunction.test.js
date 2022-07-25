@@ -1,9 +1,9 @@
-// Testing Using Jest aka Basic Function Testing
+// Testing Using Jest aka Basic Functional Testing
 
 // Function to add two numbers
 const add = (a, b) => a + b;
 
-// Function to subtract
+// Function to subtract two numbers
 const subtract = (a, b) => a - b;
 
 // Function to get sum of array elements

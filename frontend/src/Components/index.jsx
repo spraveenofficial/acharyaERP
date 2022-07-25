@@ -12,6 +12,8 @@ export {
   StylishCalenderIcon,
   StylishClockIcon,
   StylishLocationIcon,
+  BeatLoaderIcon,
+  StylishTermsIcon,
 } from "./Icons";
 
 export { Toast } from "./Toast";
