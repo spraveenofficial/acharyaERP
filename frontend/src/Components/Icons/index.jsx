@@ -1359,7 +1359,43 @@ const StylishTermsIcon = (props) => (
     />
   </svg>
 );
-// Exporting all the icons
+
+const PlainCategoryIcon = (props) => (
+  <svg
+    width="80"
+    height="80"
+    className={props.className}
+    viewBox="0 0 26 26"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      x="1.25"
+      y="1.41666"
+      width="25"
+      height="24"
+      rx="3.25"
+      fill="#FE78E3"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M9.33879 8.99489C8.0332 8.91179 7 7.82656 7 6.5C7 5.11929 8.11929 4 9.5 4C10.8807 4 12 5.11929 12 6.5C12 5.11929 13.1193 4 14.5 4C15.8807 4 17 5.11929 17 6.5C17 7.82656 15.9668 8.91179 14.6612 8.99489L17.4715 11.6296C19.0847 13.1419 20 15.2546 20 17.4659V19C20 20.1046 19.1046 21 18 21C16.8954 21 16 20.1046 16 19C16 20.1046 15.1046 21 14 21C12.8954 21 12 20.1046 12 19C12 20.1046 11.1046 21 10 21C8.89543 21 8 20.1046 8 19C8 20.1046 7.10457 21 6 21C4.89543 21 4 20.1046 4 19V17.4659C4 15.2546 4.91527 13.1419 6.52847 11.6296L9.33879 8.99489Z"
+      fill="black"
+    />
+
+    <rect
+      x="1.25"
+      y="1.41666"
+      width="93%"
+      height="93%"
+      rx="3.25"
+      stroke="black"
+      strokeWidth="1"
+      overflow="hidden"
+    />
+  </svg>
+);
 
 export {
   EmailIcon,
@@ -1375,4 +1411,5 @@ export {
   StylishLocationIcon,
   BeatLoaderIcon,
   StylishTermsIcon,
+  PlainCategoryIcon,
 };

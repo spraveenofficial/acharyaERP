@@ -14,6 +14,7 @@ export {
   StylishLocationIcon,
   BeatLoaderIcon,
   StylishTermsIcon,
+  PlainCategoryIcon,
 } from "./Icons";
 
 export { Toast } from "./Toast";

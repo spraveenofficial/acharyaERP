@@ -19,6 +19,7 @@ import {
   StylishClockIcon,
   StylishLocationIcon,
   StylishTermsIcon,
+  PlainCategoryIcon,
 } from "../../Components";
 import { Helmet } from "react-helmet";
 import { ArrowBackIcon } from "@chakra-ui/icons";
@@ -242,6 +243,7 @@ const EventPage = () => {
               h={{ base: 12, md: 12, xl: 14 }}
             />
             <Box className="my-4 mx-2 ">
+              <Text className="text-md text-gray-400">Venue:</Text>
               <Text className="text-md font-extrabold font-[Acharya-bold]">
                 {venue}
               </Text>
@@ -249,20 +251,19 @@ const EventPage = () => {
           </Box>
           <Box className="flex justify-start items-center mb-8">
             <Icon
-              as={StylishLocationIcon}
+              as={PlainCategoryIcon}
               w={{ base: 12, md: 12, xl: 14 }}
               h={{ base: 12, md: 12, xl: 14 }}
             />
             <Box className="my-4 mx-2 ">
+              <Text className="text-md text-gray-400">Category:</Text>
               <Text className="text-md font-extrabold font-[Acharya-bold]">
                 {category}
               </Text>
             </Box>
           </Box>
           <Box className="justify-start items-center">
-            <Text className="text-md text-gray-500 font-extrabold font-[Acharya-bold]">
-              Posted by:
-            </Text>
+            <Text className="text-md text-gray-400">Organised By:</Text>
             <Text className="text-md font-extrabold font-[Acharya-bold]">
               {organisedBy}
             </Text>
