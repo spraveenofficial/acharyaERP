@@ -33,10 +33,7 @@ export function Footer() {
                 Acharya ERP
               </Text>
             </Box>
-            <Text fontSize={"sm"}>
-              © 2022. All rights reserved. Developed by Praveen Kumar Singh BCA
-              (R1920703).
-            </Text>
+            <Text fontSize={"sm"}>© 2022. This is not official ERP. This is for education purpose only.</Text>
           </Stack>
           <Stack align={"flex-start"} fontWeight="bold">
             <ListHeader className="font-bold">Quick Links</ListHeader>

@@ -29,7 +29,7 @@ const checkBookingConditions = async (req, res, next) => {
         message: "Oops, No slots available",
       });
     }
-
+    console.log(event.eventDate + event.timing < Date.now())
     // Check if event is expired
     if (event.eventDate + event.timing < Date.now()) {
       return res.status(400).json({
