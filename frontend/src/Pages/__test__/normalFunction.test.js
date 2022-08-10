@@ -20,14 +20,14 @@ const addSumOfArray = (array) => {
 const printMyName = (name) => name;
 
 // // Test add function
-// describe("should add two numbers", () => {
-//   test("Add function test", () => {
-//     expect(add(1, 2)).toBe(3);
-//   })
-//   test("Add function test", () => {
-//     expect(add(1, 2)).toBe(5);
-//   })
-// });
+describe("should add two numbers", () => {
+  test("Add function test for number data type", () => {
+    expect(add(1, 2)).toBe(3);
+  })
+  // test("Add function test", () => {
+  //   expect(add(1, 2)).toBe(5);
+  // })
+});
 
 // // Test subtract function
 // test("Subtract function test", () => {

@@ -6,6 +6,8 @@ import { Helmet } from "react-helmet";
 import { getProfile, loginAction } from "../../Redux/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { encrypt } from "../../Utils/hashing";
+
 const Login = () => {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -21,13 +23,14 @@ const Login = () => {
     onSubmit: async (values) => {
       const response = await dispatch(
         loginAction({
-          auid: values.auid,
-          password: values.password,
+          auid: await encrypt(values.auid),
+          password: await encrypt(values.password),
         })
       );
       if (response) {
         return dispatch(getProfile()) && navigate(from, { replace: true });
       }
+      console.log(values);
     },
     validate: (values) => {
       let errors = {};

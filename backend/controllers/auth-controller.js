@@ -1,6 +1,7 @@
 import axios from "axios";
 import User from "../models/login.js";
 import Alive from "../services/alive-services.js";
+import { decrypt } from "../services/hashing-services.js";
 import { generateAuthToken } from "../services/token-services.js";
 
 // @desc    - Login with ERP
@@ -8,7 +9,9 @@ import { generateAuthToken } from "../services/token-services.js";
 // @access  Public
 
 const login = async (req, res) => {
-  const { auid, password } = req.body;
+  const { auid: encryptedAuid, password: encryptedPassword } = req.body;
+  const auid = await decrypt(encryptedAuid);
+  const password = await decrypt(encryptedPassword);
   try {
     const { data } = await axios({
       url: process.env.ERP_LOGIN,
